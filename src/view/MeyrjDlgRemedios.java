@@ -1,4 +1,7 @@
 package view;
+
+import tools.Util;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
@@ -8,7 +11,22 @@ package view;
  * @author Mathias Eduardo
  */
 public class MeyrjDlgRemedios extends javax.swing.JDialog {
-
+     public MeyrjDlgRemedios(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
+        initComponents();
+        setTitle("Cadastro de Usuários");
+        setLocationRelativeTo(null);
+        Util.habilitar(false, 
+            meyrjTxtCodigo,
+            meyrjTxtNome,
+            meyrjTxtLaboratorio,
+            meyrjTxtDosagem,
+            meyrjTxtPrecoVenda,
+            meyrjTxtPrecoCusto,
+            meyrjFmtValidade,
+            meyrjChbControlado
+        );
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -289,25 +307,35 @@ public class MeyrjDlgRemedios extends javax.swing.JDialog {
         } else {
             meyrjChbControlado.setSelected(false);
         }*/
+        Util.mensagem("Nao Implementado.");
     }//GEN-LAST:event_meyrjButtonPesquisarActionPerformed
 
     private void meyrjButtonIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjButtonIncluirActionPerformed
+        Util.habilitar(true, meyrjTxtCodigo, meyrjTxtNome, meyrjTxtLaboratorio, meyrjTxtDosagem, meyrjTxtPrecoVenda, meyrjTxtPrecoCusto, meyrjFmtValidade, meyrjChbControlado, meyrjButtonConfirmar, meyrjButtonCancelar);  
+        Util.habilitar(false, meyrjButtonAlterar, meyrjButtonExcluir, meyrjButtonPesquisar, meyrjButtonIncluir);  
+        Util.limpar(meyrjTxtCodigo, meyrjTxtNome, meyrjTxtLaboratorio, meyrjTxtDosagem, meyrjTxtPrecoVenda, meyrjTxtPrecoCusto, meyrjFmtValidade, meyrjChbControlado);
 
     }//GEN-LAST:event_meyrjButtonIncluirActionPerformed
 
     private void meyrjButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjButtonAlterarActionPerformed
+        Util.habilitar(true, meyrjTxtCodigo, meyrjTxtNome, meyrjTxtLaboratorio, meyrjTxtDosagem, meyrjTxtPrecoVenda, meyrjTxtPrecoCusto, meyrjFmtValidade, meyrjChbControlado, meyrjButtonConfirmar, meyrjButtonCancelar);  
+        Util.habilitar(false, meyrjButtonAlterar, meyrjButtonExcluir, meyrjButtonPesquisar, meyrjButtonIncluir);
 
     }//GEN-LAST:event_meyrjButtonAlterarActionPerformed
 
     private void meyrjButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjButtonExcluirActionPerformed
-
+        Util.perguntar("Deseja excluir o registro?");
     }//GEN-LAST:event_meyrjButtonExcluirActionPerformed
 
     private void meyrjButtonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjButtonConfirmarActionPerformed
+        Util.habilitar(false, meyrjTxtCodigo, meyrjTxtNome, meyrjTxtLaboratorio, meyrjTxtDosagem, meyrjTxtPrecoVenda, meyrjTxtPrecoCusto, meyrjFmtValidade, meyrjChbControlado, meyrjButtonConfirmar, meyrjButtonCancelar);  
+        Util.habilitar(true, meyrjButtonAlterar, meyrjButtonExcluir, meyrjButtonPesquisar, meyrjButtonIncluir);
 
     }//GEN-LAST:event_meyrjButtonConfirmarActionPerformed
 
     private void meyrjButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjButtonCancelarActionPerformed
+    Util.habilitar(false, meyrjTxtCodigo, meyrjTxtNome, meyrjTxtLaboratorio, meyrjTxtDosagem, meyrjTxtPrecoVenda, meyrjTxtPrecoCusto, meyrjFmtValidade, meyrjChbControlado, meyrjButtonConfirmar, meyrjButtonCancelar);  
+    Util.habilitar(true, meyrjButtonAlterar, meyrjButtonExcluir, meyrjButtonPesquisar, meyrjButtonIncluir);
 
     }//GEN-LAST:event_meyrjButtonCancelarActionPerformed
 
@@ -330,6 +358,41 @@ public class MeyrjDlgRemedios extends javax.swing.JDialog {
     private void meyrjTxtCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjTxtCodigoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_meyrjTxtCodigoActionPerformed
+    public static void main(String args[]) {
+    /* Set the Nimbus look and feel */
+    //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+    try {
+        for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+            if ("Nimbus".equals(info.getName())) {
+                javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                break;
+            }
+        }
+    } catch (ClassNotFoundException ex) {
+        java.util.logging.Logger.getLogger(MeyrjDlgClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    } catch (InstantiationException ex) {
+        java.util.logging.Logger.getLogger(MeyrjDlgClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    } catch (IllegalAccessException ex) {
+        java.util.logging.Logger.getLogger(MeyrjDlgClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        java.util.logging.Logger.getLogger(MeyrjDlgClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    }
+    //</editor-fold>
+
+    /* Create and display the dialog */
+    java.awt.EventQueue.invokeLater(new Runnable() {
+        public void run() {
+            MeyrjDlgRemedios dialog = new MeyrjDlgRemedios(new javax.swing.JFrame(), true);
+            dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+                public void windowClosing(java.awt.event.WindowEvent e) {
+                    System.exit(0);
+                }
+            });
+            dialog.setVisible(true);
+        }
+    });
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JProgressBar jProgressBar1;

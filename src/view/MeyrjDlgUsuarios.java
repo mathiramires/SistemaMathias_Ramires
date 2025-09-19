@@ -1,5 +1,8 @@
 package view;
 
+import javax.swing.JFrame;
+import tools.Util;
+
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -9,7 +12,16 @@ package view;
  *
  * @author Mathias Eduardo
  */
-public class MeyrjDlgUsuarios extends javax.swing.JDialog {
+    public class MeyrjDlgUsuarios extends javax.swing.JDialog {
+
+    public MeyrjDlgUsuarios(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
+        initComponents();
+        setTitle("Cadastro de Usuários");
+        setLocationRelativeTo(null);
+        Util.habilitar(false, meyrjTxtApelido, meyrjTxtCodigo, meyrjTxtNome, meyrjFmtCpf, meyrjFmtDataNascimento, meyrjTxtSenha, meyrjCboNivel, meyrjChbAtivo, meyrjButtonConfirmar, meyrjButtonCancelar);
+    }                
+    @SuppressWarnings("unchecked") 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -293,25 +305,35 @@ public class MeyrjDlgUsuarios extends javax.swing.JDialog {
         } else {
             meyrjChbAtivo.setSelected(false);
         }*/
+        Util.mensagem("Nao Implementado.");
     }//GEN-LAST:event_meyrjButtonPesquisarActionPerformed
 
     private void meyrjButtonIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjButtonIncluirActionPerformed
+        Util.habilitar(true, meyrjTxtApelido, meyrjTxtCodigo, meyrjTxtNome, meyrjFmtCpf, meyrjFmtDataNascimento, meyrjTxtSenha, meyrjCboNivel, meyrjChbAtivo, meyrjButtonConfirmar, meyrjButtonCancelar);
+        Util.habilitar(false, meyrjButtonAlterar, meyrjButtonExcluir, meyrjButtonPesquisar, meyrjButtonIncluir);
+        Util.limpar(meyrjTxtCodigo, meyrjTxtNome, meyrjTxtApelido);
 
     }//GEN-LAST:event_meyrjButtonIncluirActionPerformed
 
     private void meyrjButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjButtonAlterarActionPerformed
+        Util.habilitar(true, meyrjTxtApelido, meyrjTxtCodigo, meyrjTxtNome, meyrjFmtCpf, meyrjFmtDataNascimento, meyrjTxtSenha, meyrjCboNivel, meyrjChbAtivo, meyrjButtonConfirmar, meyrjButtonCancelar);
+        Util.habilitar(false, meyrjButtonAlterar, meyrjButtonExcluir, meyrjButtonPesquisar, meyrjButtonIncluir);
 
     }//GEN-LAST:event_meyrjButtonAlterarActionPerformed
 
     private void meyrjButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjButtonExcluirActionPerformed
-
+        Util.perguntar("Deseja excluir o registro?");
     }//GEN-LAST:event_meyrjButtonExcluirActionPerformed
 
     private void meyrjButtonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjButtonConfirmarActionPerformed
+        Util.habilitar(false, meyrjTxtApelido, meyrjTxtCodigo, meyrjTxtNome, meyrjFmtCpf, meyrjFmtDataNascimento, meyrjTxtSenha, meyrjCboNivel, meyrjChbAtivo, meyrjButtonConfirmar, meyrjButtonCancelar);
+        Util.habilitar(true, meyrjButtonAlterar, meyrjButtonExcluir, meyrjButtonPesquisar, meyrjButtonIncluir);
 
     }//GEN-LAST:event_meyrjButtonConfirmarActionPerformed
 
     private void meyrjButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjButtonCancelarActionPerformed
+        Util.habilitar(false, meyrjTxtApelido, meyrjTxtCodigo, meyrjTxtNome, meyrjFmtCpf, meyrjFmtDataNascimento, meyrjTxtSenha, meyrjCboNivel, meyrjChbAtivo, meyrjButtonConfirmar, meyrjButtonCancelar);
+        Util.habilitar(true, meyrjButtonAlterar, meyrjButtonExcluir, meyrjButtonPesquisar, meyrjButtonIncluir);
 
     }//GEN-LAST:event_meyrjButtonCancelarActionPerformed
 
@@ -322,7 +344,20 @@ public class MeyrjDlgUsuarios extends javax.swing.JDialog {
     private void meyrjTxtCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjTxtCodigoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_meyrjTxtCodigoActionPerformed
-
+    public static void main(String args[]) {
+    java.awt.EventQueue.invokeLater(new Runnable() {
+        public void run() {
+            MeyrjDlgUsuarios dialog = new MeyrjDlgUsuarios(new javax.swing.JFrame(), true);
+            dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+                public void windowClosing(java.awt.event.WindowEvent e) {
+                    System.exit(0);
+                }
+            });
+            dialog.setVisible(true);
+        }
+    });
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;

@@ -1,5 +1,7 @@
 package view;
 
+import tools.Util;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
@@ -14,6 +16,31 @@ public class MeyrjDlgClientes extends javax.swing.JDialog {
      * Creates new form jDlgCli initComponents(); habilitar(false);
      * getContentPane().entes
      */
+    
+    public MeyrjDlgClientes(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
+        initComponents();
+        setTitle("Cadastro de Usuários");
+        setLocationRelativeTo(null);
+        Util.habilitar(false, 
+        meyrjTxtCodigo,
+        meyrjTxtNome,
+        meyrjFmtCpf,
+        meyrjFmtRg,
+        meyrjFmtDataNascimento,
+        meyrjTxtEndereco,
+        meyrjTxtBairro,
+        meyrjTxtCidade,
+        meyrjFmtCep,
+        meyrjCboUf,
+        meyrjFmtTelefone,
+        meyrjFmtCelular,
+        meyrjTxtEmail,
+        meyrFmtDataCadastro,
+        meyrjChbAtivo
+);
+
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -53,7 +80,7 @@ public class MeyrjDlgClientes extends javax.swing.JDialog {
         meyrjFmtCep = new javax.swing.JFormattedTextField();
         meyrjFmtTelefone = new javax.swing.JFormattedTextField();
         meyrjFmtCelular = new javax.swing.JFormattedTextField();
-        meyrjFmtDataCadastro = new javax.swing.JFormattedTextField();
+        meyrFmtDataCadastro = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -247,7 +274,7 @@ public class MeyrjDlgClientes extends javax.swing.JDialog {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(meyrjLblDataCadastro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(meyrjFmtDataCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(meyrFmtDataCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(meyrjTxtEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -316,7 +343,7 @@ public class MeyrjDlgClientes extends javax.swing.JDialog {
                             .addComponent(meyrjTxtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(meyrjFmtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(meyrjFmtCelular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(meyrjFmtDataCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(meyrFmtDataCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(meyrjLblNome))
                 .addGap(18, 18, 18)
                 .addComponent(meyrjChbAtivo)
@@ -349,26 +376,37 @@ public class MeyrjDlgClientes extends javax.swing.JDialog {
     }//GEN-LAST:event_meyrjTxtBairroActionPerformed
 
     private void meyrjButtonIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjButtonIncluirActionPerformed
+         // TODO add your handling code here:
+        Util.habilitar(true, meyrjTxtCodigo, meyrjTxtNome, meyrjFmtCpf, meyrjFmtRg, meyrjFmtDataNascimento, meyrjTxtEndereco, meyrjTxtBairro, meyrjTxtCidade, meyrjFmtCep, meyrjCboUf, meyrjFmtTelefone, meyrjFmtCelular, meyrjTxtEmail, meyrFmtDataCadastro, meyrjChbAtivo, meyrjButtonConfirmar, meyrjButtonCancelar);
+        Util.habilitar(false, meyrjButtonAlterar, meyrjButtonExcluir, meyrjButtonPesquisar, meyrjButtonIncluir);
+        Util.limpar(meyrjTxtCodigo, meyrjTxtNome, meyrjFmtCpf, meyrjFmtRg, meyrjFmtDataNascimento, meyrjTxtEndereco, meyrjTxtBairro, meyrjTxtCidade, meyrjFmtCep, meyrjCboUf, meyrjFmtTelefone, meyrjFmtCelular, meyrjTxtEmail, meyrFmtDataCadastro, meyrjChbAtivo);
 
     }//GEN-LAST:event_meyrjButtonIncluirActionPerformed
 
     private void meyrjButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjButtonAlterarActionPerformed
-
+        Util.habilitar(true, meyrjTxtCodigo, meyrjTxtNome, meyrjFmtCpf, meyrjFmtDataNascimento, meyrjChbAtivo, meyrjButtonConfirmar, meyrjButtonCancelar);  
+        Util.habilitar(false, meyrjButtonAlterar, meyrjButtonExcluir, meyrjButtonPesquisar, meyrjButtonIncluir);
+        
     }//GEN-LAST:event_meyrjButtonAlterarActionPerformed
 
     private void meyrjButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjButtonExcluirActionPerformed
-
+        Util.perguntar("Deseja excluir o registro?");
     }//GEN-LAST:event_meyrjButtonExcluirActionPerformed
 
     private void meyrjButtonPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjButtonPesquisarActionPerformed
-        // TODO add your handling code here:
+         Util.mensagem("Nao Implementado.");
     }//GEN-LAST:event_meyrjButtonPesquisarActionPerformed
 
     private void meyrjButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjButtonCancelarActionPerformed
+        Util.habilitar(false, meyrjTxtCodigo, meyrjTxtNome, meyrjFmtCpf, meyrjFmtDataNascimento, meyrjChbAtivo, meyrjButtonConfirmar, meyrjButtonCancelar);  
+        Util.habilitar(true, meyrjButtonAlterar, meyrjButtonExcluir, meyrjButtonPesquisar, meyrjButtonIncluir);
 
     }//GEN-LAST:event_meyrjButtonCancelarActionPerformed
 
     private void meyrjButtonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjButtonConfirmarActionPerformed
+        Util.habilitar(false, meyrjTxtCodigo, meyrjTxtNome, meyrjFmtCpf, meyrjFmtDataNascimento, meyrjChbAtivo, meyrjButtonConfirmar, meyrjButtonCancelar);  
+        Util.habilitar(true, meyrjButtonAlterar, meyrjButtonExcluir, meyrjButtonPesquisar, meyrjButtonIncluir);
+
 
     }//GEN-LAST:event_meyrjButtonConfirmarActionPerformed
 
@@ -383,10 +421,21 @@ public class MeyrjDlgClientes extends javax.swing.JDialog {
     private void meyrjFmtRgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjFmtRgActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_meyrjFmtRgActionPerformed
-
-
+    public static void main(String args[]) {
+             java.awt.EventQueue.invokeLater(() -> {
+                 MeyrjDlgClientes dialog = new MeyrjDlgClientes(new javax.swing.JFrame(), true);
+                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                     @Override
+                     public void windowClosing(java.awt.event.WindowEvent e) {
+                         System.exit(0);
+                     }
+                 });
+                 dialog.setVisible(true);
+             });
+}
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLblCadastroClientes;
+    private javax.swing.JFormattedTextField meyrFmtDataCadastro;
     private javax.swing.JButton meyrjButtonAlterar;
     private javax.swing.JButton meyrjButtonCancelar;
     private javax.swing.JButton meyrjButtonConfirmar;
@@ -398,7 +447,6 @@ public class MeyrjDlgClientes extends javax.swing.JDialog {
     private javax.swing.JFormattedTextField meyrjFmtCelular;
     private javax.swing.JFormattedTextField meyrjFmtCep;
     private javax.swing.JFormattedTextField meyrjFmtCpf;
-    private javax.swing.JFormattedTextField meyrjFmtDataCadastro;
     private javax.swing.JFormattedTextField meyrjFmtDataNascimento;
     private javax.swing.JFormattedTextField meyrjFmtRg;
     private javax.swing.JFormattedTextField meyrjFmtTelefone;

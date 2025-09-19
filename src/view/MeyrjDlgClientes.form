@@ -112,7 +112,7 @@
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="meyrjLblDataCadastro" max="32767" attributes="0"/>
-                                  <Component id="meyrjFmtDataCadastro" min="-2" pref="93" max="-2" attributes="0"/>
+                                  <Component id="meyrFmtDataCadastro" min="-2" pref="93" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="102" attributes="0">
@@ -200,7 +200,7 @@
                           <Component id="meyrjTxtEmail" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="meyrjFmtTelefone" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="meyrjFmtCelular" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="meyrjFmtDataCadastro" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="meyrFmtDataCadastro" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Component id="meyrjLblNome" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -451,7 +451,7 @@
     </Component>
     <Component class="javax.swing.JFormattedTextField" name="meyrjFmtCelular">
     </Component>
-    <Component class="javax.swing.JFormattedTextField" name="meyrjFmtDataCadastro">
+    <Component class="javax.swing.JFormattedTextField" name="meyrFmtDataCadastro">
     </Component>
   </SubComponents>
 </Form>
