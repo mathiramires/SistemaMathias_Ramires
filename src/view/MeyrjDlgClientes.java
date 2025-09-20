@@ -20,7 +20,7 @@ public class MeyrjDlgClientes extends javax.swing.JDialog {
     public MeyrjDlgClientes(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        setTitle("Cadastro de Usuários");
+        setTitle("Cadastro de Clientes");
         setLocationRelativeTo(null);
         Util.habilitar(false, 
         meyrjTxtCodigo,
@@ -349,7 +349,7 @@ public class MeyrjDlgClientes extends javax.swing.JDialog {
                             .addComponent(meyrFmtDataCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(meyrjLblNome))
                 .addGap(18, 18, 18)
-                .addComponent(meyrjChbAtivo)
+                .addComponent(meyrjChbAtivo, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 82, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(meyrjButtonExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -387,9 +387,10 @@ public class MeyrjDlgClientes extends javax.swing.JDialog {
     }//GEN-LAST:event_meyrjButtonIncluirActionPerformed
 
     private void meyrjButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjButtonAlterarActionPerformed
-        Util.habilitar(true, meyrjTxtCodigo, meyrjTxtNome, meyrjFmtCpf, meyrjFmtDataNascimento, meyrjChbAtivo, meyrjButtonConfirmar, meyrjButtonCancelar);  
+        Util.habilitar(true, meyrjTxtCodigo, meyrjTxtNome, meyrjFmtCpf, meyrjFmtRg, meyrjFmtDataNascimento, meyrjTxtEndereco, meyrjTxtBairro, meyrjTxtCidade, meyrjFmtCep, meyrjCboUf, meyrjFmtTelefone, meyrjFmtCelular, meyrjTxtEmail, meyrFmtDataCadastro, meyrjChbAtivo, meyrjButtonConfirmar, meyrjButtonCancelar);
         Util.habilitar(false, meyrjButtonAlterar, meyrjButtonExcluir, meyrjButtonPesquisar, meyrjButtonIncluir);
-        
+        Util.limpar(meyrjTxtCodigo, meyrjTxtNome, meyrjFmtCpf, meyrjFmtRg, meyrjFmtDataNascimento, meyrjTxtEndereco, meyrjTxtBairro, meyrjTxtCidade, meyrjFmtCep, meyrjCboUf, meyrjFmtTelefone, meyrjFmtCelular, meyrjTxtEmail, meyrFmtDataCadastro, meyrjChbAtivo);
+
     }//GEN-LAST:event_meyrjButtonAlterarActionPerformed
 
     private void meyrjButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjButtonExcluirActionPerformed
@@ -401,8 +402,8 @@ public class MeyrjDlgClientes extends javax.swing.JDialog {
     }//GEN-LAST:event_meyrjButtonPesquisarActionPerformed
 
     private void meyrjButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjButtonCancelarActionPerformed
-        Util.habilitar(false, meyrjTxtCodigo, meyrjTxtNome, meyrjFmtCpf, meyrjFmtDataNascimento, meyrjChbAtivo, meyrjButtonConfirmar, meyrjButtonCancelar);  
-        Util.habilitar(true, meyrjButtonAlterar, meyrjButtonExcluir, meyrjButtonPesquisar, meyrjButtonIncluir);
+        Util.habilitar(false, meyrjTxtCodigo, meyrjTxtNome, meyrjFmtCpf, meyrjFmtRg, meyrjFmtDataNascimento, meyrjTxtEndereco, meyrjTxtBairro, meyrjTxtCidade, meyrjFmtCep, meyrjCboUf, meyrjFmtTelefone, meyrjFmtCelular, meyrjTxtEmail, meyrFmtDataCadastro, meyrjChbAtivo, meyrjButtonConfirmar, meyrjButtonCancelar);
+        Util.habilitar(true, meyrjButtonIncluir, meyrjButtonAlterar, meyrjButtonExcluir, meyrjButtonPesquisar);
 
     }//GEN-LAST:event_meyrjButtonCancelarActionPerformed
 

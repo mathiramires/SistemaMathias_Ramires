@@ -14,7 +14,7 @@ public class MeyrjDlgRemedios extends javax.swing.JDialog {
      public MeyrjDlgRemedios(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        setTitle("Cadastro de Usuários");
+        setTitle("Cadastro de Remedios");
         setLocationRelativeTo(null);
         Util.habilitar(false, 
             meyrjTxtCodigo,

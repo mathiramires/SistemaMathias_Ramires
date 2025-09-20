@@ -206,7 +206,7 @@
                   <Component id="meyrjLblNome" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="meyrjChbAtivo" min="-2" max="-2" attributes="0"/>
+              <Component id="meyrjChbAtivo" min="-2" pref="23" max="-2" attributes="0"/>
               <EmptySpace pref="82" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="meyrjButtonExcluir" alignment="3" min="-2" pref="38" max="-2" attributes="0"/>

@@ -35,6 +35,7 @@ public class MeyrjDlgVendas extends javax.swing.JDialog {
                     meyrjTxtTotalVenda, 
                     meyrjTxtStatus, 
                     meyrjBtnConfirmar,
+                    meyrjCboCliente,
                     meyrjBtnCancelar
     );
 }
