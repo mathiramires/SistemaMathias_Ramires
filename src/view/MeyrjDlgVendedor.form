@@ -54,20 +54,6 @@
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="meyrjLblEmail" min="-2" max="-2" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="meyrjButtonIncluir" min="-2" pref="124" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="meyrjButtonAlterar" min="-2" pref="108" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="meyrjButtonExcluir" min="-2" pref="114" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="meyrjButtonConfirmar" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="meyrjButtonCancelar" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="meyrjButtonPesquisar" min="-2" max="-2" attributes="0"/>
-                          </Group>
                           <Component id="meyrjLblNomeVendedor" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="meyrjTxtEmail" min="-2" pref="181" max="-2" attributes="0"/>
@@ -79,6 +65,22 @@
                                       <Component id="meyrjChbAtivo" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Component id="meyrjblDateAdmissao" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="meyrjButtonConfirmar" max="32767" attributes="0"/>
+                                  <Component id="meyrjButtonIncluir" pref="124" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="meyrjButtonCancelar" max="32767" attributes="0"/>
+                                  <Component id="meyrjButtonAlterar" pref="108" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="meyrjButtonExcluir" pref="114" max="32767" attributes="0"/>
+                                  <Component id="meyrjButtonPesquisar" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -129,8 +131,8 @@
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="meyrjButtonConfirmar" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="meyrjButtonCancelar" alignment="3" min="-2" pref="38" max="-2" attributes="0"/>
-                  <Component id="meyrjButtonPesquisar" alignment="3" min="-2" pref="38" max="-2" attributes="0"/>
+                  <Component id="meyrjButtonCancelar" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
+                  <Component id="meyrjButtonPesquisar" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
           </Group>

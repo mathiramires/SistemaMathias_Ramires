@@ -1,5 +1,7 @@
 package view;
 
+import tools.Util;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
@@ -9,6 +11,14 @@ package view;
  * @author Mathias Eduardo
  */
 public class MeyrjDlgVendedor extends javax.swing.JDialog {
+    
+    public MeyrjDlgVendedor(java.awt.Frame parent, boolean modal) {
+    super(parent, modal);
+    initComponents();
+    setTitle("Cadastro de Vendedores");
+    setLocationRelativeTo(null);
+    Util.habilitar(false, meyrjTxtCodigo, meyrjTxtNomeVendedor, meyrjFmtCpf, meyrjFmtTelefone, meyrjTxtEmail, meyrjFmtDataAdmissao, meyrjChbAtivo, meyrjButtonConfirmar, meyrjButtonCancelar);
+}
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -135,18 +145,6 @@ public class MeyrjDlgVendedor extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(meyrjLblEmail)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(meyrjButtonIncluir, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(meyrjButtonAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(meyrjButtonExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(meyrjButtonConfirmar)
-                                .addGap(18, 18, 18)
-                                .addComponent(meyrjButtonCancelar)
-                                .addGap(18, 18, 18)
-                                .addComponent(meyrjButtonPesquisar))
                             .addComponent(meyrjLblNomeVendedor)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(meyrjTxtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -156,7 +154,19 @@ public class MeyrjDlgVendedor extends javax.swing.JDialog {
                                         .addComponent(meyrjFmtDataAdmissao, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
                                         .addComponent(meyrjChbAtivo))
-                                    .addComponent(meyrjblDateAdmissao))))
+                                    .addComponent(meyrjblDateAdmissao)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(meyrjButtonConfirmar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(meyrjButtonIncluir, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(meyrjButtonCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(meyrjButtonAlterar, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(meyrjButtonExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
+                                    .addComponent(meyrjButtonPesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
@@ -195,8 +205,8 @@ public class MeyrjDlgVendedor extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(meyrjButtonConfirmar)
-                    .addComponent(meyrjButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(meyrjButtonPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(meyrjButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(meyrjButtonPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27))
         );
 
@@ -204,34 +214,61 @@ public class MeyrjDlgVendedor extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void meyrjButtonPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjButtonPesquisarActionPerformed
-
+        Util.mensagem("Nao Implementado.");
     }//GEN-LAST:event_meyrjButtonPesquisarActionPerformed
 
     private void meyrjButtonIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjButtonIncluirActionPerformed
+        // TODO add your handling code here:
+    Util.habilitar(true, meyrjTxtCodigo, meyrjTxtNomeVendedor, meyrjFmtCpf, meyrjFmtTelefone, meyrjTxtEmail, meyrjFmtDataAdmissao, meyrjChbAtivo, meyrjButtonConfirmar, meyrjButtonCancelar);
+    Util.habilitar(false, meyrjButtonAlterar, meyrjButtonExcluir, meyrjButtonPesquisar, meyrjButtonIncluir);
+
+    Util.limpar(meyrjTxtCodigo, meyrjTxtNomeVendedor, meyrjTxtEmail);
 
     }//GEN-LAST:event_meyrjButtonIncluirActionPerformed
 
     private void meyrjButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjButtonAlterarActionPerformed
+     // TODO add your handling code here:
+    Util.habilitar(true, meyrjTxtCodigo, meyrjTxtNomeVendedor, meyrjFmtCpf, meyrjFmtTelefone, meyrjTxtEmail, meyrjFmtDataAdmissao, meyrjChbAtivo, meyrjButtonConfirmar, meyrjButtonCancelar);
+    Util.habilitar(false, meyrjButtonAlterar, meyrjButtonExcluir, meyrjButtonPesquisar, meyrjButtonIncluir);
+
+    Util.limpar(meyrjTxtCodigo, meyrjTxtNomeVendedor, meyrjTxtEmail);
 
     }//GEN-LAST:event_meyrjButtonAlterarActionPerformed
 
     private void meyrjButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjButtonExcluirActionPerformed
-
+    Util.perguntar("Deseja excluir o registro?");
     }//GEN-LAST:event_meyrjButtonExcluirActionPerformed
 
     private void meyrjButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjButtonCancelarActionPerformed
+    Util.habilitar(false, meyrjTxtCodigo, meyrjTxtNomeVendedor, meyrjFmtCpf, meyrjFmtTelefone, meyrjTxtEmail, meyrjFmtDataAdmissao, meyrjChbAtivo, meyrjButtonConfirmar, meyrjButtonCancelar);
+    Util.habilitar(true, meyrjButtonAlterar, meyrjButtonExcluir, meyrjButtonPesquisar, meyrjButtonIncluir);
 
     }//GEN-LAST:event_meyrjButtonCancelarActionPerformed
 
     private void meyrjButtonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjButtonConfirmarActionPerformed
+        // TODO add your handling code here:
+    Util.habilitar(false, meyrjTxtCodigo, meyrjTxtNomeVendedor, meyrjFmtCpf, meyrjFmtTelefone, meyrjTxtEmail, meyrjFmtDataAdmissao, meyrjChbAtivo, meyrjButtonConfirmar, meyrjButtonCancelar);
+    Util.habilitar(true, meyrjButtonAlterar, meyrjButtonExcluir, meyrjButtonPesquisar, meyrjButtonIncluir);
 
     }//GEN-LAST:event_meyrjButtonConfirmarActionPerformed
 
     private void meyrjTxtCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjTxtCodigoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_meyrjTxtCodigoActionPerformed
-
-
+    public static void main(String args[]) {
+    java.awt.EventQueue.invokeLater(new Runnable() {
+        public void run() {
+            MeyrjDlgVendedor dialog = new MeyrjDlgVendedor(new javax.swing.JFrame(), true);
+            dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+                public void windowClosing(java.awt.event.WindowEvent e) {
+                    System.exit(0);
+                }
+            });
+            dialog.setVisible(true);
+        }
+    });
+}
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton meyrjButtonAlterar;
     private javax.swing.JButton meyrjButtonCancelar;

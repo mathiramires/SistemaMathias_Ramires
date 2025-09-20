@@ -24,7 +24,9 @@ public class MeyrjDlgRemedios extends javax.swing.JDialog {
             meyrjTxtPrecoVenda,
             meyrjTxtPrecoCusto,
             meyrjFmtValidade,
-            meyrjChbControlado
+            meyrjChbControlado,
+            meyrjButtonConfirmar,
+            meyrjButtonCancelar
         );
     }
     @SuppressWarnings("unchecked")

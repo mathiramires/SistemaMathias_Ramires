@@ -37,7 +37,10 @@ public class MeyrjDlgClientes extends javax.swing.JDialog {
         meyrjFmtCelular,
         meyrjTxtEmail,
         meyrFmtDataCadastro,
-        meyrjChbAtivo
+        meyrjChbAtivo,
+        meyrjButtonConfirmar,
+        meyrjButtonCancelar
+        
 );
 
     }
