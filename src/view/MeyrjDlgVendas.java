@@ -330,7 +330,7 @@ public class MeyrjDlgVendas extends javax.swing.JDialog {
     }//GEN-LAST:event_meyrjBtnConfirmarActionPerformed
 
     private void meyrjBtnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjBtnAlterarActionPerformed
-        Util.habilitar(true, meyrjTxtCodigoVenda, meyrjCboCliente, meyrjFmtDataVenda, meyrjCboVendedor, meyrjCboFormaPagamento, meyrjTxtObservacoes, meyrjTxtTotalVenda, meyrjTxtStatus, meyrjBtnConfirmar, meyrjBtnCancelar);  
+        Util.habilitar(true, meyrjCboCliente, meyrjFmtDataVenda, meyrjCboVendedor, meyrjCboFormaPagamento, meyrjTxtObservacoes, meyrjTxtTotalVenda, meyrjTxtStatus, meyrjBtnConfirmar, meyrjBtnCancelar);  
         Util.habilitar(false, meyrjButtonIncluir, meyrjBtnAlterar, meyrjBtnExcluir, MeyrjBntPesquisar);
 
     }//GEN-LAST:event_meyrjBtnAlterarActionPerformed

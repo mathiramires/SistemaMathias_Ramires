@@ -320,7 +320,7 @@ public class MeyrjDlgRemedios extends javax.swing.JDialog {
     }//GEN-LAST:event_meyrjButtonIncluirActionPerformed
 
     private void meyrjButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjButtonAlterarActionPerformed
-        Util.habilitar(true, meyrjTxtCodigo, meyrjTxtNome, meyrjTxtLaboratorio, meyrjTxtDosagem, meyrjTxtPrecoVenda, meyrjTxtPrecoCusto, meyrjFmtValidade, meyrjChbControlado, meyrjButtonConfirmar, meyrjButtonCancelar);  
+        Util.habilitar(true, meyrjTxtNome, meyrjTxtLaboratorio, meyrjTxtDosagem, meyrjTxtPrecoVenda, meyrjTxtPrecoCusto, meyrjFmtValidade, meyrjChbControlado, meyrjButtonConfirmar, meyrjButtonCancelar);  
         Util.habilitar(false, meyrjButtonAlterar, meyrjButtonExcluir, meyrjButtonPesquisar, meyrjButtonIncluir);
 
     }//GEN-LAST:event_meyrjButtonAlterarActionPerformed

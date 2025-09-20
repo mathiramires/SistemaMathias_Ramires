@@ -387,9 +387,9 @@ public class MeyrjDlgClientes extends javax.swing.JDialog {
     }//GEN-LAST:event_meyrjButtonIncluirActionPerformed
 
     private void meyrjButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjButtonAlterarActionPerformed
-        Util.habilitar(true, meyrjTxtCodigo, meyrjTxtNome, meyrjFmtCpf, meyrjFmtRg, meyrjFmtDataNascimento, meyrjTxtEndereco, meyrjTxtBairro, meyrjTxtCidade, meyrjFmtCep, meyrjCboUf, meyrjFmtTelefone, meyrjFmtCelular, meyrjTxtEmail, meyrFmtDataCadastro, meyrjChbAtivo, meyrjButtonConfirmar, meyrjButtonCancelar);
+        Util.habilitar(true, meyrjTxtNome, meyrjFmtCpf, meyrjFmtRg, meyrjFmtDataNascimento, meyrjTxtEndereco, meyrjTxtBairro, meyrjTxtCidade, meyrjFmtCep, meyrjCboUf, meyrjFmtTelefone, meyrjFmtCelular, meyrjTxtEmail, meyrFmtDataCadastro, meyrjChbAtivo, meyrjButtonConfirmar, meyrjButtonCancelar);
         Util.habilitar(false, meyrjButtonAlterar, meyrjButtonExcluir, meyrjButtonPesquisar, meyrjButtonIncluir);
-        Util.limpar(meyrjTxtCodigo, meyrjTxtNome, meyrjFmtCpf, meyrjFmtRg, meyrjFmtDataNascimento, meyrjTxtEndereco, meyrjTxtBairro, meyrjTxtCidade, meyrjFmtCep, meyrjCboUf, meyrjFmtTelefone, meyrjFmtCelular, meyrjTxtEmail, meyrFmtDataCadastro, meyrjChbAtivo);
+        Util.limpar( meyrjTxtNome, meyrjFmtCpf, meyrjFmtRg, meyrjFmtDataNascimento, meyrjTxtEndereco, meyrjTxtBairro, meyrjTxtCidade, meyrjFmtCep, meyrjCboUf, meyrjFmtTelefone, meyrjFmtCelular, meyrjTxtEmail, meyrFmtDataCadastro, meyrjChbAtivo);
 
     }//GEN-LAST:event_meyrjButtonAlterarActionPerformed
 

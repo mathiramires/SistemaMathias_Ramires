@@ -228,10 +228,10 @@ public class MeyrjDlgVendedor extends javax.swing.JDialog {
 
     private void meyrjButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjButtonAlterarActionPerformed
      // TODO add your handling code here:
-    Util.habilitar(true, meyrjTxtCodigo, meyrjTxtNomeVendedor, meyrjFmtCpf, meyrjFmtTelefone, meyrjTxtEmail, meyrjFmtDataAdmissao, meyrjChbAtivo, meyrjButtonConfirmar, meyrjButtonCancelar);
+    Util.habilitar(true, meyrjTxtNomeVendedor, meyrjFmtCpf, meyrjFmtTelefone, meyrjTxtEmail, meyrjFmtDataAdmissao, meyrjChbAtivo, meyrjButtonConfirmar, meyrjButtonCancelar);
     Util.habilitar(false, meyrjButtonAlterar, meyrjButtonExcluir, meyrjButtonPesquisar, meyrjButtonIncluir);
 
-    Util.limpar(meyrjTxtCodigo, meyrjTxtNomeVendedor, meyrjTxtEmail);
+    Util.limpar( meyrjTxtNomeVendedor, meyrjTxtEmail);
 
     }//GEN-LAST:event_meyrjButtonAlterarActionPerformed
 

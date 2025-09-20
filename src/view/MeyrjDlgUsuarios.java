@@ -332,7 +332,7 @@ import tools.Util;
     }//GEN-LAST:event_meyrjButtonConfirmarActionPerformed
 
     private void meyrjButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjButtonCancelarActionPerformed
-        Util.habilitar(false, meyrjTxtApelido, meyrjTxtCodigo, meyrjTxtNome, meyrjFmtCpf, meyrjFmtDataNascimento, meyrjTxtSenha, meyrjCboNivel, meyrjChbAtivo, meyrjButtonConfirmar, meyrjButtonCancelar);
+        Util.habilitar(false, meyrjTxtApelido, meyrjTxtNome, meyrjFmtCpf, meyrjFmtDataNascimento, meyrjTxtSenha, meyrjCboNivel, meyrjChbAtivo, meyrjButtonConfirmar, meyrjButtonCancelar);
         Util.habilitar(true, meyrjButtonAlterar, meyrjButtonExcluir, meyrjButtonPesquisar, meyrjButtonIncluir);
 
     }//GEN-LAST:event_meyrjButtonCancelarActionPerformed
