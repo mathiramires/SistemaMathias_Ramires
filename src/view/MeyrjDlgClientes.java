@@ -16,7 +16,7 @@ public class MeyrjDlgClientes extends javax.swing.JDialog {
      * Creates new form jDlgCli initComponents(); habilitar(false);
      * getContentPane().entes
      */
-    
+    boolean pesquisando = false;
     public MeyrjDlgClientes(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -389,16 +389,37 @@ public class MeyrjDlgClientes extends javax.swing.JDialog {
     private void meyrjButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjButtonAlterarActionPerformed
         Util.habilitar(true, meyrjTxtNome, meyrjFmtCpf, meyrjFmtRg, meyrjFmtDataNascimento, meyrjTxtEndereco, meyrjTxtBairro, meyrjTxtCidade, meyrjFmtCep, meyrjCboUf, meyrjFmtTelefone, meyrjFmtCelular, meyrjTxtEmail, meyrFmtDataCadastro, meyrjChbAtivo, meyrjButtonConfirmar, meyrjButtonCancelar);
         Util.habilitar(false, meyrjButtonAlterar, meyrjButtonExcluir, meyrjButtonPesquisar, meyrjButtonIncluir);
-        Util.limpar( meyrjTxtNome, meyrjFmtCpf, meyrjFmtRg, meyrjFmtDataNascimento, meyrjTxtEndereco, meyrjTxtBairro, meyrjTxtCidade, meyrjFmtCep, meyrjCboUf, meyrjFmtTelefone, meyrjFmtCelular, meyrjTxtEmail, meyrFmtDataCadastro, meyrjChbAtivo);
 
     }//GEN-LAST:event_meyrjButtonAlterarActionPerformed
 
     private void meyrjButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjButtonExcluirActionPerformed
-        Util.perguntar("Deseja excluir o registro?");
+        if (pesquisando == false) {
+            Util.mensagem("Você precisa pesquisar um usuário primeiro");
+        } else {
+                Util.perguntar("Você deseja excluir?");
+                Util.limpar(meyrjTxtCodigo,
+        meyrjTxtNome,
+        meyrjFmtCpf,
+        meyrjFmtRg,
+        meyrjFmtDataNascimento,
+        meyrjTxtEndereco,
+        meyrjTxtBairro,
+        meyrjTxtCidade,
+        meyrjFmtCep,
+        meyrjCboUf,
+        meyrjFmtTelefone,
+        meyrjFmtCelular,
+        meyrjTxtEmail,
+        meyrFmtDataCadastro,
+        meyrjChbAtivo);  
+        } 
     }//GEN-LAST:event_meyrjButtonExcluirActionPerformed
 
     private void meyrjButtonPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjButtonPesquisarActionPerformed
-         Util.mensagem("Nao Implementado.");
+        MeyrJDlgClientesPesquisar meyrJDlgClientesPesquisar = new MeyrJDlgClientesPesquisar(null, true);
+        meyrJDlgClientesPesquisar.setTelaPai(this);
+        meyrJDlgClientesPesquisar.setVisible(true);
+        pesquisando = true;
     }//GEN-LAST:event_meyrjButtonPesquisarActionPerformed
 
     private void meyrjButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjButtonCancelarActionPerformed

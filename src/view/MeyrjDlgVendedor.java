@@ -12,6 +12,7 @@ import tools.Util;
  */
 public class MeyrjDlgVendedor extends javax.swing.JDialog {
     
+    boolean pesquisando = false;
     public MeyrjDlgVendedor(java.awt.Frame parent, boolean modal) {
     super(parent, modal);
     initComponents();
@@ -214,7 +215,10 @@ public class MeyrjDlgVendedor extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void meyrjButtonPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjButtonPesquisarActionPerformed
-        Util.mensagem("Nao Implementado.");
+        MeyrJDlgVendedorPesquisar meyrJDlgVendedorPesquisar = new MeyrJDlgVendedorPesquisar(null, true);
+        meyrJDlgVendedorPesquisar.setTelaPai(this);
+        meyrJDlgVendedorPesquisar.setVisible(true);
+        pesquisando = true;
     }//GEN-LAST:event_meyrjButtonPesquisarActionPerformed
 
     private void meyrjButtonIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjButtonIncluirActionPerformed
@@ -236,7 +240,12 @@ public class MeyrjDlgVendedor extends javax.swing.JDialog {
     }//GEN-LAST:event_meyrjButtonAlterarActionPerformed
 
     private void meyrjButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjButtonExcluirActionPerformed
-    Util.perguntar("Deseja excluir o registro?");
+    if (pesquisando == false) {
+            Util.mensagem("Você precisa pesquisar um usuário primeiro");
+        } else {
+                Util.perguntar("Você deseja excluir?");
+                Util.limpar( meyrjTxtCodigo, meyrjTxtNomeVendedor, meyrjFmtCpf, meyrjFmtTelefone, meyrjTxtEmail, meyrjFmtDataAdmissao, meyrjChbAtivo);
+            } 
     }//GEN-LAST:event_meyrjButtonExcluirActionPerformed
 
     private void meyrjButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjButtonCancelarActionPerformed

@@ -13,7 +13,8 @@ import tools.Util;
  * @author Mathias Eduardo
  */
     public class MeyrjDlgUsuarios extends javax.swing.JDialog {
-
+    
+    boolean pesquisando = false;
     public MeyrjDlgUsuarios(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -285,27 +286,10 @@ import tools.Util;
     }//GEN-LAST:event_meyrjCboNivelActionPerformed
 
     private void meyrjButtonPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjButtonPesquisarActionPerformed
-        // TODO add your handling code here:
-        /*String id = JOptionPane.showInputDialog(null, "Entre com o código ?");
-        int codigo = Integer.valueOf(id);
-        MeyrUsuariosDao usuariosDao = new MeyrUsuariosDao();
-        MeyrUsuarios usuarios = (MeyrUsuarios) usuariosDao.list(codigo);
-        if (usuarios == null) {
-            JOptionPane.showMessageDialog(null, "Codigo não existente");
-        }
-        meyrjTxtCodigo.setText(id);
-        meyrjTxtNome.setText(usuarios.getMeyr_nome());
-        meyrjTxtApelido.setText(usuarios.getMeyr_apelido());
-        meyrjFmtCpf.setText(usuarios.getMeyr_cpf());
-// jFmtDatadeNascimento.setText(usuarios.getMeyr_dataNascimento()); // Se quiser descomentar depois
-        meyrjTxtSenha.setText(usuarios.getMeyr_senha()); // Aqui só se existir esse método, porque você não citou no banco
-        meyrjCboNivel.setSelectedIndex(usuarios.getMeyr_nivel());
-        if (usuarios.getMeyr_ativo().equals("S")) {
-            meyrjChbAtivo.setSelected(true);
-        } else {
-            meyrjChbAtivo.setSelected(false);
-        }*/
-        Util.mensagem("Nao Implementado.");
+        MeyrJDlgUsuariosPesquisar  meyrJDlgUsuariosPesquisar = new MeyrJDlgUsuariosPesquisar(null, true);
+        meyrJDlgUsuariosPesquisar.setTelaPai(this);
+        meyrJDlgUsuariosPesquisar.setVisible(true);
+        pesquisando = true;
     }//GEN-LAST:event_meyrjButtonPesquisarActionPerformed
 
     private void meyrjButtonIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjButtonIncluirActionPerformed
@@ -322,7 +306,12 @@ import tools.Util;
     }//GEN-LAST:event_meyrjButtonAlterarActionPerformed
 
     private void meyrjButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjButtonExcluirActionPerformed
-        Util.perguntar("Deseja excluir o registro?");
+         if (pesquisando == false) {
+            Util.mensagem("Você precisa pesquisar um usuário primeiro");
+        } else {
+                Util.perguntar("Você deseja excluir?");
+                Util.limpar(meyrjTxtApelido, meyrjTxtCodigo, meyrjTxtNome, meyrjFmtCpf, meyrjFmtDataNascimento, meyrjTxtSenha, meyrjCboNivel, meyrjChbAtivo);
+         }
     }//GEN-LAST:event_meyrjButtonExcluirActionPerformed
 
     private void meyrjButtonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjButtonConfirmarActionPerformed

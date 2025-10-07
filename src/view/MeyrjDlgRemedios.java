@@ -10,8 +10,10 @@ import tools.Util;
  *
  * @author Mathias Eduardo
  */
+
 public class MeyrjDlgRemedios extends javax.swing.JDialog {
-     public MeyrjDlgRemedios(java.awt.Frame parent, boolean modal) {
+    boolean pesquisando = false;
+    public MeyrjDlgRemedios(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         setTitle("Cadastro de Remedios");
@@ -286,37 +288,24 @@ public class MeyrjDlgRemedios extends javax.swing.JDialog {
     }//GEN-LAST:event_meyrjTxtPrecoCustoActionPerformed
 
     private void meyrjButtonPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjButtonPesquisarActionPerformed
-        // TODO add your handling code here:
-        /* String id = JOptionPane.showInputDialog(null, "Entre com o código ?");
-        int codigo = Integer.valueOf(id);
-        MeyrRemediosDao remediosDao = new MeyrRemediosDao();
-        MeyrRemedios remedios = (MeyrRemedios) remediosDao.list(codigo);
-
-        meyrjTxtCodigo.setText(String.valueOf(remedios.getMeyr_idRemedio()));
-        meyrjTxtNome.setText(remedios.getMeyr_nome());
-        meyrjTxtLaboratorio.setText(remedios.getMeyr_laboratorio());
-        meyrjTxtDosagem.setText(remedios.getMeyr_dosagem());
-        meyrjTxtPrecoCusto.setText(String.valueOf(remedios.getMeyr_precoCusto()));
-        meyrjTxtPrecoVenda.setText(String.valueOf(remedios.getMeyr_precoVenda()));
-
-// Se quiser exibir a data de validade como texto (verifique o formato depois)
-        if (remedios.getMeyr_dataValidade() != null) {
-            meyrjTxtValidade.setText(remedios.getMeyr_dataValidade().toString());
-        }
-
-        if (remedios.getMeyr_controlado().equals("S")) {
-            meyrjChbControlado.setSelected(true);
-        } else {
-            meyrjChbControlado.setSelected(false);
-        }*/
-        Util.mensagem("Nao Implementado.");
+        MeyrJDlgRemediosPesquisar meyrJDlgRemediosPesquisar = new MeyrJDlgRemediosPesquisar(null, true);
+        meyrJDlgRemediosPesquisar.setTelaPai(this);
+        meyrJDlgRemediosPesquisar.setVisible(true);
+        pesquisando = true;
+        
     }//GEN-LAST:event_meyrjButtonPesquisarActionPerformed
 
     private void meyrjButtonIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjButtonIncluirActionPerformed
         Util.habilitar(true, meyrjTxtCodigo, meyrjTxtNome, meyrjTxtLaboratorio, meyrjTxtDosagem, meyrjTxtPrecoVenda, meyrjTxtPrecoCusto, meyrjFmtValidade, meyrjChbControlado, meyrjButtonConfirmar, meyrjButtonCancelar);  
         Util.habilitar(false, meyrjButtonAlterar, meyrjButtonExcluir, meyrjButtonPesquisar, meyrjButtonIncluir);  
-        Util.limpar(meyrjTxtCodigo, meyrjTxtNome, meyrjTxtLaboratorio, meyrjTxtDosagem, meyrjTxtPrecoVenda, meyrjTxtPrecoCusto, meyrjFmtValidade, meyrjChbControlado);
-
+         Util.limpar(meyrjTxtCodigo,
+            meyrjTxtNome,
+            meyrjTxtLaboratorio,
+            meyrjTxtDosagem,
+            meyrjTxtPrecoVenda,
+            meyrjTxtPrecoCusto,
+            meyrjFmtValidade,
+            meyrjChbControlado);
     }//GEN-LAST:event_meyrjButtonIncluirActionPerformed
 
     private void meyrjButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjButtonAlterarActionPerformed
@@ -326,7 +315,20 @@ public class MeyrjDlgRemedios extends javax.swing.JDialog {
     }//GEN-LAST:event_meyrjButtonAlterarActionPerformed
 
     private void meyrjButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjButtonExcluirActionPerformed
-        Util.perguntar("Deseja excluir o registro?");
+         if (pesquisando == false) {
+            Util.mensagem("Você precisa pesquisar um usuário primeiro");
+        } else {
+                Util.perguntar("Você deseja excluir?");
+                Util.limpar(meyrjTxtCodigo,
+            meyrjTxtNome,
+            meyrjTxtLaboratorio,
+            meyrjTxtDosagem,
+            meyrjTxtPrecoVenda,
+            meyrjTxtPrecoCusto,
+            meyrjFmtValidade,
+            meyrjChbControlado
+            );  
+        } 
     }//GEN-LAST:event_meyrjButtonExcluirActionPerformed
 
     private void meyrjButtonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjButtonConfirmarActionPerformed
