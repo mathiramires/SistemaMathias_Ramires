@@ -1,5 +1,6 @@
 package view;
 
+import bean.MeyrRemedios;
 import tools.Util;
 
 /*
@@ -31,6 +32,43 @@ public class MeyrjDlgRemedios extends javax.swing.JDialog {
             meyrjButtonCancelar
         );
     }
+    public MeyrRemedios viewBean() {
+    MeyrRemedios meyrRemedios = new MeyrRemedios();
+
+    int codigo = Util.strToInt(meyrjTxtCodigo.getText());
+    meyrRemedios.setMeyrIdRemedio(codigo);
+    meyrRemedios.setMeyrNome(meyrjTxtNome.getText());
+    meyrRemedios.setMeyrLaboratorio(meyrjTxtLaboratorio.getText());
+    meyrRemedios.setMeyrDosagem(meyrjTxtDosagem.getText());
+    meyrRemedios.setMeyrPrecoVenda(Util.strToDuble(meyrjTxtPrecoVenda.getText()));
+    meyrRemedios.setMeyrPrecoCusto(Util.strToDuble(meyrjTxtPrecoCusto.getText()));
+    meyrRemedios.setMeyrDataValidade(Util.strToDate(meyrjFmtValidade.getText()));
+
+    if (meyrjChbControlado.isSelected() == true) {
+        meyrRemedios.setMeyrControlado("S");
+    } else {
+        meyrRemedios.setMeyrControlado("N");
+    }
+
+    return meyrRemedios;
+}
+
+public void beanView(MeyrRemedios meyrRemedios) {
+    meyrjTxtCodigo.setText(Util.intToStr(meyrRemedios.getMeyrIdRemedio()));
+    meyrjTxtNome.setText(meyrRemedios.getMeyrNome());
+    meyrjTxtLaboratorio.setText(meyrRemedios.getMeyrLaboratorio());
+    meyrjTxtDosagem.setText(meyrRemedios.getMeyrDosagem());
+    meyrjTxtPrecoVenda.setText(Util.doubleToStr(meyrRemedios.getMeyrPrecoVenda()));
+    meyrjTxtPrecoCusto.setText(Util.doubleToStr(meyrRemedios.getMeyrPrecoCusto()));
+    meyrjFmtValidade.setText(Util.dateToStr(meyrRemedios.getMeyrDataValidade()));
+
+    if (meyrRemedios.getMeyrControlado().equals("S") == true) {
+        meyrjChbControlado.setSelected(true);
+    } else {
+        meyrjChbControlado.setSelected(false);
+    }
+}
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

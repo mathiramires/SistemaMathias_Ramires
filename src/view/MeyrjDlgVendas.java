@@ -1,6 +1,10 @@
 package view;
 
+import bean.MeyrClientes;
+import bean.MeyrVendas;
+import bean.MeyrVendedor;
 import tools.Util;
+import view.MeyrJDlgVendasPesquisar;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -39,7 +43,31 @@ public class MeyrjDlgVendas extends javax.swing.JDialog {
                     meyrjCboCliente,
                     meyrjBtnCancelar
     );
+}       
+        public MeyrVendas viewBean() {
+    MeyrVendas meyrVendas = new MeyrVendas();
+
+    meyrVendas.setMeyrClientes((MeyrClientes) meyrjCboCliente.getSelectedItem());
+    meyrVendas.setMeyrVendedor((MeyrVendedor) meyrjCboVendedor.getSelectedItem());
+    meyrVendas.setMeyrDataVenda(Util.strToDate(meyrjFmtDataVenda.getText()));
+    meyrVendas.setMeyrTotalVenda(Util.strToDuble(meyrjTxtTotalVenda.getText()));
+    meyrVendas.setMeyrFormaPagamento(meyrjCboFormaPagamento.getSelectedItem().toString());
+    meyrVendas.setMeyrStatus(meyrjTxtStatus.getText());
+    meyrVendas.setMeyrObservacoes(meyrjTxtObservacoes.getText());
+
+    return meyrVendas;
 }
+
+public void beanView(MeyrVendas meyrVendas) {
+    meyrjCboCliente.setSelectedItem(meyrVendas.getMeyrClientes());
+    meyrjCboVendedor.setSelectedItem(meyrVendas.getMeyrVendedor());
+    meyrjFmtDataVenda.setText(Util.dateToStr(meyrVendas.getMeyrDataVenda()));
+    meyrjTxtTotalVenda.setText(Util.doubleToStr(meyrVendas.getMeyrTotalVenda()));
+    meyrjCboFormaPagamento.setSelectedItem(meyrVendas.getMeyrFormaPagamento());
+    meyrjTxtStatus.setText(meyrVendas.getMeyrStatus());
+    meyrjTxtObservacoes.setText(meyrVendas.getMeyrObservacoes());
+}
+
     @SuppressWarnings("unchecked")
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

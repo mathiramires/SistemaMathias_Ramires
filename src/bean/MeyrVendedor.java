@@ -116,6 +116,10 @@ public class MeyrVendedor  implements java.io.Serializable {
     public void setMeyrAtivo(Integer meyrAtivo) {
         this.meyrAtivo = meyrAtivo;
     }
+
+    public void setMeyrAtivo(String n) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
 
 

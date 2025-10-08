@@ -1,5 +1,6 @@
 package view;
 
+import bean.MeyrUsuarios;
 import javax.swing.JFrame;
 import tools.Util;
 
@@ -21,7 +22,47 @@ import tools.Util;
         setTitle("Cadastro de Usuários");
         setLocationRelativeTo(null);
         Util.habilitar(false, meyrjTxtApelido, meyrjTxtCodigo, meyrjTxtNome, meyrjFmtCpf, meyrjFmtDataNascimento, meyrjTxtSenha, meyrjCboNivel, meyrjChbAtivo, meyrjButtonConfirmar, meyrjButtonCancelar);
-    }                
+    }   
+    
+    public MeyrUsuarios viewBean() {
+    MeyrUsuarios meyrUsuarios = new MeyrUsuarios();
+
+    int codigo = Util.strToInt(meyrjTxtCodigo.getText());
+    meyrUsuarios.setMeyrIdUsuarios(codigo);
+    meyrUsuarios.setMeyrNome(meyrjTxtNome.getText());
+    meyrUsuarios.setMeyrApelido(meyrjTxtApelido.getText());
+    meyrUsuarios.setMeyrCpf(meyrjFmtCpf.getText());
+    meyrUsuarios.setMeyrDataNascimento(Util.strToDate(meyrjFmtDataNascimento.getText()));
+    meyrUsuarios.setMeyrSenha(meyrjTxtSenha.getText());
+    meyrUsuarios.setMeyrNivel(meyrjCboNivel.getSelectedIndex());
+
+    if (meyrjChbAtivo.isSelected() == true) {
+        meyrUsuarios.setMeyrAtivo("S");
+    } else {
+        meyrUsuarios.setMeyrAtivo("N");
+    }
+
+    return meyrUsuarios;
+}
+
+public void beanView(MeyrUsuarios meyrUsuarios) {
+    meyrjTxtCodigo.setText(Util.intToStr(meyrUsuarios.getMeyrIdUsuarios()));
+    meyrjTxtNome.setText(meyrUsuarios.getMeyrNome());
+    meyrjTxtApelido.setText(meyrUsuarios.getMeyrApelido());
+    meyrjFmtCpf.setText(meyrUsuarios.getMeyrCpf());
+    meyrjFmtDataNascimento.setText(Util.dateToStr(meyrUsuarios.getMeyrDataNascimento()));
+    meyrjTxtSenha.setText(meyrUsuarios.getMeyrSenha());
+    meyrjCboNivel.setSelectedIndex(meyrUsuarios.getMeyrNivel());
+
+    if (meyrUsuarios.getMeyrAtivo().equals("S") == true) {
+        meyrjChbAtivo.setSelected(true);
+    } else {
+        meyrjChbAtivo.setSelected(false);
+    }
+}
+
+    
+    
     @SuppressWarnings("unchecked") 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

@@ -1,5 +1,6 @@
 package view;
 
+import bean.MeyrClientes;
 import tools.Util;
 
 /*
@@ -42,8 +43,63 @@ public class MeyrjDlgClientes extends javax.swing.JDialog {
         meyrjButtonCancelar
         
 );
+        
+     
+
 
     }
+    
+    public MeyrClientes viewBean() {
+    MeyrClientes meyrClientes = new MeyrClientes();
+
+    int codigo = Util.strToInt(meyrjTxtCodigo.getText());
+    meyrClientes.setMeyrIdCliente(codigo);
+    meyrClientes.setMeyrNome(meyrjTxtNome.getText());
+    meyrClientes.setMeyrCpf(meyrjFmtCpf.getText());
+    meyrClientes.setMeyrRg(meyrjFmtRg.getText());
+    meyrClientes.setMeyrDataNascimento(Util.strToDate(meyrjFmtDataNascimento.getText()));
+    meyrClientes.setMeyrEndereco(meyrjTxtEndereco.getText());
+    meyrClientes.setMeyrBairro(meyrjTxtBairro.getText());
+    meyrClientes.setMeyrCidade(meyrjTxtCidade.getText());
+    meyrClientes.setMeyrCep(meyrjFmtCep.getText());
+    meyrClientes.setMeyrEstado(meyrjCboUf.getSelectedItem().toString());
+    meyrClientes.setMeyrTelefone(meyrjFmtTelefone.getText());
+    meyrClientes.setMeyrCelular(meyrjFmtCelular.getText());
+    meyrClientes.setMeyrEmail(meyrjTxtEmail.getText());
+    meyrClientes.setMeyrDataCadastro(Util.strToDate(meyrFmtDataCadastro.getText()));
+
+    if (meyrjChbAtivo.isSelected() == true) {
+        meyrClientes.setMeyrAtivo("S");
+    } else {
+        meyrClientes.setMeyrAtivo("N");
+    }
+
+    return meyrClientes;
+}
+
+public void beanView(MeyrClientes meyrClientes) {
+    meyrjTxtCodigo.setText(Util.intToStr(meyrClientes.getMeyrIdCliente()));
+    meyrjTxtNome.setText(meyrClientes.getMeyrNome());
+    meyrjFmtCpf.setText(meyrClientes.getMeyrCpf());
+    meyrjFmtRg.setText(meyrClientes.getMeyrRg());
+    meyrjFmtDataNascimento.setText(Util.dateToStr(meyrClientes.getMeyrDataNascimento()));
+    meyrjTxtEndereco.setText(meyrClientes.getMeyrEndereco());
+    meyrjTxtBairro.setText(meyrClientes.getMeyrBairro());
+    meyrjTxtCidade.setText(meyrClientes.getMeyrCidade());
+    meyrjFmtCep.setText(meyrClientes.getMeyrCep());
+    meyrjCboUf.setSelectedItem(meyrClientes.getMeyrEstado());
+    meyrjFmtTelefone.setText(meyrClientes.getMeyrTelefone());
+    meyrjFmtCelular.setText(meyrClientes.getMeyrCelular());
+    meyrjTxtEmail.setText(meyrClientes.getMeyrEmail());
+    meyrFmtDataCadastro.setText(Util.dateToStr(meyrClientes.getMeyrDataCadastro()));
+
+    if (meyrClientes.getMeyrAtivo().equals("S") == true) {
+        meyrjChbAtivo.setSelected(true);
+    } else {
+        meyrjChbAtivo.setSelected(false);
+    }
+}
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

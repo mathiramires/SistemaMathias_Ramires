@@ -1,5 +1,6 @@
 package view;
 
+import bean.MeyrVendedor;
 import tools.Util;
 
 /*
@@ -19,7 +20,29 @@ public class MeyrjDlgVendedor extends javax.swing.JDialog {
     setTitle("Cadastro de Vendedores");
     setLocationRelativeTo(null);
     Util.habilitar(false, meyrjTxtCodigo, meyrjTxtNomeVendedor, meyrjFmtCpf, meyrjFmtTelefone, meyrjTxtEmail, meyrjFmtDataAdmissao, meyrjChbAtivo, meyrjButtonConfirmar, meyrjButtonCancelar);
+}   
+    public MeyrVendedor viewBean() {
+    MeyrVendedor meyrVendedor = new MeyrVendedor();
+
+    meyrVendedor.setMeyrNome(meyrjTxtNomeVendedor.getText());
+    meyrVendedor.setMeyrCpf(meyrjFmtCpf.getText());
+    meyrVendedor.setMeyrTelefone(meyrjFmtTelefone.getText());
+    meyrVendedor.setMeyrEmail(meyrjTxtEmail.getText());
+    meyrVendedor.setMeyrDataAdmissao(Util.strToDate(meyrjFmtDataAdmissao.getText()));
+    meyrVendedor.setMeyrAtivo(meyrjChbAtivo.isSelected() ? 1 : 0);
+
+    return meyrVendedor;
 }
+
+public void beanView(MeyrVendedor meyrVendedor) {
+    meyrjTxtNomeVendedor.setText(meyrVendedor.getMeyrNome());
+    meyrjFmtCpf.setText(meyrVendedor.getMeyrCpf());
+    meyrjFmtTelefone.setText(meyrVendedor.getMeyrTelefone());
+    meyrjTxtEmail.setText(meyrVendedor.getMeyrEmail());
+    meyrjFmtDataAdmissao.setText(Util.dateToStr(meyrVendedor.getMeyrDataAdmissao()));
+    meyrjChbAtivo.setSelected(meyrVendedor.getMeyrAtivo() == 1);
+}
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
