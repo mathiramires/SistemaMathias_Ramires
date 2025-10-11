@@ -1,6 +1,8 @@
 package view;
 
 import bean.MeyrClientes;
+import dao.MeyrClientesDAO;
+import java.util.Date;
 import tools.Util;
 
 /*
@@ -18,6 +20,8 @@ public class MeyrjDlgClientes extends javax.swing.JDialog {
      * getContentPane().entes
      */
     boolean pesquisando = false;
+    private boolean incluir;
+    
     public MeyrjDlgClientes(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -43,12 +47,7 @@ public class MeyrjDlgClientes extends javax.swing.JDialog {
         meyrjButtonCancelar
         
 );
-        
-     
-
-
     }
-    
     public MeyrClientes viewBean() {
     MeyrClientes meyrClientes = new MeyrClientes();
 
@@ -57,7 +56,8 @@ public class MeyrjDlgClientes extends javax.swing.JDialog {
     meyrClientes.setMeyrNome(meyrjTxtNome.getText());
     meyrClientes.setMeyrCpf(meyrjFmtCpf.getText());
     meyrClientes.setMeyrRg(meyrjFmtRg.getText());
-    meyrClientes.setMeyrDataNascimento(Util.strToDate(meyrjFmtDataNascimento.getText()));
+    meyrClientes.setMeyrDataNascimento((Date) meyrjFmtDataNascimento.getValue());
+    meyrClientes.setMeyrDataCadastro((Date) meyrFmtDataCadastro.getValue());
     meyrClientes.setMeyrEndereco(meyrjTxtEndereco.getText());
     meyrClientes.setMeyrBairro(meyrjTxtBairro.getText());
     meyrClientes.setMeyrCidade(meyrjTxtCidade.getText());
@@ -66,7 +66,7 @@ public class MeyrjDlgClientes extends javax.swing.JDialog {
     meyrClientes.setMeyrTelefone(meyrjFmtTelefone.getText());
     meyrClientes.setMeyrCelular(meyrjFmtCelular.getText());
     meyrClientes.setMeyrEmail(meyrjTxtEmail.getText());
-    meyrClientes.setMeyrDataCadastro(Util.strToDate(meyrFmtDataCadastro.getText()));
+ 
 
     if (meyrjChbAtivo.isSelected() == true) {
         meyrClientes.setMeyrAtivo("S");
@@ -439,13 +439,13 @@ public void beanView(MeyrClientes meyrClientes) {
         Util.habilitar(true, meyrjTxtCodigo, meyrjTxtNome, meyrjFmtCpf, meyrjFmtRg, meyrjFmtDataNascimento, meyrjTxtEndereco, meyrjTxtBairro, meyrjTxtCidade, meyrjFmtCep, meyrjCboUf, meyrjFmtTelefone, meyrjFmtCelular, meyrjTxtEmail, meyrFmtDataCadastro, meyrjChbAtivo, meyrjButtonConfirmar, meyrjButtonCancelar);
         Util.habilitar(false, meyrjButtonAlterar, meyrjButtonExcluir, meyrjButtonPesquisar, meyrjButtonIncluir);
         Util.limpar(meyrjTxtCodigo, meyrjTxtNome, meyrjFmtCpf, meyrjFmtRg, meyrjFmtDataNascimento, meyrjTxtEndereco, meyrjTxtBairro, meyrjTxtCidade, meyrjFmtCep, meyrjCboUf, meyrjFmtTelefone, meyrjFmtCelular, meyrjTxtEmail, meyrFmtDataCadastro, meyrjChbAtivo);
-
+        incluir = true;
     }//GEN-LAST:event_meyrjButtonIncluirActionPerformed
 
     private void meyrjButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjButtonAlterarActionPerformed
         Util.habilitar(true, meyrjTxtNome, meyrjFmtCpf, meyrjFmtRg, meyrjFmtDataNascimento, meyrjTxtEndereco, meyrjTxtBairro, meyrjTxtCidade, meyrjFmtCep, meyrjCboUf, meyrjFmtTelefone, meyrjFmtCelular, meyrjTxtEmail, meyrFmtDataCadastro, meyrjChbAtivo, meyrjButtonConfirmar, meyrjButtonCancelar);
         Util.habilitar(false, meyrjButtonAlterar, meyrjButtonExcluir, meyrjButtonPesquisar, meyrjButtonIncluir);
-
+        incluir = false;
     }//GEN-LAST:event_meyrjButtonAlterarActionPerformed
 
     private void meyrjButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjButtonExcluirActionPerformed
@@ -485,9 +485,14 @@ public void beanView(MeyrClientes meyrClientes) {
     }//GEN-LAST:event_meyrjButtonCancelarActionPerformed
 
     private void meyrjButtonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjButtonConfirmarActionPerformed
-        Util.habilitar(false, meyrjTxtCodigo, meyrjTxtNome, meyrjFmtCpf, meyrjFmtDataNascimento, meyrjChbAtivo, meyrjButtonConfirmar, meyrjButtonCancelar);  
-        Util.habilitar(true, meyrjButtonAlterar, meyrjButtonExcluir, meyrjButtonPesquisar, meyrjButtonIncluir);
-
+       MeyrClientesDAO meyrClientesDAO = new MeyrClientesDAO() {};
+       if (incluir == true) {
+            meyrClientesDAO.insert(viewBean());
+        } else {
+            meyrClientesDAO.update(viewBean());
+        }
+Util.habilitar(false, meyrjTxtCodigo, meyrjTxtNome, meyrjFmtCpf, meyrjFmtDataNascimento, meyrjChbAtivo, meyrjButtonConfirmar, meyrjButtonCancelar);  
+Util.habilitar(true, meyrjButtonAlterar, meyrjButtonExcluir, meyrjButtonPesquisar, meyrjButtonIncluir);
 
     }//GEN-LAST:event_meyrjButtonConfirmarActionPerformed
 

@@ -22,17 +22,17 @@ import javax.persistence.Table;
 public class MeyrVendasRemedios  implements java.io.Serializable {
 
 
-     private Integer meyrIdVendasRemedio;
+     private int meyrIdVendasRemedio;
      private MeyrRemedios meyrRemedios;
      private MeyrVendas meyrVendas;
-     private Integer meyrQuantidade;
+     private int meyrQuantidade;
      private double meyrPrecoUnitario;
      private double meyrDesconto;
 
     public MeyrVendasRemedios() {
     }
 
-    public MeyrVendasRemedios(MeyrRemedios meyrRemedios, MeyrVendas meyrVendas, Integer meyrQuantidade, double meyrPrecoUnitario, double meyrDesconto) {
+    public MeyrVendasRemedios(MeyrRemedios meyrRemedios, MeyrVendas meyrVendas, int meyrQuantidade, double meyrPrecoUnitario, double meyrDesconto) {
        this.meyrRemedios = meyrRemedios;
        this.meyrVendas = meyrVendas;
        this.meyrQuantidade = meyrQuantidade;

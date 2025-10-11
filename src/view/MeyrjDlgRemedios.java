@@ -1,6 +1,8 @@
 package view;
 
 import bean.MeyrRemedios;
+import dao.MeyrClientesDAO;
+import dao.MeyrRemediosDAO;
 import tools.Util;
 
 /*
@@ -14,6 +16,7 @@ import tools.Util;
 
 public class MeyrjDlgRemedios extends javax.swing.JDialog {
     boolean pesquisando = false;
+    private boolean incluir;
     public MeyrjDlgRemedios(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -211,6 +214,12 @@ public void beanView(MeyrRemedios meyrRemedios) {
 
         meyrjLblCodigo2.setText("Código");
 
+        meyrjFmtValidade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                meyrjFmtValidadeActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -336,7 +345,7 @@ public void beanView(MeyrRemedios meyrRemedios) {
     private void meyrjButtonIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjButtonIncluirActionPerformed
         Util.habilitar(true, meyrjTxtCodigo, meyrjTxtNome, meyrjTxtLaboratorio, meyrjTxtDosagem, meyrjTxtPrecoVenda, meyrjTxtPrecoCusto, meyrjFmtValidade, meyrjChbControlado, meyrjButtonConfirmar, meyrjButtonCancelar);  
         Util.habilitar(false, meyrjButtonAlterar, meyrjButtonExcluir, meyrjButtonPesquisar, meyrjButtonIncluir);  
-         Util.limpar(meyrjTxtCodigo,
+        Util.limpar(meyrjTxtCodigo,
             meyrjTxtNome,
             meyrjTxtLaboratorio,
             meyrjTxtDosagem,
@@ -344,12 +353,13 @@ public void beanView(MeyrRemedios meyrRemedios) {
             meyrjTxtPrecoCusto,
             meyrjFmtValidade,
             meyrjChbControlado);
+            incluir = true;
     }//GEN-LAST:event_meyrjButtonIncluirActionPerformed
 
     private void meyrjButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjButtonAlterarActionPerformed
         Util.habilitar(true, meyrjTxtNome, meyrjTxtLaboratorio, meyrjTxtDosagem, meyrjTxtPrecoVenda, meyrjTxtPrecoCusto, meyrjFmtValidade, meyrjChbControlado, meyrjButtonConfirmar, meyrjButtonCancelar);  
         Util.habilitar(false, meyrjButtonAlterar, meyrjButtonExcluir, meyrjButtonPesquisar, meyrjButtonIncluir);
-
+        incluir = false;
     }//GEN-LAST:event_meyrjButtonAlterarActionPerformed
 
     private void meyrjButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjButtonExcluirActionPerformed
@@ -370,6 +380,12 @@ public void beanView(MeyrRemedios meyrRemedios) {
     }//GEN-LAST:event_meyrjButtonExcluirActionPerformed
 
     private void meyrjButtonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjButtonConfirmarActionPerformed
+        MeyrRemediosDAO meyrRemediosDAO = new MeyrRemediosDAO() {};
+        if (incluir == true) {
+            meyrRemediosDAO.insert(viewBean());
+        } else {
+            meyrRemediosDAO.update(viewBean());
+        } 
         Util.habilitar(false, meyrjTxtCodigo, meyrjTxtNome, meyrjTxtLaboratorio, meyrjTxtDosagem, meyrjTxtPrecoVenda, meyrjTxtPrecoCusto, meyrjFmtValidade, meyrjChbControlado, meyrjButtonConfirmar, meyrjButtonCancelar);  
         Util.habilitar(true, meyrjButtonAlterar, meyrjButtonExcluir, meyrjButtonPesquisar, meyrjButtonIncluir);
 
@@ -400,6 +416,10 @@ public void beanView(MeyrRemedios meyrRemedios) {
     private void meyrjTxtCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjTxtCodigoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_meyrjTxtCodigoActionPerformed
+
+    private void meyrjFmtValidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjFmtValidadeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_meyrjFmtValidadeActionPerformed
     public static void main(String args[]) {
     /* Set the Nimbus look and feel */
     //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

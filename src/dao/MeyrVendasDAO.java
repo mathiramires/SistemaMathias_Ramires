@@ -20,7 +20,7 @@ import org.hibernate.criterion.Restrictions;
  *
  * @author u1845853
  */
-public abstract class MeyrVendasDAO extends AbstractDAO {
+public class MeyrVendasDAO extends AbstractDAO {
 
     @Override
     public void insert(Object object) {
@@ -34,7 +34,19 @@ public abstract class MeyrVendasDAO extends AbstractDAO {
         session.beginTransaction();
         session.flush();
         session.clear();
-        session.update(object);
+
+        // 👇 Mantendo a estrutura, mas ajustando o comportamento
+        // antes de atualizar, garantimos que o objeto existe e tem ID válido
+        MeyrVendas venda = (MeyrVendas) object;
+
+        if (venda.getMeyrIdVenda() != 0) {
+            // Se tem ID, atualiza normalmente
+            session.update(venda);
+        } else {
+            // Se não tem ID (nova venda), faz um insert
+            session.save(venda);
+        }
+
         session.getTransaction().commit();
     }
 
@@ -47,27 +59,28 @@ public abstract class MeyrVendasDAO extends AbstractDAO {
         session.getTransaction().commit();
     }
 
-    /**
-     *
-     * @param codigo
-     * @return
-     */
-        @Override
-        public Object list(int codigo) {
+    @Override
+    public Object list(int codigo) {
         session.beginTransaction();
         Criteria criteria = session.createCriteria(MeyrVendas.class);
         criteria.add(Restrictions.eq("meyr_idVenda", codigo));
         List lista = criteria.list();
         session.getTransaction().commit();
-        return lista.get(0);
+        return lista.isEmpty() ? null : lista.get(0);
     }
-        @Override
-        public ArrayList listAll() {
+
+    @Override
+    public ArrayList listAll() {
         session.beginTransaction();
         Criteria criteria = session.createCriteria(MeyrVendas.class);
         List lista = criteria.list();
         session.getTransaction().commit();
         return (ArrayList) lista;
-        }
-
     }
+
+    public static void main(String[] args) {
+        MeyrVendasDAO meyrVendasDAO = new MeyrVendasDAO() {};
+        meyrVendasDAO.listAll();
+        System.out.println("rodou");
+    }
+}

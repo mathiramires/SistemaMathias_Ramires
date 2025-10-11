@@ -1,6 +1,8 @@
 package view;
 
 import bean.MeyrUsuarios;
+import dao.MeyrClientesDAO;
+import dao.MeyrUsuariosDAO;
 import javax.swing.JFrame;
 import tools.Util;
 
@@ -14,7 +16,7 @@ import tools.Util;
  * @author Mathias Eduardo
  */
     public class MeyrjDlgUsuarios extends javax.swing.JDialog {
-    
+    private boolean incluir;
     boolean pesquisando = false;
     public MeyrjDlgUsuarios(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -28,7 +30,7 @@ import tools.Util;
     MeyrUsuarios meyrUsuarios = new MeyrUsuarios();
 
     int codigo = Util.strToInt(meyrjTxtCodigo.getText());
-    meyrUsuarios.setMeyrIdUsuarios(codigo);
+    meyrUsuarios.setMeyrIdUsuarios(1);
     meyrUsuarios.setMeyrNome(meyrjTxtNome.getText());
     meyrUsuarios.setMeyrApelido(meyrjTxtApelido.getText());
     meyrUsuarios.setMeyrCpf(meyrjFmtCpf.getText());
@@ -131,7 +133,7 @@ public void beanView(MeyrUsuarios meyrUsuarios) {
             }
         });
 
-        meyrjCboNivel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrador", "Cliente", "Usuário", " " }));
+        meyrjCboNivel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrador", "Cliente", " " }));
         meyrjCboNivel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 meyrjCboNivelActionPerformed(evt);
@@ -337,13 +339,13 @@ public void beanView(MeyrUsuarios meyrUsuarios) {
         Util.habilitar(true, meyrjTxtApelido, meyrjTxtCodigo, meyrjTxtNome, meyrjFmtCpf, meyrjFmtDataNascimento, meyrjTxtSenha, meyrjCboNivel, meyrjChbAtivo, meyrjButtonConfirmar, meyrjButtonCancelar);
         Util.habilitar(false, meyrjButtonAlterar, meyrjButtonExcluir, meyrjButtonPesquisar, meyrjButtonIncluir);
         Util.limpar(meyrjTxtCodigo, meyrjTxtNome, meyrjTxtApelido);
-
+        incluir = true;
     }//GEN-LAST:event_meyrjButtonIncluirActionPerformed
 
     private void meyrjButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjButtonAlterarActionPerformed
         Util.habilitar(true, meyrjTxtApelido, meyrjTxtCodigo, meyrjTxtNome, meyrjFmtCpf, meyrjFmtDataNascimento, meyrjTxtSenha, meyrjCboNivel, meyrjChbAtivo, meyrjButtonConfirmar, meyrjButtonCancelar);
         Util.habilitar(false, meyrjButtonAlterar, meyrjButtonExcluir, meyrjButtonPesquisar, meyrjButtonIncluir);
-
+        incluir = false;
     }//GEN-LAST:event_meyrjButtonAlterarActionPerformed
 
     private void meyrjButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjButtonExcluirActionPerformed
@@ -356,6 +358,13 @@ public void beanView(MeyrUsuarios meyrUsuarios) {
     }//GEN-LAST:event_meyrjButtonExcluirActionPerformed
 
     private void meyrjButtonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjButtonConfirmarActionPerformed
+        MeyrUsuariosDAO meyrUsuariosDAO = new MeyrUsuariosDAO() {};
+       if (incluir == true) {
+            meyrUsuariosDAO.insert(viewBean());
+        } else {
+            meyrUsuariosDAO.update(viewBean());
+        }
+
         Util.habilitar(false, meyrjTxtApelido, meyrjTxtCodigo, meyrjTxtNome, meyrjFmtCpf, meyrjFmtDataNascimento, meyrjTxtSenha, meyrjCboNivel, meyrjChbAtivo, meyrjButtonConfirmar, meyrjButtonCancelar);
         Util.habilitar(true, meyrjButtonAlterar, meyrjButtonExcluir, meyrjButtonPesquisar, meyrjButtonIncluir);
 

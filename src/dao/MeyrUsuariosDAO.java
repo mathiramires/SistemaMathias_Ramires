@@ -20,7 +20,7 @@ import org.hibernate.criterion.Restrictions;
  *
  * @author u1845853
  */
-public abstract class MeyrUsuariosDAO extends AbstractDAO {
+public  class MeyrUsuariosDAO extends AbstractDAO {
 
     @Override
     public void insert(Object object) {
@@ -47,13 +47,8 @@ public abstract class MeyrUsuariosDAO extends AbstractDAO {
         session.getTransaction().commit();
     }
 
-    /**
-     *
-     * @param codigo
-     * @return
-     */
-        @Override
-        public Object list(int codigo) {
+    @Override
+    public Object list(int codigo) {
         session.beginTransaction();
         Criteria criteria = session.createCriteria(MeyrUsuarios.class);
         criteria.add(Restrictions.eq("meyr_idUsuarios", codigo));
@@ -61,13 +56,19 @@ public abstract class MeyrUsuariosDAO extends AbstractDAO {
         session.getTransaction().commit();
         return lista.get(0);
     }
-        @Override
-        public ArrayList listAll() {
+
+    @Override
+    public List listAll() {
         session.beginTransaction();
         Criteria criteria = session.createCriteria(MeyrUsuarios.class);
         List lista = criteria.list();
         session.getTransaction().commit();
         return (ArrayList) lista;
-        }
-
     }
+
+    public static void main(String[] args) {
+        MeyrUsuariosDAO meyrUsuariosDAO = new MeyrUsuariosDAO() {};
+        meyrUsuariosDAO.listAll();
+        System.out.println("rodou");
+    }
+}

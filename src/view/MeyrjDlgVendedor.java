@@ -1,6 +1,7 @@
 package view;
 
 import bean.MeyrVendedor;
+import dao.MeyrVendedorDAO;
 import tools.Util;
 
 /*
@@ -13,7 +14,9 @@ import tools.Util;
  */
 public class MeyrjDlgVendedor extends javax.swing.JDialog {
     
+    private boolean incluir;
     boolean pesquisando = false;
+    
     public MeyrjDlgVendedor(java.awt.Frame parent, boolean modal) {
     super(parent, modal);
     initComponents();
@@ -248,18 +251,16 @@ public void beanView(MeyrVendedor meyrVendedor) {
         // TODO add your handling code here:
     Util.habilitar(true, meyrjTxtCodigo, meyrjTxtNomeVendedor, meyrjFmtCpf, meyrjFmtTelefone, meyrjTxtEmail, meyrjFmtDataAdmissao, meyrjChbAtivo, meyrjButtonConfirmar, meyrjButtonCancelar);
     Util.habilitar(false, meyrjButtonAlterar, meyrjButtonExcluir, meyrjButtonPesquisar, meyrjButtonIncluir);
-
     Util.limpar(meyrjTxtCodigo, meyrjTxtNomeVendedor, meyrjTxtEmail);
-
+    incluir = true;
     }//GEN-LAST:event_meyrjButtonIncluirActionPerformed
 
     private void meyrjButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjButtonAlterarActionPerformed
      // TODO add your handling code here:
     Util.habilitar(true, meyrjTxtNomeVendedor, meyrjFmtCpf, meyrjFmtTelefone, meyrjTxtEmail, meyrjFmtDataAdmissao, meyrjChbAtivo, meyrjButtonConfirmar, meyrjButtonCancelar);
     Util.habilitar(false, meyrjButtonAlterar, meyrjButtonExcluir, meyrjButtonPesquisar, meyrjButtonIncluir);
-
     Util.limpar( meyrjTxtNomeVendedor, meyrjTxtEmail);
-
+    incluir = false;
     }//GEN-LAST:event_meyrjButtonAlterarActionPerformed
 
     private void meyrjButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjButtonExcluirActionPerformed
@@ -279,6 +280,12 @@ public void beanView(MeyrVendedor meyrVendedor) {
 
     private void meyrjButtonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjButtonConfirmarActionPerformed
         // TODO add your handling code here:
+       MeyrVendedorDAO meyrVendedorDAO = new MeyrVendedorDAO() {};
+       if (incluir == true) {
+            meyrVendedorDAO.insert(viewBean());
+        } else {
+            meyrVendedorDAO.update(viewBean());
+        }
     Util.habilitar(false, meyrjTxtCodigo, meyrjTxtNomeVendedor, meyrjFmtCpf, meyrjFmtTelefone, meyrjTxtEmail, meyrjFmtDataAdmissao, meyrjChbAtivo, meyrjButtonConfirmar, meyrjButtonCancelar);
     Util.habilitar(true, meyrjButtonAlterar, meyrjButtonExcluir, meyrjButtonPesquisar, meyrjButtonIncluir);
 

@@ -4,34 +4,37 @@
  */
 package view;
 
+import java.util.List;
 import view.MeyrjDlgVendedor;
+import dao.MeyrVendedorDAO;
+import bean.MeyrVendedor;
 /**
  *
  * @author Mathias Eduardo
  */
 public class MeyrJDlgVendedorPesquisar extends javax.swing.JDialog {
-        //MeyrControlerVendedor meyrControlerVendedor;
-        //MeyrjDlgVendedor jDlgVendedor;
+        MeyrControlerVendedor meyrControlerVendedor;
+        MeyrjDlgVendedor jDlgVendedor;
     /**
      * Creates new form JDlgUsuariosPesquisar
      */
     public MeyrJDlgVendedorPesquisar(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        setTitle("Pesquisar usuarios");
+        setTitle("Pesquisar Vendedores");
         setLocationRelativeTo(null);
         
-        //meyrControlerVendedor = new MeyrControlerVendedor();
-        //MeyrVendedorDao vendedorDao = new MeyrVendedorDao();
-        //List lista = (List) vendedorDao.listAll();
-        //meyrControlerVendedor.setList(lista);
-        //jTable1.setModel(meyrControlerVendedor);
+        meyrControlerVendedor = new MeyrControlerVendedor();
+        MeyrVendedorDAO vendedorDAO = new MeyrVendedorDAO();
+        List lista = (List) vendedorDAO.listAll();
+        meyrControlerVendedor.setList(lista);
+        jTable1.setModel(meyrControlerVendedor);
         
     }
 
     
     public void setTelaPai(MeyrjDlgVendedor jDlgVendedor){
-       //this.jDlgVendedor = jDlgVendedor;
+        this.jDlgVendedor = jDlgVendedor;
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -94,8 +97,8 @@ public class MeyrJDlgVendedorPesquisar extends javax.swing.JDialog {
 
     private void JBtnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBtnOkActionPerformed
         int linSel = jTable1.getSelectedRow();
-        //MeyrVendedor vendedor = (MeyrVendedor) meyrControlerVendedor.getBean(linSel);
-        //jDlgVendedor.beanView(vendedor);
+        MeyrVendedor vendedor = (MeyrVendedor) meyrControlerVendedor.getBean(linSel);
+        jDlgVendedor.beanView(vendedor);
         setVisible(false);// TODO add your handling code here:
     }//GEN-LAST:event_JBtnOkActionPerformed
 

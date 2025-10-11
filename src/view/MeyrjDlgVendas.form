@@ -43,11 +43,11 @@
                                       <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="meyrjLblTotalVenda" min="-2" max="-2" attributes="0"/>
-                                  <Component id="meyrjTxtTotalVenda" min="-2" pref="182" max="-2" attributes="0"/>
+                                  <Component id="meyrjTxtTotalVenda" alignment="1" pref="182" max="32767" attributes="0"/>
                                   <Component id="meyrjLblRemedio" min="-2" max="-2" attributes="0"/>
-                                  <Component id="meyrjCboVendedor" min="-2" pref="159" max="-2" attributes="0"/>
+                                  <Component id="jScrollPane1" alignment="1" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -65,7 +65,7 @@
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="meyrjLblCodigoCliente" min="-2" max="-2" attributes="0"/>
-                                  <Component id="meyrjCboCliente" min="-2" pref="159" max="-2" attributes="0"/>
+                                  <Component id="meyrjCboCliente" min="-2" pref="164" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
@@ -122,12 +122,14 @@
                   <Component id="meyrjLblFormaPagamento" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="meyrjCboVendedor" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="meyrjCboFormaPagamento" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="meyrjFmtDataVenda" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="meyrjCboFormaPagamento" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="meyrjFmtDataVenda" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="meyrjLblTotalVenda" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="meyrjLblStatus" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -139,7 +141,7 @@
                   <Component id="meyrjTxtTotalVenda" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="meyrjTxtStatus" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="76" max="32767" attributes="0"/>
+              <EmptySpace pref="50" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="meyrjButtonIncluir" alignment="3" min="-2" pref="38" max="-2" attributes="0"/>
                   <Component id="meyrjBtnAlterar" alignment="3" min="-2" pref="38" max="-2" attributes="0"/>
@@ -283,29 +285,6 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="meyrjBtnExcluirActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JComboBox" name="meyrjCboCliente">
-      <Properties>
-        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="0"/>
-        </Property>
-      </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-      </AuxValues>
-    </Component>
-    <Component class="javax.swing.JComboBox" name="meyrjCboVendedor">
-      <Properties>
-        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="0"/>
-        </Property>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="meyrjCboVendedorActionPerformed"/>
-      </Events>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-      </AuxValues>
-    </Component>
     <Component class="javax.swing.JComboBox" name="meyrjCboFormaPagamento">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
@@ -327,6 +306,27 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JFormattedTextField" name="meyrjFmtDataVenda">
+    </Component>
+    <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+      <AuxValues>
+        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+      </AuxValues>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JTextPane" name="meyrjTxtVendedor">
+        </Component>
+      </SubComponents>
+    </Container>
+    <Component class="javax.swing.JComboBox" name="meyrjCboCliente">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="0"/>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
     </Component>
   </SubComponents>
 </Form>

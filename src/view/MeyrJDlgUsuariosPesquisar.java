@@ -6,33 +6,36 @@ package view;
  */
 
 import java.util.List;
+import dao.MeyrUsuariosDAO;
+import bean.MeyrUsuarios;
+import view.MeyrjDlgRemedios;
 /**
  *
  * @author Mathias Eduardo
  */
 public class MeyrJDlgUsuariosPesquisar extends javax.swing.JDialog {
-        //MeyrControlerUsuarios meyrControllerUsuarios;
-        //MeyrjDlgUsuarios jDlgUsuario;
+        MeyrControlerUsuarios meyrControlerUsuarios;
+        MeyrjDlgUsuarios jDlgUsuario;
     /**
      * Creates new form JDlgUsuariosPesquisar
      */
     public MeyrJDlgUsuariosPesquisar(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        setTitle("Pesquisar usuarios");
+        setTitle("Pesquisar Usuarios");
         setLocationRelativeTo(null);
         
-        //meyrControllerUsuarios = new MeyrControlerUsuarios();
-        //MeyrUsuariosDao usuariosDao = new MeyrUsuariosDao();
-        //List lista = (List) usuariosDao.listAll();
-        //meyrControllerUsuarios.setList(lista);
-        //jTable1.setModel(meyrControllerUsuarios);
+        meyrControlerUsuarios = new MeyrControlerUsuarios();
+        MeyrUsuariosDAO meyrUsuariosDAO = new MeyrUsuariosDAO();
+        List lista = (List) meyrUsuariosDAO.listAll();
+        meyrControlerUsuarios.setList(lista);
+        jTable1.setModel(meyrControlerUsuarios);
         
     }
 
     
     public void setTelaPai(MeyrjDlgUsuarios jDlgUsuario){
-       //this.jDlgUsuario = jDlgUsuario;
+        this.jDlgUsuario = jDlgUsuario;
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -95,8 +98,8 @@ public class MeyrJDlgUsuariosPesquisar extends javax.swing.JDialog {
 
     private void JBtnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBtnOkActionPerformed
         int linSel = jTable1.getSelectedRow();
-        //MeyrUsuarios usuarios = (MeyrUsuarios) meyrControllerUsuarios.getBean(linSel);
-        //jDlgUsuario.beanView(usuarios);
+        MeyrUsuarios usuarios = (MeyrUsuarios) meyrControlerUsuarios.getBean(linSel);
+        jDlgUsuario.beanView(usuarios);
         setVisible(false);// TODO add your handling code here:
     }//GEN-LAST:event_JBtnOkActionPerformed
 

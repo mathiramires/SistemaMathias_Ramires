@@ -6,6 +6,8 @@ package view;
 
 import java.util.List;
 import view.MeyrjDlgVendas;
+import dao.MeyrVendasDAO;
+import bean.MeyrVendas;
 
 /**
  *
@@ -13,8 +15,8 @@ import view.MeyrjDlgVendas;
  */
 public class MeyrJDlgVendasPesquisar extends javax.swing.JDialog {
 
-    //MeyrControlerVendas meyrControllerVendas;
-    //MeyrjDlgVendas jDlgVendas;
+    MeyrControlerVendas meyrControllerVendas;
+    MeyrjDlgVendas jDlgVendas;
 
     /**
      * Creates new form JDlgUsuariosPesquisar
@@ -22,19 +24,19 @@ public class MeyrJDlgVendasPesquisar extends javax.swing.JDialog {
     public MeyrJDlgVendasPesquisar(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        setTitle("Pesquisar vendas");
+        setTitle("Pesquisar Vendas");
         setLocationRelativeTo(null);
 
-        //meyrControllerVendas = new MeyrControlerVendas();
-        //MeyrVendasDao vendasDao = new MeyrVendasDao();
-        //List lista = (List) vendasDao.listAll();
-        //meyrControllerVendas.setList(lista);
-        //jTable1.setModel(meyrControllerVendas);
+        meyrControllerVendas = new MeyrControlerVendas();
+        MeyrVendasDAO vendasDao = new MeyrVendasDAO();
+        List lista = (List) vendasDao.listAll();
+        meyrControllerVendas.setList(lista);
+        jTable1.setModel(meyrControllerVendas);
 
     }
 
     public void setTelaPai(MeyrjDlgVendas jDlgVendas) {
-        //this.jDlgVendas = jDlgVendas;
+        this.jDlgVendas = jDlgVendas;
     }
 
     /**
@@ -98,8 +100,8 @@ public class MeyrJDlgVendasPesquisar extends javax.swing.JDialog {
 
     private void JBtnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBtnOkActionPerformed
         int linSel = jTable1.getSelectedRow();
-        //MeyrVendas vendas = (MeyrVendas) meyrControllerVendas.getBean(linSel);
-        //jDlgVendas.beanView(vendas);
+        MeyrVendas vendas = (MeyrVendas) meyrControllerVendas.getBean(linSel);
+        jDlgVendas.beanView(vendas);
         setVisible(false);// TODO add your handling code here:
     }//GEN-LAST:event_JBtnOkActionPerformed
 

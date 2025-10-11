@@ -20,7 +20,7 @@ import org.hibernate.criterion.Restrictions;
  *
  * @author u1845853
  */
-public abstract class MeyrRemediosDAO extends AbstractDAO {
+public  class MeyrRemediosDAO extends AbstractDAO {
 
     @Override
     public void insert(Object object) {
