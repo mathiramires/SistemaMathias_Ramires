@@ -32,7 +32,11 @@ public class MeyrjDlgVendedor extends javax.swing.JDialog {
     meyrVendedor.setMeyrTelefone(meyrjFmtTelefone.getText());
     meyrVendedor.setMeyrEmail(meyrjTxtEmail.getText());
     meyrVendedor.setMeyrDataAdmissao(Util.strToDate(meyrjFmtDataAdmissao.getText()));
-    meyrVendedor.setMeyrAtivo(meyrjChbAtivo.isSelected() ? 1 : 0);
+    if (meyrjChbAtivo.isSelected() == true) {
+                meyrVendedor.setMeyrAtivo("S");
+            } else {
+                meyrVendedor.setMeyrAtivo("N");
+            }
 
     return meyrVendedor;
 }
@@ -43,7 +47,11 @@ public void beanView(MeyrVendedor meyrVendedor) {
     meyrjFmtTelefone.setText(meyrVendedor.getMeyrTelefone());
     meyrjTxtEmail.setText(meyrVendedor.getMeyrEmail());
     meyrjFmtDataAdmissao.setText(Util.dateToStr(meyrVendedor.getMeyrDataAdmissao()));
-    meyrjChbAtivo.setSelected(meyrVendedor.getMeyrAtivo() == 1);
+    if (meyrjChbAtivo.isSelected() == true) {
+                meyrVendedor.setMeyrAtivo("S");
+            } else {
+                meyrVendedor.setMeyrAtivo("N");
+            }
 }
 
     @SuppressWarnings("unchecked")
@@ -264,12 +272,11 @@ public void beanView(MeyrVendedor meyrVendedor) {
     }//GEN-LAST:event_meyrjButtonAlterarActionPerformed
 
     private void meyrjButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjButtonExcluirActionPerformed
-    if (pesquisando == false) {
-            Util.mensagem("Você precisa pesquisar um usuário primeiro");
-        } else {
-                Util.perguntar("Você deseja excluir?");
-                Util.limpar( meyrjTxtCodigo, meyrjTxtNomeVendedor, meyrjFmtCpf, meyrjFmtTelefone, meyrjTxtEmail, meyrjFmtDataAdmissao, meyrjChbAtivo);
-            } 
+     if  (Util.perguntar("Deseja Excluir?") == true) {
+                MeyrVendedorDAO meyrVendedorDAO= new MeyrVendedorDAO();
+                meyrVendedorDAO.delete(viewBean());
+        }
+                Util.limpar(meyrjTxtCodigo, meyrjTxtNomeVendedor, meyrjFmtCpf, meyrjFmtTelefone, meyrjTxtEmail, meyrjFmtDataAdmissao, meyrjChbAtivo);
     }//GEN-LAST:event_meyrjButtonExcluirActionPerformed
 
     private void meyrjButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjButtonCancelarActionPerformed

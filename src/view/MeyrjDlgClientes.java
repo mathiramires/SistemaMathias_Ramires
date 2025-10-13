@@ -449,10 +449,10 @@ public void beanView(MeyrClientes meyrClientes) {
     }//GEN-LAST:event_meyrjButtonAlterarActionPerformed
 
     private void meyrjButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjButtonExcluirActionPerformed
-        if (pesquisando == false) {
-            Util.mensagem("Você precisa pesquisar um usuário primeiro");
-        } else {
-                Util.perguntar("Você deseja excluir?");
+        if  (Util.perguntar("Deseja Excluir?") == true) {
+                MeyrClientesDAO meyrClientesDAO= new MeyrClientesDAO();
+                meyrClientesDAO.delete(viewBean());
+        }
                 Util.limpar(meyrjTxtCodigo,
         meyrjTxtNome,
         meyrjFmtCpf,
@@ -467,8 +467,7 @@ public void beanView(MeyrClientes meyrClientes) {
         meyrjFmtCelular,
         meyrjTxtEmail,
         meyrFmtDataCadastro,
-        meyrjChbAtivo);  
-        } 
+        meyrjChbAtivo);
     }//GEN-LAST:event_meyrjButtonExcluirActionPerformed
 
     private void meyrjButtonPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjButtonPesquisarActionPerformed

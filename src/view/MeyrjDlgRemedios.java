@@ -363,10 +363,10 @@ public void beanView(MeyrRemedios meyrRemedios) {
     }//GEN-LAST:event_meyrjButtonAlterarActionPerformed
 
     private void meyrjButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjButtonExcluirActionPerformed
-         if (pesquisando == false) {
-            Util.mensagem("Você precisa pesquisar um usuário primeiro");
-        } else {
-                Util.perguntar("Você deseja excluir?");
+        if  (Util.perguntar("Deseja Excluir?") == true) {
+                MeyrRemediosDAO meyrRemediosDAO= new MeyrRemediosDAO();
+                meyrRemediosDAO.delete(viewBean());
+        }
                 Util.limpar(meyrjTxtCodigo,
             meyrjTxtNome,
             meyrjTxtLaboratorio,
@@ -374,9 +374,7 @@ public void beanView(MeyrRemedios meyrRemedios) {
             meyrjTxtPrecoVenda,
             meyrjTxtPrecoCusto,
             meyrjFmtValidade,
-            meyrjChbControlado
-            );  
-        } 
+            meyrjChbControlado);
     }//GEN-LAST:event_meyrjButtonExcluirActionPerformed
 
     private void meyrjButtonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjButtonConfirmarActionPerformed

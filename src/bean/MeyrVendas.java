@@ -26,6 +26,8 @@ import javax.persistence.TemporalType;
 )
 public class MeyrVendas  implements java.io.Serializable {
 
+    
+
 
      private int meyrIdVenda;
      private MeyrClientes meyrClientes;

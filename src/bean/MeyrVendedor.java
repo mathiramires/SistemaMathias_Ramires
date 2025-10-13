@@ -31,12 +31,12 @@ public class MeyrVendedor  implements java.io.Serializable {
      private String meyrTelefone;
      private String meyrEmail;
      private Date meyrDataAdmissao;
-     private int meyrAtivo;
+     private String meyrAtivo;
 
     public MeyrVendedor() {
     }
 
-    public MeyrVendedor(String meyrNome, String meyrCpf, String meyrTelefone, String meyrEmail, Date meyrDataAdmissao, Integer meyrAtivo) {
+    public MeyrVendedor(String meyrNome, String meyrCpf, String meyrTelefone, String meyrEmail, Date meyrDataAdmissao, String meyrAtivo) {
        this.meyrNome = meyrNome;
        this.meyrCpf = meyrCpf;
        this.meyrTelefone = meyrTelefone;
@@ -109,16 +109,12 @@ public class MeyrVendedor  implements java.io.Serializable {
 
     
     @Column(name="meyr_ativo")
-    public int getMeyrAtivo() {
+    public String getMeyrAtivo() {
         return this.meyrAtivo;
     }
     
-    public void setMeyrAtivo(Integer meyrAtivo) {
+    public void setMeyrAtivo(String meyrAtivo) {
         this.meyrAtivo = meyrAtivo;
-    }
-
-    public void setMeyrAtivo(String n) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
 
