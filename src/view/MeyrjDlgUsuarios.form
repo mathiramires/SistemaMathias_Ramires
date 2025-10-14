@@ -22,6 +22,11 @@
         </Component>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JLabel" name="meyrjLbllUltimaModificacao">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Ultima Modifica&#xe7;&#xe3;o as:"/>
+      </Properties>
+    </Component>
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
@@ -48,36 +53,61 @@
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="meyrjLblCodigo" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="meyrjTxtCodigo" alignment="0" min="-2" pref="182" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="meyrjLblCadastroUsuario" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="meyrjTxtNome" alignment="1" min="-2" pref="175" max="-2" attributes="0"/>
-                          <Component id="meyrjblDateNascimento" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="meyrjLblNome" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="meyrjFmtDataNascimento" min="-2" pref="169" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="meyrjTxtApelido" pref="244" max="32767" attributes="0"/>
-                          <Component id="meyrjTxtSenha" max="32767" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="meyrjLblCodigo" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="meyrjTxtCodigo" alignment="0" min="-2" pref="182" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="meyrjLblCadastroUsuario" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+                          </Group>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="meyrjLabel1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="meyrjLblSenha" min="-2" max="-2" attributes="0"/>
+                                  <Component id="meyrjTxtNome" alignment="1" min="-2" pref="175" max="-2" attributes="0"/>
+                                  <Component id="meyrjblDateNascimento" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="meyrjLblNome" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="meyrjFmtDataNascimento" min="-2" pref="169" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="meyrjTxtApelido" pref="269" max="32767" attributes="0"/>
+                                  <Component id="meyrjTxtSenha" max="32767" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="meyrjLabel1" min="-2" max="-2" attributes="0"/>
+                                          <Component id="meyrjLblSenha" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
                           </Group>
                       </Group>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="meyrjLblNivel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="meyrjCboNivel" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Component id="meyrjChbAtivo" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="meyrjLblCpf" min="-2" max="-2" attributes="0"/>
+                                  <Component id="meyrjFmtCpf" min="-2" pref="114" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                      </Group>
+                      <EmptySpace pref="56" max="32767" attributes="0"/>
                   </Group>
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="meyrjButtonIncluir" pref="124" max="32767" attributes="0"/>
                           <Component id="meyrjButtonConfirmar" max="32767" attributes="0"/>
@@ -92,30 +122,10 @@
                           <Component id="meyrjButtonExcluir" pref="114" max="32767" attributes="0"/>
                           <Component id="meyrjButtonPesquisar" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                      <Component id="meyrjLbllUltimaModificacao1" pref="268" max="32767" attributes="0"/>
                   </Group>
               </Group>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="meyrjLblNivel" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="meyrjCboNivel" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="meyrjChbAtivo" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="meyrjLblCpf" min="-2" max="-2" attributes="0"/>
-                          <Component id="meyrjFmtCpf" min="-2" pref="114" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-              </Group>
-              <EmptySpace pref="31" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -159,19 +169,27 @@
                   <Component id="meyrjChbAtivo" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="meyrjFmtDataNascimento" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="51" max="32767" attributes="0"/>
+              <EmptySpace pref="45" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="meyrjButtonIncluir" alignment="3" min="-2" pref="38" max="-2" attributes="0"/>
                   <Component id="meyrjButtonAlterar" alignment="3" min="-2" pref="38" max="-2" attributes="0"/>
                   <Component id="meyrjButtonExcluir" alignment="3" min="-2" pref="38" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="meyrjButtonConfirmar" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
-                  <Component id="meyrjButtonCancelar" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
-                  <Component id="meyrjButtonPesquisar" alignment="3" min="-2" pref="38" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="meyrjButtonConfirmar" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                          <Component id="meyrjButtonCancelar" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                          <Component id="meyrjButtonPesquisar" alignment="3" min="-2" pref="38" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Component id="meyrjLbllUltimaModificacao1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="68" max="-2" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -331,6 +349,11 @@
     <Component class="javax.swing.JFormattedTextField" name="meyrjFmtCpf">
     </Component>
     <Component class="javax.swing.JFormattedTextField" name="meyrjFmtDataNascimento">
+    </Component>
+    <Component class="javax.swing.JLabel" name="meyrjLbllUltimaModificacao1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Ultima Modifica&#xe7;&#xe3;o as:"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>

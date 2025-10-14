@@ -42,7 +42,7 @@ public class MeyrVendas  implements java.io.Serializable {
     public MeyrVendas() {
     }
 
-    public MeyrVendas(MeyrClientes meyrClientes, MeyrVendedor meyrVendedor, Date meyrDataVenda, double meyrTotalVenda, String meyrFormaPagamento, String meyrStatus, String meyrObservacoes) {
+    public MeyrVendas(MeyrClientes meyrClientes, MeyrVendedor meyrVendedor, Date meyrDataVenda, double meyrTotalVenda) {
        this.meyrClientes = meyrClientes;
        this.meyrVendedor = meyrVendedor;
        this.meyrDataVenda = meyrDataVenda;
@@ -103,36 +103,6 @@ public class MeyrVendas  implements java.io.Serializable {
     
     public void setMeyrTotalVenda(double meyrTotalVenda) {
         this.meyrTotalVenda = meyrTotalVenda;
-    }
-
-    
-    @Column(name="meyr_formaPagamento", length=20)
-    public String getMeyrFormaPagamento() {
-        return this.meyrFormaPagamento;
-    }
-    
-    public void setMeyrFormaPagamento(String meyrFormaPagamento) {
-        this.meyrFormaPagamento = meyrFormaPagamento;
-    }
-
-    
-    @Column(name="meyr_status", length=15)
-    public String getMeyrStatus() {
-        return this.meyrStatus;
-    }
-    
-    public void setMeyrStatus(String meyrStatus) {
-        this.meyrStatus = meyrStatus;
-    }
-
-    
-    @Column(name="meyr_observacoes", length=80)
-    public String getMeyrObservacoes() {
-        return this.meyrObservacoes;
-    }
-    
-    public void setMeyrObservacoes(String meyrObservacoes) {
-        this.meyrObservacoes = meyrObservacoes;
     }
 }
 

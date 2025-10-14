@@ -70,6 +70,14 @@
                               <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                               <Component id="meyrjblDateNascimento" min="-2" max="-2" attributes="0"/>
                           </Group>
+                          <Component id="meyrjLblCodigo1" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="meyrjTxtCodigo" alignment="0" min="-2" pref="182" max="-2" attributes="0"/>
+                          <Component id="meyrjChbAtivo" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Group type="103" groupAlignment="1" attributes="0">
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                   <Component id="meyrjButtonConfirmar" max="32767" attributes="0"/>
@@ -85,15 +93,9 @@
                                   <Component id="meyrjButtonExcluir" pref="114" max="32767" attributes="0"/>
                                   <Component id="meyrjButtonPesquisar" max="32767" attributes="0"/>
                               </Group>
+                              <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
+                              <Component id="meyrjLbllUltimaModificacao" max="32767" attributes="0"/>
                           </Group>
-                          <Component id="meyrjLblCodigo1" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="meyrjTxtCodigo" alignment="0" min="-2" pref="182" max="-2" attributes="0"/>
-                          <Component id="meyrjChbAtivo" alignment="0" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <Group type="103" groupAlignment="1" attributes="0">
                           <Group type="102" attributes="0">
                               <Component id="meyrjFmtTelefone" min="-2" pref="106" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
@@ -213,13 +215,22 @@
                   <Component id="meyrjButtonAlterar" alignment="3" min="-2" pref="38" max="-2" attributes="0"/>
                   <Component id="meyrjButtonIncluir" alignment="3" min="-2" pref="38" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="22" max="32767" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="meyrjButtonConfirmar" alignment="3" min="-2" pref="38" max="-2" attributes="0"/>
-                  <Component id="meyrjButtonCancelar" alignment="3" min="-2" pref="38" max="-2" attributes="0"/>
-                  <Component id="meyrjButtonPesquisar" alignment="3" min="-2" pref="38" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace pref="22" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="meyrjButtonConfirmar" alignment="3" min="-2" pref="38" max="-2" attributes="0"/>
+                          <Component id="meyrjButtonCancelar" alignment="3" min="-2" pref="38" max="-2" attributes="0"/>
+                          <Component id="meyrjButtonPesquisar" alignment="3" min="-2" pref="38" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="meyrjLbllUltimaModificacao" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -452,6 +463,11 @@
     <Component class="javax.swing.JFormattedTextField" name="meyrjFmtCelular">
     </Component>
     <Component class="javax.swing.JFormattedTextField" name="meyrFmtDataCadastro">
+    </Component>
+    <Component class="javax.swing.JLabel" name="meyrjLbllUltimaModificacao">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Ultima Modifica&#xe7;&#xe3;o as:"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>

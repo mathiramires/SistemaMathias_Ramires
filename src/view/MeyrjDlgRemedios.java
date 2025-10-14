@@ -3,6 +3,15 @@ package view;
 import bean.MeyrRemedios;
 import dao.MeyrClientesDAO;
 import dao.MeyrRemediosDAO;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.text.DefaultFormatterFactory;
+import javax.swing.text.MaskFormatter;
 import tools.Util;
 
 /*
@@ -17,6 +26,7 @@ import tools.Util;
 public class MeyrjDlgRemedios extends javax.swing.JDialog {
     boolean pesquisando = false;
     private boolean incluir;
+    private MaskFormatter mascaraCpf, mascaraDataNasc;
     public MeyrjDlgRemedios(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -34,6 +44,12 @@ public class MeyrjDlgRemedios extends javax.swing.JDialog {
             meyrjButtonConfirmar,
             meyrjButtonCancelar
         );
+         try {
+            mascaraDataNasc = new MaskFormatter("##/##/####");
+            meyrjFmtValidade.setFormatterFactory(new DefaultFormatterFactory(mascaraDataNasc));
+        } catch (ParseException ex) {
+            Logger.getLogger(MeyrjDlgClientes.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     public MeyrRemedios viewBean() {
     MeyrRemedios meyrRemedios = new MeyrRemedios();
@@ -45,8 +61,14 @@ public class MeyrjDlgRemedios extends javax.swing.JDialog {
     meyrRemedios.setMeyrDosagem(meyrjTxtDosagem.getText());
     meyrRemedios.setMeyrPrecoVenda(Util.strToDuble(meyrjTxtPrecoVenda.getText()));
     meyrRemedios.setMeyrPrecoCusto(Util.strToDuble(meyrjTxtPrecoCusto.getText()));
-    meyrRemedios.setMeyrDataValidade(Util.strToDate(meyrjFmtValidade.getText()));
-
+    SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+                try {
+                    Date dataNasc = formato.parse(meyrjFmtValidade.getText());
+                    meyrRemedios.setMeyrDataValidade(dataNasc);
+                } catch (ParseException ex) {
+                    Logger.getLogger(MeyrjDlgClientes.class.getName()).log(Level.SEVERE, null, ex);
+                }
+ 
     if (meyrjChbControlado.isSelected() == true) {
         meyrRemedios.setMeyrControlado("S");
     } else {
@@ -102,6 +124,7 @@ public void beanView(MeyrRemedios meyrRemedios) {
         meyrjTxtCodigo = new javax.swing.JTextField();
         meyrjLblCodigo2 = new javax.swing.JLabel();
         meyrjFmtValidade = new javax.swing.JFormattedTextField();
+        meyrjLbllUltimaModificacao = new javax.swing.JLabel();
 
         meyrjTxtCodigo2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -220,6 +243,8 @@ public void beanView(MeyrRemedios meyrRemedios) {
             }
         });
 
+        meyrjLbllUltimaModificacao.setText("Ultima Modificação as:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -273,8 +298,10 @@ public void beanView(MeyrRemedios meyrRemedios) {
                         .addGap(10, 10, 10)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(meyrjButtonExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(meyrjButtonPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(49, Short.MAX_VALUE))
+                            .addComponent(meyrjButtonPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(meyrjLbllUltimaModificacao, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -309,18 +336,24 @@ public void beanView(MeyrRemedios meyrRemedios) {
                     .addComponent(meyrjTxtPrecoCusto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(meyrjChbControlado)
                     .addComponent(meyrjFmtValidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(57, 57, 57)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(meyrjButtonIncluir, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(meyrjButtonAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(meyrjButtonExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(meyrjButtonConfirmar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(meyrjButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(meyrjButtonPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(29, 29, 29))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(57, 57, 57)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(meyrjButtonIncluir, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(meyrjButtonAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(meyrjButtonExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(meyrjButtonConfirmar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(meyrjButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(meyrjButtonPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(39, 39, 39))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(meyrjLbllUltimaModificacao)
+                        .addGap(76, 76, 76))))
         );
 
         pack();
@@ -340,9 +373,19 @@ public void beanView(MeyrRemedios meyrRemedios) {
         meyrJDlgRemediosPesquisar.setVisible(true);
         pesquisando = true;
         
+        
+         LocalDateTime agora = LocalDateTime.now();
+            DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+            meyrjLbllUltimaModificacao.setText("Última modificação: " + agora.format(formato));
     }//GEN-LAST:event_meyrjButtonPesquisarActionPerformed
 
     private void meyrjButtonIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjButtonIncluirActionPerformed
+         LocalDateTime agora = LocalDateTime.now();
+            DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+            meyrjLbllUltimaModificacao.setText("Última modificação: " + agora.format(formato));
+
+
+
         Util.habilitar(true, meyrjTxtCodigo, meyrjTxtNome, meyrjTxtLaboratorio, meyrjTxtDosagem, meyrjTxtPrecoVenda, meyrjTxtPrecoCusto, meyrjFmtValidade, meyrjChbControlado, meyrjButtonConfirmar, meyrjButtonCancelar);  
         Util.habilitar(false, meyrjButtonAlterar, meyrjButtonExcluir, meyrjButtonPesquisar, meyrjButtonIncluir);  
         Util.limpar(meyrjTxtCodigo,
@@ -357,12 +400,22 @@ public void beanView(MeyrRemedios meyrRemedios) {
     }//GEN-LAST:event_meyrjButtonIncluirActionPerformed
 
     private void meyrjButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjButtonAlterarActionPerformed
+         LocalDateTime agora = LocalDateTime.now();
+            DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+            meyrjLbllUltimaModificacao.setText("Última modificação: " + agora.format(formato));
+
+
+
         Util.habilitar(true, meyrjTxtNome, meyrjTxtLaboratorio, meyrjTxtDosagem, meyrjTxtPrecoVenda, meyrjTxtPrecoCusto, meyrjFmtValidade, meyrjChbControlado, meyrjButtonConfirmar, meyrjButtonCancelar);  
         Util.habilitar(false, meyrjButtonAlterar, meyrjButtonExcluir, meyrjButtonPesquisar, meyrjButtonIncluir);
         incluir = false;
     }//GEN-LAST:event_meyrjButtonAlterarActionPerformed
 
     private void meyrjButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjButtonExcluirActionPerformed
+        LocalDateTime agora = LocalDateTime.now();
+            DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+            meyrjLbllUltimaModificacao.setText("Última modificação: " + agora.format(formato));
+            
         if  (Util.perguntar("Deseja Excluir?") == true) {
                 MeyrRemediosDAO meyrRemediosDAO= new MeyrRemediosDAO();
                 meyrRemediosDAO.delete(viewBean());
@@ -378,7 +431,11 @@ public void beanView(MeyrRemedios meyrRemedios) {
     }//GEN-LAST:event_meyrjButtonExcluirActionPerformed
 
     private void meyrjButtonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjButtonConfirmarActionPerformed
-        MeyrRemediosDAO meyrRemediosDAO = new MeyrRemediosDAO() {};
+     LocalDateTime agora = LocalDateTime.now();
+            DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+            meyrjLbllUltimaModificacao.setText("Última modificação: " + agora.format(formato));
+
+    MeyrRemediosDAO meyrRemediosDAO = new MeyrRemediosDAO() {};
         if (incluir == true) {
             meyrRemediosDAO.insert(viewBean());
         } else {
@@ -392,7 +449,11 @@ public void beanView(MeyrRemedios meyrRemedios) {
     private void meyrjButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjButtonCancelarActionPerformed
     Util.habilitar(false, meyrjTxtCodigo, meyrjTxtNome, meyrjTxtLaboratorio, meyrjTxtDosagem, meyrjTxtPrecoVenda, meyrjTxtPrecoCusto, meyrjFmtValidade, meyrjChbControlado, meyrjButtonConfirmar, meyrjButtonCancelar);  
     Util.habilitar(true, meyrjButtonAlterar, meyrjButtonExcluir, meyrjButtonPesquisar, meyrjButtonIncluir);
-
+    
+    
+     LocalDateTime agora = LocalDateTime.now();
+            DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+            meyrjLbllUltimaModificacao.setText("Última modificação: " + agora.format(formato));
     }//GEN-LAST:event_meyrjButtonCancelarActionPerformed
 
     private void meyrjTxtLaboratorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjTxtLaboratorioActionPerformed
@@ -474,6 +535,7 @@ public void beanView(MeyrRemedios meyrRemedios) {
     private javax.swing.JLabel meyrjLblNome;
     private javax.swing.JLabel meyrjLblPrecoCusto;
     private javax.swing.JLabel meyrjLblPrecoVenda;
+    private javax.swing.JLabel meyrjLbllUltimaModificacao;
     private javax.swing.JTextField meyrjTxtCodigo;
     private javax.swing.JTextField meyrjTxtCodigo2;
     private javax.swing.JTextField meyrjTxtDosagem;

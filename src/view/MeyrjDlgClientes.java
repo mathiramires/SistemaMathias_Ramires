@@ -2,7 +2,15 @@ package view;
 
 import bean.MeyrClientes;
 import dao.MeyrClientesDAO;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.text.DefaultFormatterFactory;
+import javax.swing.text.MaskFormatter;
 import tools.Util;
 
 /*
@@ -21,6 +29,8 @@ public class MeyrjDlgClientes extends javax.swing.JDialog {
      */
     boolean pesquisando = false;
     private boolean incluir;
+    private MaskFormatter mascaraCpf, mascaraDataNasc;
+
     
     public MeyrjDlgClientes(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -47,6 +57,14 @@ public class MeyrjDlgClientes extends javax.swing.JDialog {
         meyrjButtonCancelar
         
 );
+    try {
+            mascaraCpf = new MaskFormatter("###.###.###-##");
+            mascaraDataNasc = new MaskFormatter("##/##/####");
+            meyrjFmtCpf.setFormatterFactory(new DefaultFormatterFactory(mascaraCpf));
+            meyrjFmtDataNascimento.setFormatterFactory(new DefaultFormatterFactory(mascaraDataNasc));
+        } catch (ParseException ex) {
+            Logger.getLogger(MeyrjDlgClientes.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     public MeyrClientes viewBean() {
     MeyrClientes meyrClientes = new MeyrClientes();
@@ -56,8 +74,19 @@ public class MeyrjDlgClientes extends javax.swing.JDialog {
     meyrClientes.setMeyrNome(meyrjTxtNome.getText());
     meyrClientes.setMeyrCpf(meyrjFmtCpf.getText());
     meyrClientes.setMeyrRg(meyrjFmtRg.getText());
-    meyrClientes.setMeyrDataNascimento((Date) meyrjFmtDataNascimento.getValue());
-    meyrClientes.setMeyrDataCadastro((Date) meyrFmtDataCadastro.getValue());
+    SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+                try {
+                    Date dataNasc = formato.parse(meyrjFmtDataNascimento.getText());
+                    meyrClientes.setMeyrDataNascimento(dataNasc);
+                } catch (ParseException ex) {
+                    Logger.getLogger(MeyrjDlgClientes.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                try {
+                    Date dataNasc = formato.parse(meyrFmtDataCadastro.getText());
+                    meyrClientes.setMeyrDataCadastro(dataNasc);
+                } catch (ParseException ex) {
+                    Logger.getLogger(MeyrjDlgClientes.class.getName()).log(Level.SEVERE, null, ex);
+                }
     meyrClientes.setMeyrEndereco(meyrjTxtEndereco.getText());
     meyrClientes.setMeyrBairro(meyrjTxtBairro.getText());
     meyrClientes.setMeyrCidade(meyrjTxtCidade.getText());
@@ -82,7 +111,10 @@ public void beanView(MeyrClientes meyrClientes) {
     meyrjTxtNome.setText(meyrClientes.getMeyrNome());
     meyrjFmtCpf.setText(meyrClientes.getMeyrCpf());
     meyrjFmtRg.setText(meyrClientes.getMeyrRg());
-    meyrjFmtDataNascimento.setText(Util.dateToStr(meyrClientes.getMeyrDataNascimento()));
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+            String dataNasc = formato.format(meyrClientes.getMeyrDataNascimento());
+            meyrjFmtDataNascimento.setText(dataNasc);
+            meyrFmtDataCadastro.setText(dataNasc);
     meyrjTxtEndereco.setText(meyrClientes.getMeyrEndereco());
     meyrjTxtBairro.setText(meyrClientes.getMeyrBairro());
     meyrjTxtCidade.setText(meyrClientes.getMeyrCidade());
@@ -91,7 +123,6 @@ public void beanView(MeyrClientes meyrClientes) {
     meyrjFmtTelefone.setText(meyrClientes.getMeyrTelefone());
     meyrjFmtCelular.setText(meyrClientes.getMeyrCelular());
     meyrjTxtEmail.setText(meyrClientes.getMeyrEmail());
-    meyrFmtDataCadastro.setText(Util.dateToStr(meyrClientes.getMeyrDataCadastro()));
 
     if (meyrClientes.getMeyrAtivo().equals("S") == true) {
         meyrjChbAtivo.setSelected(true);
@@ -140,6 +171,7 @@ public void beanView(MeyrClientes meyrClientes) {
         meyrjFmtTelefone = new javax.swing.JFormattedTextField();
         meyrjFmtCelular = new javax.swing.JFormattedTextField();
         meyrFmtDataCadastro = new javax.swing.JFormattedTextField();
+        meyrjLbllUltimaModificacao = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -260,6 +292,8 @@ public void beanView(MeyrClientes meyrClientes) {
             }
         });
 
+        meyrjLbllUltimaModificacao.setText("Ultima Modificação as:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -300,6 +334,12 @@ public void beanView(MeyrClientes meyrClientes) {
                                         .addGap(65, 65, 65)))
                                 .addGap(12, 12, 12)
                                 .addComponent(meyrjblDateNascimento))
+                            .addComponent(meyrjLblCodigo1)
+                            .addComponent(meyrjTxtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(meyrjChbAtivo))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(meyrjButtonConfirmar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -311,13 +351,9 @@ public void beanView(MeyrClientes meyrClientes) {
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(meyrjButtonExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
-                                    .addComponent(meyrjButtonPesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addComponent(meyrjLblCodigo1)
-                            .addComponent(meyrjTxtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(meyrjChbAtivo))
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(meyrjButtonPesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(48, 48, 48)
+                                .addComponent(meyrjLbllUltimaModificacao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(meyrjFmtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(38, 38, 38)
@@ -411,12 +447,18 @@ public void beanView(MeyrClientes meyrClientes) {
                     .addComponent(meyrjButtonExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(meyrjButtonAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(meyrjButtonIncluir, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(meyrjButtonConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(meyrjButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(meyrjButtonPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(17, 17, 17))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(meyrjButtonConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(meyrjButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(meyrjButtonPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(17, 17, 17))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(meyrjLbllUltimaModificacao)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         pack();
@@ -435,20 +477,36 @@ public void beanView(MeyrClientes meyrClientes) {
     }//GEN-LAST:event_meyrjTxtBairroActionPerformed
 
     private void meyrjButtonIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjButtonIncluirActionPerformed
-         // TODO add your handling code here:
+        // TODO add your handling code here:
         Util.habilitar(true, meyrjTxtCodigo, meyrjTxtNome, meyrjFmtCpf, meyrjFmtRg, meyrjFmtDataNascimento, meyrjTxtEndereco, meyrjTxtBairro, meyrjTxtCidade, meyrjFmtCep, meyrjCboUf, meyrjFmtTelefone, meyrjFmtCelular, meyrjTxtEmail, meyrFmtDataCadastro, meyrjChbAtivo, meyrjButtonConfirmar, meyrjButtonCancelar);
         Util.habilitar(false, meyrjButtonAlterar, meyrjButtonExcluir, meyrjButtonPesquisar, meyrjButtonIncluir);
         Util.limpar(meyrjTxtCodigo, meyrjTxtNome, meyrjFmtCpf, meyrjFmtRg, meyrjFmtDataNascimento, meyrjTxtEndereco, meyrjTxtBairro, meyrjTxtCidade, meyrjFmtCep, meyrjCboUf, meyrjFmtTelefone, meyrjFmtCelular, meyrjTxtEmail, meyrFmtDataCadastro, meyrjChbAtivo);
         incluir = true;
+        
+        
+        
+        LocalDateTime agora = LocalDateTime.now();
+            DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+            meyrjLbllUltimaModificacao.setText("Última modificação: " + agora.format(formato));
+
     }//GEN-LAST:event_meyrjButtonIncluirActionPerformed
 
     private void meyrjButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjButtonAlterarActionPerformed
         Util.habilitar(true, meyrjTxtNome, meyrjFmtCpf, meyrjFmtRg, meyrjFmtDataNascimento, meyrjTxtEndereco, meyrjTxtBairro, meyrjTxtCidade, meyrjFmtCep, meyrjCboUf, meyrjFmtTelefone, meyrjFmtCelular, meyrjTxtEmail, meyrFmtDataCadastro, meyrjChbAtivo, meyrjButtonConfirmar, meyrjButtonCancelar);
         Util.habilitar(false, meyrjButtonAlterar, meyrjButtonExcluir, meyrjButtonPesquisar, meyrjButtonIncluir);
         incluir = false;
+        
+        LocalDateTime agora = LocalDateTime.now();
+            DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+            meyrjLbllUltimaModificacao.setText("Última modificação: " + agora.format(formato));
     }//GEN-LAST:event_meyrjButtonAlterarActionPerformed
 
     private void meyrjButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjButtonExcluirActionPerformed
+        LocalDateTime agora = LocalDateTime.now();
+            DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+            meyrjLbllUltimaModificacao.setText("Última modificação: " + agora.format(formato));
+
+        
         if  (Util.perguntar("Deseja Excluir?") == true) {
                 MeyrClientesDAO meyrClientesDAO= new MeyrClientesDAO();
                 meyrClientesDAO.delete(viewBean());
@@ -475,16 +533,33 @@ public void beanView(MeyrClientes meyrClientes) {
         meyrJDlgClientesPesquisar.setTelaPai(this);
         meyrJDlgClientesPesquisar.setVisible(true);
         pesquisando = true;
+        
+        
+        
+        LocalDateTime agora = LocalDateTime.now();
+            DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+            meyrjLbllUltimaModificacao.setText("Última modificação: " + agora.format(formato));
     }//GEN-LAST:event_meyrjButtonPesquisarActionPerformed
 
     private void meyrjButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjButtonCancelarActionPerformed
         Util.habilitar(false, meyrjTxtCodigo, meyrjTxtNome, meyrjFmtCpf, meyrjFmtRg, meyrjFmtDataNascimento, meyrjTxtEndereco, meyrjTxtBairro, meyrjTxtCidade, meyrjFmtCep, meyrjCboUf, meyrjFmtTelefone, meyrjFmtCelular, meyrjTxtEmail, meyrFmtDataCadastro, meyrjChbAtivo, meyrjButtonConfirmar, meyrjButtonCancelar);
         Util.habilitar(true, meyrjButtonIncluir, meyrjButtonAlterar, meyrjButtonExcluir, meyrjButtonPesquisar);
-
+        
+        
+        
+        
+        LocalDateTime agora = LocalDateTime.now();
+            DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+            meyrjLbllUltimaModificacao.setText("Última modificação: " + agora.format(formato));
     }//GEN-LAST:event_meyrjButtonCancelarActionPerformed
 
     private void meyrjButtonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjButtonConfirmarActionPerformed
-       MeyrClientesDAO meyrClientesDAO = new MeyrClientesDAO() {};
+        LocalDateTime agora = LocalDateTime.now();
+            DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+            meyrjLbllUltimaModificacao.setText("Última modificação: " + agora.format(formato));
+        
+        
+        MeyrClientesDAO meyrClientesDAO = new MeyrClientesDAO() {};
        if (incluir == true) {
             meyrClientesDAO.insert(viewBean());
         } else {
@@ -548,6 +623,7 @@ Util.habilitar(true, meyrjButtonAlterar, meyrjButtonExcluir, meyrjButtonPesquisa
     private javax.swing.JLabel meyrjLblRg;
     private javax.swing.JLabel meyrjLblTelefone;
     private javax.swing.JLabel meyrjLblUf;
+    private javax.swing.JLabel meyrjLbllUltimaModificacao;
     private javax.swing.JTextField meyrjTxtBairro;
     private javax.swing.JTextField meyrjTxtCidade;
     private javax.swing.JTextField meyrjTxtCodigo;

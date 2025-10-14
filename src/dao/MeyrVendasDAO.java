@@ -52,11 +52,17 @@ public class MeyrVendasDAO extends AbstractDAO {
 
     @Override
     public void delete(Object object) {
-        session.beginTransaction();
-        session.flush();
-        session.clear();
-        session.delete(object);
-        session.getTransaction().commit();
+    session.beginTransaction();
+    session.flush();
+    session.clear();
+
+    MeyrVendas venda = (MeyrVendas) object;
+    MeyrVendas vendaBanco = (MeyrVendas) session.get(MeyrVendas.class, venda.getMeyrIdVenda());
+    if (vendaBanco != null) {
+        session.delete(vendaBanco);
+    }
+
+    session.getTransaction().commit();
     }
 
     @Override
