@@ -5,20 +5,50 @@
  */
 package view;
 
+import dao.MeyrRemediosDAO;
+import java.util.List;
+import tools.Util;
+import bean.MeyrRemedios;
+import bean.MeyrVendasRemedios;
+import view.MeyrControllerVendasRemedios;
+
+
+
+
 /**
  *
  * @author u1845853
  */
 public class MeyrVendasRememedios extends javax.swing.JDialog {
+    private MeyrjDlgVendas meyrjDlgVendas;
 
-    /**
-     * Creates new form JDlgPedidosProdutos
-     */
+     MeyrControllerVendasRemedios MeyrControllerVendasRemedios;
+
+    public MeyrVendasRememedios() {
+        this(new javax.swing.JFrame(), true);
+    }
+
     public MeyrVendasRememedios(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
+        
+        Util.habilitar(true, meyrCboidRemedio, meyr_quantidade);
+        Util.habilitar(false, meyr_precoUnitario, meyrjTxtTtotal);
+
+        meyr_precoUnitario.setText("1");
+
+        MeyrRemediosDAO meyrRemediosDAO = new MeyrRemediosDAO();
+        List lista = (List) meyrRemediosDAO.listAll();
+        for (Object object : lista) {
+            meyrCboidRemedio.addItem((MeyrRemedios) object);
+        }
+        
     }
+
+    public void setTelaAnterior(MeyrjDlgVendas tela) {
+    this.meyrjDlgVendas = tela;
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -30,13 +60,13 @@ public class MeyrVendasRememedios extends javax.swing.JDialog {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        meyr_idRemedio = new javax.swing.JComboBox<>();
+        meyrCboidRemedio = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
         meyr_quantidade = new javax.swing.JTextField();
         meyr_precoUnitario = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        meyrjTxtTtotal = new javax.swing.JTextField();
         jBtnOk = new javax.swing.JButton();
         jBtnCancelar = new javax.swing.JButton();
 
@@ -44,13 +74,42 @@ public class MeyrVendasRememedios extends javax.swing.JDialog {
 
         jLabel1.setText("Produtos");
 
+        meyrCboidRemedio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                meyrCboidRemedioActionPerformed(evt);
+            }
+        });
+
         jLabel2.setText("Quantidade");
+
+        meyr_quantidade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                meyr_quantidadeActionPerformed(evt);
+            }
+        });
+        meyr_quantidade.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                meyr_quantidadeKeyReleased(evt);
+            }
+        });
+
+        meyr_precoUnitario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                meyr_precoUnitarioActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Valor Unitário");
 
         jLabel4.setText("Total");
 
-        jBtnOk.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/confirmar.png"))); // NOI18N
+        meyrjTxtTtotal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                meyrjTxtTtotalActionPerformed(evt);
+            }
+        });
+
+        jBtnOk.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/ok.png"))); // NOI18N
         jBtnOk.setText("Ok");
         jBtnOk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -86,8 +145,8 @@ public class MeyrVendasRememedios extends javax.swing.JDialog {
                             .addGap(35, 35, 35)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel4)
-                                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addComponent(meyr_idRemedio, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(meyrjTxtTtotal, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(meyrCboidRemedio, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(jBtnOk)
                             .addGap(37, 37, 37)
@@ -100,7 +159,7 @@ public class MeyrVendasRememedios extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(meyr_idRemedio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(meyrCboidRemedio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -109,19 +168,19 @@ public class MeyrVendasRememedios extends javax.swing.JDialog {
                         .addComponent(meyr_quantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(11, 11, 11)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(meyr_precoUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(meyr_precoUnitario))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(meyrjTxtTtotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtnOk)
-                    .addComponent(jBtnCancelar))
+                    .addComponent(jBtnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -129,14 +188,58 @@ public class MeyrVendasRememedios extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnOkActionPerformed
-        // TODO add your handling code here:
-        setVisible(false);
+            // TODO add your handling code hRememedios = new MeyrVendasRememedios();
+            MeyrVendasRemedios meyrVendasRemedios = new MeyrVendasRemedios();
+meyrVendasRemedios.setMeyrRemedios((MeyrRemedios) meyrCboidRemedio.getSelectedItem());
+meyrVendasRemedios.setMeyrQuantidade(Util.strToInt(meyr_quantidade.getText()));
+meyrVendasRemedios.setMeyrPrecoUnitario(Util.strToDuble(meyr_precoUnitario.getText()));
+meyrjDlgVendas.meyrControllerVendasRemedios.addBean(meyrVendasRemedios);
+
+setVisible(false);
+                                   
     }//GEN-LAST:event_jBtnOkActionPerformed
 
     private void jBtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCancelarActionPerformed
         // TODO add your handling code here:
         setVisible(false);
     }//GEN-LAST:event_jBtnCancelarActionPerformed
+
+    private void meyr_precoUnitarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyr_precoUnitarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_meyr_precoUnitarioActionPerformed
+
+    private void meyr_quantidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyr_quantidadeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_meyr_quantidadeActionPerformed
+
+    private void meyr_quantidadeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_meyr_quantidadeKeyReleased
+        // TODO add your handling code here:                                
+        MeyrRemedios meyrRemedios = (MeyrRemedios) meyrCboidRemedio.getSelectedItem();
+meyr_precoUnitario.setText(Util.doubleToStr(meyrRemedios.getMeyrPrecoVenda()));
+int quant = Util.strToInt(meyr_quantidade.getText());
+meyrjTxtTtotal.setText(Util.doubleToStr(quant * meyrRemedios.getMeyrPrecoVenda()));
+
+    }//GEN-LAST:event_meyr_quantidadeKeyReleased
+
+    private void meyrjTxtTtotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjTxtTtotalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_meyrjTxtTtotalActionPerformed
+
+    private void meyrCboidRemedioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrCboidRemedioActionPerformed
+        // TODO add your handling code here:
+      MeyrRemedios meyrRemedios = (MeyrRemedios) meyrCboidRemedio.getSelectedItem();
+meyr_precoUnitario.setText(Util.doubleToStr(meyrRemedios.getMeyrPrecoVenda()));
+
+int quant = 0;  
+if (!meyr_quantidade.getText().trim().isEmpty()) {  
+    quant = Util.strToInt(meyr_quantidade.getText());  
+}
+
+meyrjTxtTtotal.setText(
+    Util.doubleToStr(quant * meyrRemedios.getMeyrPrecoVenda())
+);
+
+    }//GEN-LAST:event_meyrCboidRemedioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -194,9 +297,9 @@ public class MeyrVendasRememedios extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JComboBox<String> meyr_idRemedio;
+    private javax.swing.JComboBox<bean.MeyrRemedios> meyrCboidRemedio;
     private javax.swing.JTextField meyr_precoUnitario;
     private javax.swing.JTextField meyr_quantidade;
+    private javax.swing.JTextField meyrjTxtTtotal;
     // End of variables declaration//GEN-END:variables
 }

@@ -8,6 +8,7 @@ import java.util.List;
 import view.MeyrjDlgClientes;
 import dao.MeyrClientesDAO;
 import bean.MeyrClientes;
+import tools.Util;
 /**
  *
  * @author Mathias Eduardo
@@ -62,6 +63,11 @@ public class MeyrJDlgClientesPesquisar extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         JBtnOk.setText("Ok");
@@ -89,18 +95,28 @@ public class MeyrJDlgClientesPesquisar extends javax.swing.JDialog {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(JBtnOk)
-                .addContainerGap(11, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void JBtnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBtnOkActionPerformed
-        int linSel = jTable1.getSelectedRow();
-        MeyrClientes  clientes = (MeyrClientes) meyrControlerClientes.getBean(linSel);
-        jDlgClientes.beanView(clientes);
-        setVisible(false);// TODO add your handling code here:
+        if (jTable1.getSelectedRow() == -1){
+            Util.mensagem("Selecione uma liha");
+        } else {
+        MeyrClientes meyrClientes =  (MeyrClientes) meyrControlerClientes.getBean( jTable1.getSelectedRow() );
+        jDlgClientes.beanView(meyrClientes);
+        this.setVisible(false);
+        }// TODO add your handling code here:
     }//GEN-LAST:event_JBtnOkActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        // TODO add your handling code here:
+         if (evt.getClickCount() == 2){
+        JBtnOkActionPerformed(null);
+        }
+    }//GEN-LAST:event_jTable1MouseClicked
 
     /**
      * @param args the command line arguments

@@ -21,25 +21,24 @@ public class MeyrControllerVendasRemedios extends AbstractTableModel {
     public void setList(List lstMeyrVendasRemedios) {
         this.lstMeyrVendasRemedios = lstMeyrVendasRemedios;
     }
-    
+
     public MeyrVendasRemedios getBean(int rowIndex) {
         return (MeyrVendasRemedios) lstMeyrVendasRemedios.get(rowIndex);
     }
-    
-    public void addBean (MeyrVendasRemedios meyrVendasRemedios){
+
+    public void addBean(MeyrVendasRemedios meyrVendasRemedios) {
         this.lstMeyrVendasRemedios.add(meyrVendasRemedios);
         this.fireTableDataChanged();
     }
-    
-    public void removeBean (int rowIndex){
-        this.lstMeyrVendasRemedios.remove(rowIndex);
+
+    public void removeBean(int rowIndex) {
+        lstMeyrVendasRemedios.remove(rowIndex);
         this.fireTableDataChanged();
     }
-    
+
     @Override
     public int getRowCount() {
         return lstMeyrVendasRemedios.size();
-                
     }
 
     @Override
@@ -49,35 +48,37 @@ public class MeyrControllerVendasRemedios extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        MeyrVendasRemedios meyrVendasRemedios = (MeyrVendasRemedios) lstMeyrVendasRemedios.get( rowIndex);
-        if ( columnIndex == 0 ){
+        MeyrVendasRemedios meyrVendasRemedios
+                = (MeyrVendasRemedios) lstMeyrVendasRemedios.get(rowIndex);
+
+        if (columnIndex == 0) {
             return meyrVendasRemedios.getMeyrRemedios().getMeyrIdRemedio();
-        } else if (columnIndex ==1) {
-            return meyrVendasRemedios.getMeyrRemedios().getMeyrNome();        
-        } else if (columnIndex ==2) {
+        } else if (columnIndex == 1) {
+            return meyrVendasRemedios.getMeyrRemedios().getMeyrNome();
+        } else if (columnIndex == 2) {
             return meyrVendasRemedios.getMeyrQuantidade();
-        } else if (columnIndex ==3) {
+        } else if (columnIndex == 3) {
             return meyrVendasRemedios.getMeyrPrecoUnitario();
-        } else if (columnIndex ==4) {
-            return meyrVendasRemedios.getMeyrQuantidade()* meyrVendasRemedios.getMeyrPrecoUnitario();
+        } else if (columnIndex == 4) {
+            return meyrVendasRemedios.getMeyrQuantidade()
+                    * meyrVendasRemedios.getMeyrPrecoUnitario();
         }
         return "";
     }
 
     @Override
     public String getColumnName(int columnIndex) {
-        if ( columnIndex == 0) {
+        if (columnIndex == 0) {
             return "Código";
-        } else if ( columnIndex == 1) {
-            return "Nome";         
-        } else if ( columnIndex == 2) {
+        } else if (columnIndex == 1) {
+            return "Nome";
+        } else if (columnIndex == 2) {
             return "Quantidade";
-        } else if ( columnIndex == 3) {
+        } else if (columnIndex == 3) {
             return "Valor Unitário";
-        }  else if ( columnIndex == 4) {
+        } else if (columnIndex == 4) {
             return "Total";
         }
         return "";
     }
-    
 }

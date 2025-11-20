@@ -14,18 +14,22 @@ import dao.MeyrVendedorDAO;
 import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import tools.Util;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
+import view.MeyrVendasRememedios;
 
 /**
  *
  * @author u1845853
  */
 public class MeyrjDlgVendas extends javax.swing.JDialog {
+    
+    MeyrControllerVendasRemedios meyrControllerVendasRemedios;
 
     /**
      * Creates new form JDlgPedidos
@@ -38,6 +42,7 @@ public class MeyrjDlgVendas extends javax.swing.JDialog {
         initComponents();
         setTitle("Vendas");
         setLocationRelativeTo(null);
+        
         Util.habilitar(false, meyrjTxtIdVenda, meyrjTxtDataVenda, meyrCboIdCliente, meyrCboIdVendedor, meyrjTxtTotalVenda,
                 jBtnConfirmar, jBtnCancelar, jBtnIncluirProd, jBtnAlterarProd, jBtnExcluirProd);
         Util.habilitar(true, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
@@ -61,6 +66,10 @@ public class MeyrjDlgVendas extends javax.swing.JDialog {
             for (MeyrVendedor vendedor : listaVendedores) {
                 meyrCboIdVendedor.addItem(vendedor);
 }
+            
+            meyrControllerVendasRemedios = new MeyrControllerVendasRemedios();
+            meyrControllerVendasRemedios.setList(new ArrayList());
+            jTable2.setModel(meyrControllerVendasRemedios);
     }
 
     public MeyrVendas viewBean() {
@@ -82,6 +91,16 @@ public class MeyrjDlgVendas extends javax.swing.JDialog {
 
     public void beanView(MeyrVendas meyrVendas) {
         meyrCboIdCliente.setSelectedItem(meyrVendas.getMeyrClientes());
+    }
+    
+    
+    public void somarTotais() {
+        double total = 0;
+        for (int i = 0; i < jTable2.getRowCount(); i++) {
+            Double valor = (Double) jTable2.getValueAt(i, 4);
+            total += valor;
+        }
+        meyrjTxtTotalVenda.setText(String.valueOf(total));
     }
 
     /**
@@ -112,10 +131,10 @@ public class MeyrjDlgVendas extends javax.swing.JDialog {
         jBtnConfirmar = new javax.swing.JButton();
         jBtnCancelar = new javax.swing.JButton();
         jBtnPesquisar = new javax.swing.JButton();
+        meyrjLbllUltimaModificacao = new javax.swing.JLabel();
         jBtnIncluirProd = new javax.swing.JButton();
         jBtnAlterarProd = new javax.swing.JButton();
         jBtnExcluirProd = new javax.swing.JButton();
-        meyrjLbllUltimaModificacao = new javax.swing.JLabel();
 
         meyrjLbllUltimaModificacao2.setText("Ultima Modificação as:");
 
@@ -204,7 +223,10 @@ public class MeyrjDlgVendas extends javax.swing.JDialog {
             }
         });
 
+        meyrjLbllUltimaModificacao.setText("Ultima Modificação as:");
+
         jBtnIncluirProd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/incluir.png"))); // NOI18N
+        jBtnIncluirProd.setToolTipText("");
         jBtnIncluirProd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnIncluirProdActionPerformed(evt);
@@ -225,8 +247,6 @@ public class MeyrjDlgVendas extends javax.swing.JDialog {
             }
         });
 
-        meyrjLbllUltimaModificacao.setText("Ultima Modificação as:");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -238,7 +258,7 @@ public class MeyrjDlgVendas extends javax.swing.JDialog {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jScrollPane2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGap(34, 34, 34)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jBtnAlterarProd)
                                     .addComponent(jBtnIncluirProd)
@@ -301,26 +321,26 @@ public class MeyrjDlgVendas extends javax.swing.JDialog {
                         .addComponent(meyrCboIdVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(meyrjTxtTotalVenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(meyrCboIdCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(7, 7, 7)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jBtnIncluir)
-                            .addComponent(jBtnAlterar)
-                            .addComponent(jBtnExcluir)
-                            .addComponent(jBtnConfirmar)
-                            .addComponent(jBtnCancelar)
-                            .addComponent(jBtnPesquisar)))
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(39, 39, 39)
                         .addComponent(jBtnIncluirProd)
-                        .addGap(7, 7, 7)
+                        .addGap(29, 29, 29)
                         .addComponent(jBtnAlterarProd)
-                        .addGap(4, 4, 4)
+                        .addGap(18, 18, 18)
                         .addComponent(jBtnExcluirProd)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jBtnIncluir)
+                    .addComponent(jBtnAlterar)
+                    .addComponent(jBtnExcluir)
+                    .addComponent(jBtnConfirmar)
+                    .addComponent(jBtnCancelar)
+                    .addComponent(jBtnPesquisar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
                 .addComponent(meyrjLbllUltimaModificacao)
                 .addGap(46, 46, 46))
         );
@@ -330,7 +350,7 @@ public class MeyrjDlgVendas extends javax.swing.JDialog {
 
     private void jBtnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIncluirActionPerformed
         // TODO add your handling code here:
-        Util.habilitar(true, meyrjTxtIdVenda, meyrjTxtDataVenda, meyrCboIdCliente, meyrCboIdVendedor, meyrjTxtTotalVenda,
+        Util.habilitar(true, meyrjTxtIdVenda, meyrjTxtDataVenda, meyrCboIdCliente, meyrCboIdVendedor,
                 jBtnConfirmar, jBtnCancelar, jBtnIncluirProd, jBtnAlterarProd, jBtnExcluirProd);
         Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
         Util.limpar(meyrjTxtIdVenda, meyrjTxtDataVenda, meyrCboIdCliente, meyrCboIdVendedor, meyrjTxtTotalVenda);
@@ -413,25 +433,6 @@ public class MeyrjDlgVendas extends javax.swing.JDialog {
             meyrjLbllUltimaModificacao.setText("Última modificação: " + agora.format(formato));
     }//GEN-LAST:event_jBtnPesquisarActionPerformed
 
-    private void jBtnExcluirProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirProdActionPerformed
-        // TODO add your handling code here:
-        if (Util.perguntar("Deseja excluir o produto ?") == true) {
-
-        }
-    }//GEN-LAST:event_jBtnExcluirProdActionPerformed
-
-    private void jBtnAlterarProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterarProdActionPerformed
-        // TODO add your handling code here:
-        MeyrVendasRememedios meyrVendasRememedios = new MeyrVendasRememedios(null, true);
-        meyrVendasRememedios.setVisible(true);
-    }//GEN-LAST:event_jBtnAlterarProdActionPerformed
-
-    private void jBtnIncluirProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIncluirProdActionPerformed
-        // TODO add your handling code here:
-        MeyrVendasRememedios meyrVendasRememedios = new MeyrVendasRememedios(null, true);
-        meyrVendasRememedios.setVisible(true);
-    }//GEN-LAST:event_jBtnIncluirProdActionPerformed
-
     private void meyrjTxtDataVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjTxtDataVendaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_meyrjTxtDataVendaActionPerformed
@@ -439,6 +440,35 @@ public class MeyrjDlgVendas extends javax.swing.JDialog {
     private void meyrjTxtTotalVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjTxtTotalVendaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_meyrjTxtTotalVendaActionPerformed
+
+    private void jBtnIncluirProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIncluirProdActionPerformed
+        // TODO add your handling code here:
+        MeyrVendasRememedios jDlgVendasProdutos = new MeyrVendasRememedios(null, true);
+        jDlgVendasProdutos.setTelaAnterior(this);
+        jDlgVendasProdutos.setVisible(true);
+        somarTotais();
+
+    }//GEN-LAST:event_jBtnIncluirProdActionPerformed
+
+    private void jBtnAlterarProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterarProdActionPerformed
+        // TODO add your handling code here:
+         MeyrVendasRememedios jDlgVendasProdutos = new MeyrVendasRememedios(null, true);
+        jDlgVendasProdutos.setVisible(true);
+    }//GEN-LAST:event_jBtnAlterarProdActionPerformed
+
+    private void jBtnExcluirProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirProdActionPerformed
+        // TODO add your handling code here:
+
+        int rowIndex = jTable2.getSelectedRow();
+        if (rowIndex == -1) {
+            Util.mensagem("Selecione uma linha primeiro");
+            return;
+        }
+        if (Util.perguntar("Deseja Excluir?") == true) {
+            meyrControllerVendasRemedios.removeBean(rowIndex);
+            somarTotais();
+        }
+    }//GEN-LAST:event_jBtnExcluirProdActionPerformed
 
     /**
      * @param args the command line arguments
@@ -508,4 +538,6 @@ public class MeyrjDlgVendas extends javax.swing.JDialog {
     private javax.swing.JTextField meyrjTxtIdVenda;
     private javax.swing.JTextField meyrjTxtTotalVenda;
     // End of variables declaration//GEN-END:variables
+
+    
 }

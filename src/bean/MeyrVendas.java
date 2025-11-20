@@ -53,7 +53,7 @@ public class MeyrVendas  implements java.io.Serializable {
 
     }
    
-     @Id @GeneratedValue(strategy=IDENTITY)
+     @Id 
 
     
     @Column(name="meyr_idVenda", unique=true, nullable=false)

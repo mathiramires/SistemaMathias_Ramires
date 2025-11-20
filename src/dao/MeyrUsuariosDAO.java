@@ -65,6 +65,18 @@ public  class MeyrUsuariosDAO extends AbstractDAO {
         session.getTransaction().commit();
         return (ArrayList) lista;
     }
+    
+    public boolean listaDoLogin(String user, String pass) {
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(MeyrUsuarios.class);
+        criteria.add(Restrictions.eq("meyrNome", user));
+        criteria.add(Restrictions.eq("meyrSenha", pass));
+
+        List resultado = criteria.list();
+        session.getTransaction().commit();
+
+        return !resultado.isEmpty();
+}
 
     public static void main(String[] args) {
         MeyrUsuariosDAO meyrUsuariosDAO = new MeyrUsuariosDAO() {};
