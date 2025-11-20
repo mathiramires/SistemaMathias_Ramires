@@ -213,8 +213,20 @@ public class MeyrClientes  implements java.io.Serializable {
     public void setMeyrAtivo(String meyrAtivo) {
         this.meyrAtivo = meyrAtivo;
     }
-
-
+@Override
+    public String toString(){
+        return this.meyrNome;
+    }
+    
+     @Override
+    public boolean equals(Object object){
+        if (object instanceof MeyrClientes){
+            MeyrClientes meyrClientes = (MeyrClientes)object;
+            if (this.getMeyrIdCliente() == meyrClientes.getMeyrIdCliente()){
+                return true;
+            }
+        }
+         return false;
+    }
 }
-
 

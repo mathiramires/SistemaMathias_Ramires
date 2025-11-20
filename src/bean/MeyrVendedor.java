@@ -116,6 +116,20 @@ public class MeyrVendedor  implements java.io.Serializable {
     public void setMeyrAtivo(String meyrAtivo) {
         this.meyrAtivo = meyrAtivo;
     }
+@Override
+    public String toString(){
+        return this.meyrNome;
+    }
+    
+     @Override
+    public boolean equals(Object object){
+        if (object instanceof MeyrVendedor){
+            MeyrVendedor meyrvendedor = (MeyrVendedor)object;
+            if (this.getMeyrIdVendedor() == meyrvendedor.getMeyrIdVendedor()){
+                return true;
+            }
+        }
+         return false;
+    }
 }
-
 

@@ -129,6 +129,20 @@ public class MeyrRemedios  implements java.io.Serializable {
     public void setMeyrControlado(String meyrControlado) {
         this.meyrControlado = meyrControlado;
     }
+@Override
+        public String toString(){
+        return this.meyrNome;
+    }
+    
+     @Override
+        public boolean equals(Object object){
+        if (object instanceof MeyrRemedios){
+            MeyrRemedios meyrRemedios = (MeyrRemedios)object;
+            if (this.getMeyrIdRemedio()== meyrRemedios.getMeyrIdRemedio()){
+                return true;
+            }
+        }
+         return false;
+    }
 }
-
 
