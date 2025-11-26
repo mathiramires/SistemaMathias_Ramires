@@ -35,16 +35,14 @@ public class MeyrVendasDAO extends AbstractDAO {
         session.flush();
         session.clear();
 
-        // 👇 Mantendo a estrutura, mas ajustando o comportamento
-        // antes de atualizar, garantimos que o objeto existe e tem ID válido
+     
         MeyrVendas venda = (MeyrVendas) object;
 
         if (venda.getMeyrIdVenda() != 0) {
-            // Se tem ID, atualiza normalmente
+
             session.update(venda);
         } else {
-            // Se não tem ID (nova venda), faz um insert
-            session.save(venda);
+           session.save(venda);
         }
 
         session.getTransaction().commit();
@@ -69,7 +67,7 @@ public class MeyrVendasDAO extends AbstractDAO {
     public Object list(int codigo) {
         session.beginTransaction();
         Criteria criteria = session.createCriteria(MeyrVendas.class);
-        criteria.add(Restrictions.eq("meyr_idVenda", codigo));
+        criteria.add(Restrictions.eq("meyrIdVenda", codigo));
         List lista = criteria.list();
         session.getTransaction().commit();
         return lista.isEmpty() ? null : lista.get(0);

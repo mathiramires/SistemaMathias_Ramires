@@ -17,7 +17,7 @@ import tools.Util;
  */
 public class MeyrJDlgVendasPesquisar extends javax.swing.JDialog {
 
-    MeyrControlerVendas meyrControllerVendas;
+    MeyrControlerVendas meyrControlerVendas;
     MeyrjDlgVendas jDlgVendas;
 
     /**
@@ -29,11 +29,11 @@ public class MeyrJDlgVendasPesquisar extends javax.swing.JDialog {
         setTitle("Pesquisar Vendas");
         setLocationRelativeTo(null);
 
-        meyrControllerVendas = new MeyrControlerVendas();
+        meyrControlerVendas = new MeyrControlerVendas();
         MeyrVendasDAO vendasDao = new MeyrVendasDAO();
         List lista = (List) vendasDao.listAll();
-        meyrControllerVendas.setList(lista);
-        jTable1.setModel(meyrControllerVendas);
+        meyrControlerVendas.setList(lista);
+        jTable1.setModel(meyrControlerVendas);
 
     }
 
@@ -107,9 +107,9 @@ public class MeyrJDlgVendasPesquisar extends javax.swing.JDialog {
 
     private void JBtnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBtnOkActionPerformed
         if (jTable1.getSelectedRow() == -1){
-            Util.mensagem("Selecione uma liha");
+            Util.mensagem("Selecione uma Linha");
         } else {
-        MeyrVendas meyrVendas =  (MeyrVendas) MeyrControlerVendas.getBean( jTable1.getSelectedRow() );
+        MeyrVendas meyrVendas = (MeyrVendas) meyrControlerVendas.getBean(jTable1.getSelectedRow());
         jDlgVendas.beanView(meyrVendas);
         this.setVisible(false);
         }// TODO add your handling code here:

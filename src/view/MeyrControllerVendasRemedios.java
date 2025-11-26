@@ -20,6 +20,7 @@ public class MeyrControllerVendasRemedios extends AbstractTableModel {
 
     public void setList(List lstMeyrVendasRemedios) {
         this.lstMeyrVendasRemedios = lstMeyrVendasRemedios;
+        this.fireTableDataChanged();
     }
 
     public MeyrVendasRemedios getBean(int rowIndex) {

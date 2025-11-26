@@ -24,7 +24,7 @@ public class MeyrVendasRemedios  implements java.io.Serializable {
 
      private int meyrIdVendasRemedio;
      private MeyrRemedios meyrRemedios;
-     private MeyrVendas meyrVendas;
+     private MeyrVendas  meyrVendas;
      private int meyrQuantidade;
      private double meyrPrecoUnitario;
      private double meyrDesconto;
@@ -52,7 +52,7 @@ public class MeyrVendasRemedios  implements java.io.Serializable {
         this.meyrIdVendasRemedio = meyrIdVendasRemedio;
     }
 
-@ManyToOne(fetch=FetchType.LAZY)
+@ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="meyr_idRemedio")
     public MeyrRemedios getMeyrRemedios() {
         return this.meyrRemedios;
@@ -62,7 +62,7 @@ public class MeyrVendasRemedios  implements java.io.Serializable {
         this.meyrRemedios = meyrRemedios;
     }
 
-@ManyToOne(fetch=FetchType.LAZY)
+@ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="meyr_idVenda")
     public MeyrVendas getMeyrVendas() {
         return this.meyrVendas;

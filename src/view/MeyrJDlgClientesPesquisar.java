@@ -103,7 +103,7 @@ public class MeyrJDlgClientesPesquisar extends javax.swing.JDialog {
 
     private void JBtnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBtnOkActionPerformed
         if (jTable1.getSelectedRow() == -1){
-            Util.mensagem("Selecione uma liha");
+            Util.mensagem("Selecione uma Linha");
         } else {
         MeyrClientes meyrClientes =  (MeyrClientes) meyrControlerClientes.getBean( jTable1.getSelectedRow() );
         jDlgClientes.beanView(meyrClientes);

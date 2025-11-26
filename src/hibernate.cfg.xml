@@ -43,12 +43,9 @@ Contributor(s):
   <session-factory>
     <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
     <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-    <property name="hibernate.connection.url">jdbc:mysql://127.0.0.1:3306/db_mathias_ramires?zeroDateTimeBehavior=convertToNull</property>
-    <property name="hibernate.connection.username">root</property>
-    <property name="hibernate.connection.password"></property>
-    
-    
-    
+    <property name="hibernate.connection.url">jdbc:mysql://10.7.0.51:33062/db_mathias_ramires?zeroDateTimeBehavior=convertToNull</property>
+    <property name="hibernate.connection.username">mathias_ramires</property>
+    <property name="hibernate.connection.password">mathias_ramires</property>
     <mapping class="bean.MeyrClientes"/>
     <mapping class="bean.MeyrVendasRemedios"/>
     <mapping class="bean.MeyrRemedios"/>

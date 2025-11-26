@@ -8,8 +8,10 @@ package view;
 import dao.MeyrClientesDAO;
 import bean.MeyrClientes;
 import bean.MeyrVendas;
+import bean.MeyrVendasRemedios;
 import bean.MeyrVendedor;
 import dao.MeyrVendasDAO;
+import dao.MeyrVendasRemediosDAO;
 import dao.MeyrVendedorDAO;
 import java.text.ParseException;
 import java.time.LocalDateTime;
@@ -90,7 +92,15 @@ public class MeyrjDlgVendas extends javax.swing.JDialog {
 }
 
     public void beanView(MeyrVendas meyrVendas) {
+        meyrjTxtIdVenda.setText(Util.intToStr(meyrVendas.getMeyrIdVenda()));
+        meyrjTxtDataVenda.setText(Util.dateToStr(meyrVendas.getMeyrDataVenda()));
+        meyrjTxtTotalVenda.setText(Util.doubleToStr(meyrVendas.getMeyrTotalVenda()));
         meyrCboIdCliente.setSelectedItem(meyrVendas.getMeyrClientes());
+        meyrCboIdVendedor.setSelectedItem(meyrVendas.getMeyrVendedor());
+        
+        MeyrVendasRemediosDAO meyrVendasRemediosDAO = new MeyrVendasRemediosDAO();
+        List lista = (List) meyrVendasRemediosDAO.listProutos(meyrVendas);
+        meyrControllerVendasRemedios.setList(lista);
     }
     
     
@@ -340,7 +350,7 @@ public class MeyrjDlgVendas extends javax.swing.JDialog {
                     .addComponent(jBtnConfirmar)
                     .addComponent(jBtnCancelar)
                     .addComponent(jBtnPesquisar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
                 .addComponent(meyrjLbllUltimaModificacao)
                 .addGap(46, 46, 46))
         );
@@ -350,17 +360,12 @@ public class MeyrjDlgVendas extends javax.swing.JDialog {
 
     private void jBtnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIncluirActionPerformed
         // TODO add your handling code here:
-        Util.habilitar(true, meyrjTxtIdVenda, meyrjTxtDataVenda, meyrCboIdCliente, meyrCboIdVendedor,
-                jBtnConfirmar, jBtnCancelar, jBtnIncluirProd, jBtnAlterarProd, jBtnExcluirProd);
+         Util.habilitar(true, meyrjTxtIdVenda, meyrjTxtDataVenda, meyrCboIdCliente, meyrCboIdVendedor, meyrjTxtTotalVenda,
+            jBtnConfirmar, jBtnCancelar, jBtnIncluirProd,jBtnAlterarProd, jBtnExcluirProd);
         Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
         Util.limpar(meyrjTxtIdVenda, meyrjTxtDataVenda, meyrCboIdCliente, meyrCboIdVendedor, meyrjTxtTotalVenda);
-        meyrjTxtIdVenda.grabFocus();
+        meyrControllerVendasRemedios.setList(new ArrayList());
         incluir = true;
-        
-        
-        LocalDateTime agora = LocalDateTime.now();
-            DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-            meyrjLbllUltimaModificacao.setText("Última modificação: " + agora.format(formato));
     }//GEN-LAST:event_jBtnIncluirActionPerformed
 
     private void jBtnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterarActionPerformed
@@ -380,16 +385,19 @@ public class MeyrjDlgVendas extends javax.swing.JDialog {
 
     private void jBtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirActionPerformed
           // TODO add your handling code here:
-        LocalDateTime agora = LocalDateTime.now();
-            DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-            meyrjLbllUltimaModificacao.setText("Última modificação: " + agora.format(formato));
-          
-          
-         if (Util.perguntar("Deseja Excluir?") == true) {
-            MeyrVendasDAO meyrVendasDAO = new MeyrVendasDAO();
-            meyrVendasDAO.delete(viewBean());
+          if (Util.perguntar("Deseja excluir ?") == true) {
+            MeyrVendasDAO meyrVendasDAO = new MeyrVendasDAO();       
+              MeyrVendasRemediosDAO meyrVendasRemediosDAO = new MeyrVendasRemediosDAO();
+            
+               
+              for (int ind = 0; ind < jTable2.getRowCount(); ind++) {
+                  MeyrVendasRemedios meyrVendasRemedios = meyrControllerVendasRemedios.getBean(ind);
+                meyrVendasRemediosDAO.delete(meyrVendasRemedios);
+            }
+               meyrVendasDAO.delete(viewBean()); 
         }
-        Util.limpar(meyrjTxtIdVenda, meyrjTxtIdVenda, meyrjTxtDataVenda, meyrCboIdCliente, meyrCboIdVendedor, meyrjTxtTotalVenda);
+        Util.limpar(meyrjTxtIdVenda, meyrjTxtDataVenda, meyrCboIdCliente, meyrCboIdVendedor, meyrjTxtTotalVenda, jBtnConfirmar, jBtnCancelar);
+        meyrControllerVendasRemedios.setList(new ArrayList());
     }//GEN-LAST:event_jBtnExcluirActionPerformed
 
     private void jBtnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConfirmarActionPerformed
@@ -425,7 +433,6 @@ public class MeyrjDlgVendas extends javax.swing.JDialog {
         MeyrJDlgVendasPesquisar meyrJDlgVendasPesquisar = new MeyrJDlgVendasPesquisar(null, true);
         meyrJDlgVendasPesquisar.setTelaPai(this);
         meyrJDlgVendasPesquisar.setVisible(true);
-        pesquisando = true;
         
         
         LocalDateTime agora = LocalDateTime.now();

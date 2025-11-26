@@ -9,12 +9,14 @@ package dao;
  *
  * @author Mathias Eduardo
  */
+import bean.MeyrVendas;
 import bean.MeyrVendasRemedios;
 import dao.AbstractDAO;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
+import view.MeyrVendasRememedios;
 
 /**
  *
@@ -35,15 +37,12 @@ public class MeyrVendasRemediosDAO extends AbstractDAO {
         session.flush();
         session.clear();
 
-        // 👇 Mantendo a estrutura, mas ajustando o comportamento
-        // antes de atualizar, garantimos que o objeto existe e tem ID válido
+        
         MeyrVendasRemedios venda = (MeyrVendasRemedios) object;
 
         if (venda.getMeyrIdVendasRemedio()!= 0) {
-            // Se tem ID, atualiza normalmente
             session.update(venda);
         } else {
-            // Se não tem ID (nova venda), faz um insert
             session.save(venda);
         }
 
@@ -73,7 +72,18 @@ public class MeyrVendasRemediosDAO extends AbstractDAO {
         List lista = criteria.list();
         session.getTransaction().commit();
         return lista.isEmpty() ? null : lista.get(0);
+        
     }
+    
+    public Object listProutos(MeyrVendas meyrVendas) {
+    session.beginTransaction();
+    Criteria criteria = session.createCriteria(MeyrVendasRemedios.class); 
+    criteria.add(Restrictions.eq("meyrVendas", meyrVendas)); 
+    List lista = criteria.list();
+    session.getTransaction().commit();        
+    return lista;
+}
+
 
     @Override
     public ArrayList listAll() {

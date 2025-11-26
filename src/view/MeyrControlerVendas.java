@@ -10,6 +10,7 @@ public class MeyrControlerVendas extends AbstractTableModel {
     
     public void setList(List lista){
         MeyrControlerVendas.lista = lista;
+        fireTableDataChanged();
     }
     
     public static Object getBean(int rowIndex) {
