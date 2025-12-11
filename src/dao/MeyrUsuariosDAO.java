@@ -83,4 +83,29 @@ public  class MeyrUsuariosDAO extends AbstractDAO {
         meyrUsuariosDAO.listAll();
         System.out.println("rodou");
     }
+        public Object listNome(String nome) {
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(MeyrUsuarios.class);
+        criteria.add(Restrictions.like("meyrNome", "%" + nome + "%"));
+        List lista = criteria.list();
+        session.getTransaction().commit();
+        return lista;
+    }
+    public Object listValor(String valorUnitario) {
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(MeyrUsuarios.class);
+        criteria.add(Restrictions.like("meyrCpf", valorUnitario));
+        List lista = criteria.list();
+        session.getTransaction().commit();
+        return lista;
+    }
+    public Object listNomeValor(String nome, String valorUnitario) {
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(MeyrUsuarios.class);
+        criteria.add(Restrictions.like("meyrNome", "%" + nome + "%"));
+        criteria.add(Restrictions.ge("meyrCpf", valorUnitario));
+        List lista = criteria.list();
+        session.getTransaction().commit();
+        return lista;
+    }
 }

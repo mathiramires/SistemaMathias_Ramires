@@ -74,9 +74,11 @@ public class MeyrjDlgClientes extends javax.swing.JDialog {
 
     int codigo = Util.strToInt(meyrjTxtCodigo.getText());
     meyrClientes.setMeyrIdCliente(codigo);
+    int codigoRg = Util.strToInt(meyrjFmtRg.getText());
+    meyrClientes.setMeyrRg(codigoRg);
     meyrClientes.setMeyrNome(meyrjTxtNome.getText());
     meyrClientes.setMeyrCpf(meyrjFmtCpf.getText());
-    meyrClientes.setMeyrRg(meyrjFmtRg.getText());
+   
     SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
                 try {
                     Date dataNasc = formato.parse(meyrjFmtDataNascimento.getText());
@@ -113,7 +115,7 @@ public void beanView(MeyrClientes meyrClientes) {
     meyrjTxtCodigo.setText(Util.intToStr(meyrClientes.getMeyrIdCliente()));
     meyrjTxtNome.setText(meyrClientes.getMeyrNome());
     meyrjFmtCpf.setText(meyrClientes.getMeyrCpf());
-    meyrjFmtRg.setText(meyrClientes.getMeyrRg());
+    meyrjFmtRg.setText(Util.intToStr(meyrClientes.getMeyrRg()));
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
             String dataNasc = formato.format(meyrClientes.getMeyrDataNascimento());
             meyrjFmtDataNascimento.setText(dataNasc);

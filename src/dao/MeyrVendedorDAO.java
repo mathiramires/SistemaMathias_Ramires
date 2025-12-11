@@ -75,7 +75,31 @@ public class MeyrVendedorDAO extends AbstractDAO {
         session.getTransaction().commit();
         return (ArrayList) lista;
         }
-
+        public Object listNome(String nome) {
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(MeyrVendedor.class);
+        criteria.add(Restrictions.like("meyrNome", "%" + nome + "%"));
+        List lista = criteria.list();
+        session.getTransaction().commit();
+        return lista;
     }
+    public Object listValor(String valorUnitario) {
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(MeyrVendedor.class);
+        criteria.add(Restrictions.ge("meyrCpf", valorUnitario));
+        List lista = criteria.list();
+        session.getTransaction().commit();
+        return lista;
+    }
+    public Object listNomeValor(String nome, String valorUnitario) {
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(MeyrVendedor.class);
+        criteria.add(Restrictions.like("meyrNome", "%" + nome + "%"));
+        criteria.add(Restrictions.ge("meyrCpf", valorUnitario));
+        List lista = criteria.list();
+        session.getTransaction().commit();
+        return lista;
+    }
+}
 
 

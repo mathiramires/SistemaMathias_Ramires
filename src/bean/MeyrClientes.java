@@ -28,7 +28,7 @@ public class MeyrClientes  implements java.io.Serializable {
      private int meyrIdCliente;
      private String meyrNome;
      private String meyrCpf;
-     private String meyrRg;
+     private int meyrRg;
      private Date meyrDataNascimento;
      private String meyrEndereco;
      private String meyrCep;
@@ -45,7 +45,7 @@ public class MeyrClientes  implements java.io.Serializable {
     public MeyrClientes() {
     }
 
-    public MeyrClientes(String meyrNome, String meyrCpf, String meyrRg, Date meyrDataNascimento, String meyrEndereco, String meyrCep, String meyrBairro, String meyrCidade, String meyrEstado, String meyrTelefone, String meyrCelular, String meyrEmail, Date meyrDataCadastro, String meyrAtivo) {
+    public MeyrClientes(String meyrNome, String meyrCpf, int meyrRg, Date meyrDataNascimento, String meyrEndereco, String meyrCep, String meyrBairro, String meyrCidade, String meyrEstado, String meyrTelefone, String meyrCelular, String meyrEmail, Date meyrDataCadastro, String meyrAtivo) {
        this.meyrNome = meyrNome;
        this.meyrCpf = meyrCpf;
        this.meyrRg = meyrRg;
@@ -96,11 +96,11 @@ public class MeyrClientes  implements java.io.Serializable {
 
     
     @Column(name="meyr_rg", length=10)
-    public String getMeyrRg() {
+    public int getMeyrRg() {
         return this.meyrRg;
     }
     
-    public void setMeyrRg(String meyrRg) {
+    public void setMeyrRg(int meyrRg) {
         this.meyrRg = meyrRg;
     }
 
