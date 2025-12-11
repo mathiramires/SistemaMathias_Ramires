@@ -8,6 +8,12 @@ import dao.MeyrClientesDAO;
 import java.util.List;
 import tools.Util;
 import view.MeyrControllerConsultasClientes;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
+
+
+
 
 
 /**
@@ -54,6 +60,7 @@ public class MeyrjDlgConsultaClientes extends javax.swing.JDialog {
         jTxtValor = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jBtnConsulta = new javax.swing.JButton();
+        jBtnPdf = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -86,10 +93,17 @@ public class MeyrjDlgConsultaClientes extends javax.swing.JDialog {
 
         jLabel2.setText("Rg Maior Que:");
 
-        jBtnConsulta.setText("Conusultar");
+        jBtnConsulta.setText("Consultar");
         jBtnConsulta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnConsultaActionPerformed(evt);
+            }
+        });
+
+        jBtnPdf.setText("Gerar PDF");
+        jBtnPdf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnPdfActionPerformed(evt);
             }
         });
 
@@ -103,6 +117,8 @@ public class MeyrjDlgConsultaClientes extends javax.swing.JDialog {
                     .addComponent(jScrollPane1)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jBtnPdf)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jBtnOk))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -114,7 +130,8 @@ public class MeyrjDlgConsultaClientes extends javax.swing.JDialog {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jTxtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jBtnConsulta)))))
+                                .addComponent(jBtnConsulta)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -135,7 +152,9 @@ public class MeyrjDlgConsultaClientes extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jBtnOk)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jBtnOk)
+                    .addComponent(jBtnPdf))
                 .addContainerGap())
         );
 
@@ -157,27 +176,67 @@ public class MeyrjDlgConsultaClientes extends javax.swing.JDialog {
     private void jBtnConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConsultaActionPerformed
         // TODO add your handling code here:
         if (!jTxtNome.getText().isEmpty() && !jTxtValor.getText().isEmpty()) {
-    List lista = (List) meyrClientesDAO.listNomeValor(
-        jTxtNome.getText(),
-        Util.strToInt(jTxtValor.getText())
-    );
-    meyrControllerConsultasClientes.setList(lista);
+            List lista = (List) meyrClientesDAO.listNomeValor(
+                    jTxtNome.getText(),
+                    Util.strToInt(jTxtValor.getText())
+            );
+            meyrControllerConsultasClientes.setList(lista);
 
-} else if (!jTxtNome.getText().isEmpty()) {
-    List lista = (List) meyrClientesDAO.listNome(jTxtNome.getText());
-    meyrControllerConsultasClientes.setList(lista);
+        } else if (!jTxtNome.getText().isEmpty()) {
+            List lista = (List) meyrClientesDAO.listNome(jTxtNome.getText());
+            meyrControllerConsultasClientes.setList(lista);
 
-} else if (!jTxtValor.getText().isEmpty()) {
-    List lista = (List) meyrClientesDAO.listValor(
-        Util.strToInt(jTxtValor.getText())
-    );
-    meyrControllerConsultasClientes.setList(lista);
-} else {
-    List lista = (List) meyrClientesDAO.listAll();
-    meyrControllerConsultasClientes.setList(lista);
-}
-
+        } else if (!jTxtValor.getText().isEmpty()) {
+            List lista = (List) meyrClientesDAO.listValor(
+                    Util.strToInt(jTxtValor.getText())
+            );
+            meyrControllerConsultasClientes.setList(lista);
+        } else {
+            List lista = (List) meyrClientesDAO.listAll();
+            meyrControllerConsultasClientes.setList(lista);
+        }
     }//GEN-LAST:event_jBtnConsultaActionPerformed
+
+    private void jBtnPdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnPdfActionPerformed
+        Document doc = new Document();
+
+        try {
+            javax.swing.JFileChooser chooser = new javax.swing.JFileChooser();
+            chooser.setSelectedFile(new java.io.File("consulta_clientes.pdf"));
+
+            int option = chooser.showSaveDialog(this);
+            if (option != javax.swing.JFileChooser.APPROVE_OPTION) {
+                return; 
+            }
+
+            java.io.File arquivo = chooser.getSelectedFile();
+
+            PdfWriter.getInstance(doc, new java.io.FileOutputStream(arquivo));
+            doc.open();
+
+            doc.add(new Paragraph("Relatório de Consulta de Clientes"));
+            doc.add(new Paragraph(" "));
+            doc.add(new Paragraph("Resultados da Pesquisa:"));
+            doc.add(new Paragraph("-----------------------------------------------------"));
+            
+            for (int i = 0; i < jTable1.getRowCount(); i++) {
+                String linha = "";
+                for (int j = 0; j < jTable1.getColumnCount(); j++) {
+                    linha += jTable1.getColumnName(j) + ": " + jTable1.getValueAt(i, j) + "   ";
+                }
+                doc.add(new Paragraph(linha));
+            }
+
+            doc.add(new Paragraph("-----------------------------------------------------"));
+            doc.close();
+
+            javax.swing.JOptionPane.showMessageDialog(this, "PDF gerado com sucesso!");
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "Erro ao gerar PDF: " + ex.getMessage());
+        }
+    }//GEN-LAST:event_jBtnPdfActionPerformed
 
     /**
      * @param args the command line arguments
@@ -287,6 +346,7 @@ public class MeyrjDlgConsultaClientes extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtnConsulta;
     private javax.swing.JButton jBtnOk;
+    private javax.swing.JButton jBtnPdf;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;

@@ -10,6 +10,11 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import tools.Util;
 import view.MeyrControllerConsultasVendas;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 
 
 /**
@@ -56,6 +61,7 @@ public class MeyrjDlgConsultaVendas extends javax.swing.JDialog {
         jTxtValor = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jBtnConsulta = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -88,10 +94,17 @@ public class MeyrjDlgConsultaVendas extends javax.swing.JDialog {
 
         jLabel2.setText("Total da Venda Maior Que:");
 
-        jBtnConsulta.setText("Conusultar");
+        jBtnConsulta.setText("Consultar");
         jBtnConsulta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnConsultaActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("Gerar PDF");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -105,6 +118,8 @@ public class MeyrjDlgConsultaVendas extends javax.swing.JDialog {
                     .addComponent(jScrollPane1)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtnOk))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -116,7 +131,8 @@ public class MeyrjDlgConsultaVendas extends javax.swing.JDialog {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jTxtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jBtnConsulta)))))
+                                .addComponent(jBtnConsulta)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -137,7 +153,9 @@ public class MeyrjDlgConsultaVendas extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jBtnOk)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jBtnOk)
+                    .addComponent(jButton1))
                 .addContainerGap())
         );
 
@@ -188,6 +206,50 @@ public class MeyrjDlgConsultaVendas extends javax.swing.JDialog {
 
 
     }//GEN-LAST:event_jBtnConsultaActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+                Document doc = new Document();
+
+                try {
+                    // Cria o JFileChooser para escolher o local do PDF
+                    javax.swing.JFileChooser chooser = new javax.swing.JFileChooser();
+                    chooser.setSelectedFile(new java.io.File("consulta_vendas.pdf"));
+
+                    int option = chooser.showSaveDialog(MeyrjDlgConsultaVendas.this);
+                    if (option != javax.swing.JFileChooser.APPROVE_OPTION) {
+                        return; // Usuário cancelou
+                    }
+
+                    java.io.File arquivo = chooser.getSelectedFile();
+
+                    PdfWriter.getInstance(doc, new java.io.FileOutputStream(arquivo));
+                    doc.open();
+
+                    doc.add(new Paragraph("Relatório de Vendas Consultadas"));
+                    doc.add(new Paragraph(" "));
+                    doc.add(new Paragraph("Resultados da Pesquisa:"));
+                    doc.add(new Paragraph("-----------------------------------------------------"));
+
+                    // Percorre a JTable e adiciona as linhas no PDF
+                    for (int i = 0; i < jTable1.getRowCount(); i++) {
+                        String linha = "";
+                        for (int j = 0; j < jTable1.getColumnCount(); j++) {
+                            linha += jTable1.getColumnName(j) + ": " + jTable1.getValueAt(i, j) + "   ";
+                        }
+                        doc.add(new Paragraph(linha));
+                    }
+
+                    doc.add(new Paragraph("-----------------------------------------------------"));
+                    doc.close();
+
+                    javax.swing.JOptionPane.showMessageDialog(MeyrjDlgConsultaVendas.this, "PDF gerado com sucesso!");
+
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                    javax.swing.JOptionPane.showMessageDialog(MeyrjDlgConsultaVendas.this, "Erro ao gerar PDF: " + ex.getMessage());
+                }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -361,6 +423,7 @@ public class MeyrjDlgConsultaVendas extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtnConsulta;
     private javax.swing.JButton jBtnOk;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
