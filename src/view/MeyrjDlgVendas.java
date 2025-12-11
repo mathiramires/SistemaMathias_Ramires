@@ -85,7 +85,7 @@ public class MeyrjDlgVendas extends javax.swing.JDialog {
     }
     meyrVendas.setMeyrClientes((MeyrClientes) meyrCboIdCliente.getSelectedItem());
     meyrVendas.setMeyrVendedor((MeyrVendedor) meyrCboIdVendedor.getSelectedItem());
-    meyrVendas.setMeyrTotalVenda(Util.strToDuble(meyrjTxtTotalVenda.getText()));
+    meyrVendas.setMeyrTotalVenda(Util.strToBigDecimal(meyrjTxtTotalVenda.getText()));
     meyrVendas.setMeyrDataVenda(Util.strToDate(meyrFmtDataVenda.getText()));
     return meyrVendas;
 }

@@ -1,5 +1,6 @@
 package tools;
 
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -70,6 +71,13 @@ public class Util {
     public static String dateToStr(Date data) {
         if (data == null) return "";
         return new SimpleDateFormat("dd/MM/yyyy").format(data);
+    }
+    public static BigDecimal strToBigDecimal(String valor) {
+    try {
+        return new BigDecimal(valor.replace(",", "."));
+    } catch (Exception e) {
+        return BigDecimal.ZERO;
+    }
     }
 
    public static double strToDouble(String valor) {

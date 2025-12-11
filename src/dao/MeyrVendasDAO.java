@@ -11,10 +11,12 @@ package dao;
  */
 import bean.MeyrVendas;
 import dao.AbstractDAO;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.type.StringType;
 
 /**
  *
@@ -86,5 +88,40 @@ public class MeyrVendasDAO extends AbstractDAO {
         MeyrVendasDAO meyrVendasDAO = new MeyrVendasDAO() {};
         meyrVendasDAO.listAll();
         System.out.println("rodou");
+    }
+    public Object listNome(int nome) {
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(MeyrVendas.class);
+        int limite = nome + 1000000;
+        criteria.add(Restrictions.ge("meyrIdVenda", nome));
+        criteria.add(Restrictions.lt("meyrIdVenda", limite));
+
+        List lista = criteria.list();
+        session.getTransaction().commit();
+        return lista;
+    }
+
+    public Object listValor(BigDecimal valorUnitario) {
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(MeyrVendas.class);
+        criteria.add(Restrictions.ge("meyrTotalVenda", valorUnitario));
+        List lista = criteria.list();
+        session.getTransaction().commit();
+        return lista;
+    }
+
+    public Object listNomeValor(int nome, BigDecimal valorUnitario) {
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(MeyrVendas.class);
+
+        int limite = nome + 1000000;
+        criteria.add(Restrictions.ge("meyrIdVenda", nome));
+        criteria.add(Restrictions.lt("meyrIdVenda", limite));
+
+        criteria.add(Restrictions.ge("meyrTotalVenda", valorUnitario));
+
+        List lista = criteria.list();
+        session.getTransaction().commit();
+        return lista;
     }
 }

@@ -4,35 +4,37 @@
  */
 package view;
 
-import dao.MeyrUsuariosDAO;
+import dao.MeyrVendasDAO;
+import java.math.BigDecimal;
 import java.util.List;
+import javax.swing.JOptionPane;
 import tools.Util;
-import view.MeyrControllerConsultasUsuarios;
+import view.MeyrControllerConsultasVendas;
 
 
 /**
  *
  * @author Marcos
  */
-public class MeyrjDlgConsultaUsuarios extends javax.swing.JDialog {
+public class MeyrjDlgConsultaVendas extends javax.swing.JDialog {
 
     /**
      * Creates new form JDlgUsuariosPesquisar
      */
 
-    MeyrControllerConsultasUsuarios meyrControllerConsultasUsuarios;
-    MeyrUsuariosDAO meyrUsuariosDAO;
+    MeyrControllerConsultasVendas meyrControllerConsultasVendas;
+    MeyrVendasDAO meyrVendasDAO;
     
-    public MeyrjDlgConsultaUsuarios(java.awt.Frame parent, boolean modal) {
+    public MeyrjDlgConsultaVendas(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
-        setTitle("Consultar Usuarios");
-        meyrControllerConsultasUsuarios = new MeyrControllerConsultasUsuarios();
-        meyrUsuariosDAO = new MeyrUsuariosDAO();
-        List lista = (List) meyrUsuariosDAO.listAll();
-        meyrControllerConsultasUsuarios.setList(lista);
-        jTable1.setModel(meyrControllerConsultasUsuarios);
+        setTitle("Consultar de Vendas");
+        meyrControllerConsultasVendas = new MeyrControllerConsultasVendas();
+        meyrVendasDAO = new MeyrVendasDAO();
+        List lista = (List) meyrVendasDAO.listAll();
+        meyrControllerConsultasVendas.setList(lista);
+        jTable1.setModel(meyrControllerConsultasVendas);
     }
 
   
@@ -82,9 +84,9 @@ public class MeyrjDlgConsultaUsuarios extends javax.swing.JDialog {
             }
         });
 
-        jLabel1.setText("Nome");
+        jLabel1.setText("Id da Venda:");
 
-        jLabel2.setText("Valor Unitario Maior Que:");
+        jLabel2.setText("Total da Venda Maior Que:");
 
         jBtnConsulta.setText("Conusultar");
         jBtnConsulta.addActionListener(new java.awt.event.ActionListener() {
@@ -156,27 +158,35 @@ public class MeyrjDlgConsultaUsuarios extends javax.swing.JDialog {
 
     private void jBtnConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConsultaActionPerformed
         // TODO add your handling code here:
-        if ((jTxtNome.getText().isEmpty() == false) && (jTxtValor.getText().isEmpty() == false)) {
-            List lista = (List) meyrUsuariosDAO.listNomeValor(
-                    jTxtNome.getText(),
-                    jTxtValor.getText()
-            );
-            meyrControllerConsultasUsuarios.setList(lista);
+        MeyrVendasDAO dao = new MeyrVendasDAO();
 
-        } else if (jTxtNome.getText().isEmpty() == false) {
-            List lista = (List) meyrUsuariosDAO.listNome(jTxtNome.getText());
-            meyrControllerConsultasUsuarios.setList(lista);
+        if (!jTxtNome.getText().isEmpty() && !jTxtValor.getText().isEmpty()) {
 
-        } else if (jTxtValor.getText().isEmpty() == false) {
-            List lista = (List) meyrUsuariosDAO.listValor(
-                    jTxtValor.getText()
+            List lista = (List) dao.listNomeValor(
+                    Util.strToInt(jTxtNome.getText()),
+                    new BigDecimal(jTxtValor.getText()) 
             );
-            meyrControllerConsultasUsuarios.setList(lista);
+            meyrControllerConsultasVendas.setList(lista);
+
+        } else if (!jTxtNome.getText().isEmpty()) {
+
+            List lista = (List) dao.listNome(
+                    Util.strToInt(jTxtNome.getText())
+            );
+            meyrControllerConsultasVendas.setList(lista);
+
+        } else if (!jTxtValor.getText().isEmpty()) {
+
+            List lista = (List) dao.listValor(
+                    new BigDecimal(jTxtValor.getText()) 
+            );
+            meyrControllerConsultasVendas.setList(lista);
 
         } else {
-            List lista = (List) meyrUsuariosDAO.listAll();
-            meyrControllerConsultasUsuarios.setList(lista);
+            JOptionPane.showMessageDialog(null, "Preencha algum campo para consultar.");
         }
+
+
     }//GEN-LAST:event_jBtnConsultaActionPerformed
 
     /**
@@ -196,14 +206,110 @@ public class MeyrjDlgConsultaUsuarios extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MeyrjDlgConsultaUsuarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MeyrjDlgConsultaVendas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MeyrjDlgConsultaUsuarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MeyrjDlgConsultaVendas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MeyrjDlgConsultaUsuarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MeyrjDlgConsultaVendas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MeyrjDlgConsultaUsuarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MeyrjDlgConsultaVendas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -240,7 +346,7 @@ public class MeyrjDlgConsultaUsuarios extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                MeyrjDlgConsultaUsuarios dialog = new MeyrjDlgConsultaUsuarios(new javax.swing.JFrame(), true);
+                MeyrjDlgConsultaVendas dialog = new MeyrjDlgConsultaVendas(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
