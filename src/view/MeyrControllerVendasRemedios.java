@@ -6,7 +6,10 @@
 package view;
 
 import bean.MeyrRemedios;
+import bean.MeyrVendas;
 import bean.MeyrVendasRemedios;
+import dao.MeyrVendasRemediosDAO;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
@@ -22,6 +25,9 @@ public class MeyrControllerVendasRemedios extends AbstractTableModel {
         this.lstMeyrVendasRemedios = lstMeyrVendasRemedios;
         this.fireTableDataChanged();
     }
+    public List getLista() {
+    return lstMeyrVendasRemedios;
+    }
 
     public MeyrVendasRemedios getBean(int rowIndex) {
         return (MeyrVendasRemedios) lstMeyrVendasRemedios.get(rowIndex);
@@ -33,10 +39,13 @@ public class MeyrControllerVendasRemedios extends AbstractTableModel {
     }
 
     public void removeBean(int rowIndex) {
-        lstMeyrVendasRemedios.remove(rowIndex);
-        this.fireTableDataChanged();
+        if (rowIndex >= 0 && rowIndex < lstMeyrVendasRemedios.size()) {
+            lstMeyrVendasRemedios.remove(rowIndex);
+            this.fireTableDataChanged();
+        }
     }
 
+    
     @Override
     public int getRowCount() {
         return lstMeyrVendasRemedios.size();

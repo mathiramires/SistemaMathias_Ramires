@@ -15,6 +15,7 @@ package dao;
  * and open the template in the editor.
  */
 import bean.MeyrVendedor;
+import dao.MeyrVendedorDAO;
 import dao.AbstractDAO;
 import java.util.ArrayList;
 import java.util.List;

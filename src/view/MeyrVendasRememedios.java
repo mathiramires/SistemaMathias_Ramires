@@ -21,16 +21,17 @@ import view.MeyrControllerVendasRemedios;
  */
 public class MeyrVendasRememedios extends javax.swing.JDialog {
     private MeyrjDlgVendas meyrjDlgVendas;
+    
+    
+    boolean incluir;
+    MeyrjDlgVendas meyrjDlgVendas1;
 
-     MeyrControllerVendasRemedios MeyrControllerVendasRemedios;
-
-    public MeyrVendasRememedios() {
-        this(new javax.swing.JFrame(), true);
-    }
+   
 
     public MeyrVendasRememedios(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setTitle("Incluir");
         setLocationRelativeTo(null);
         
         Util.habilitar(true, meyrCboidRemedio, meyr_quantidade);
@@ -193,10 +194,23 @@ public class MeyrVendasRememedios extends javax.swing.JDialog {
 meyrVendasRemedios.setMeyrRemedios((MeyrRemedios) meyrCboidRemedio.getSelectedItem());
 meyrVendasRemedios.setMeyrQuantidade(Util.strToInt(meyr_quantidade.getText()));
 meyrVendasRemedios.setMeyrPrecoUnitario(Util.strToDuble(meyr_precoUnitario.getText()));
-meyrjDlgVendas.meyrControllerVendasRemedios.addBean(meyrVendasRemedios);
+
+if (incluir == true) {   
+    meyrjDlgVendas.meyrControllerVendasRemedios.addBean(meyrVendasRemedios);
+
+} else {                  
+    int index = meyrjDlgVendas.getjTable1().getSelectedRow();
+
+    if (index >= 0) {    
+        meyrjDlgVendas.meyrControllerVendasRemedios.removeBean(index);
+    }
+
+    meyrjDlgVendas.meyrControllerVendasRemedios.addBean(meyrVendasRemedios);
+}
 
 setVisible(false);
-                                   
+
+
     }//GEN-LAST:event_jBtnOkActionPerformed
 
     private void jBtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCancelarActionPerformed
@@ -214,7 +228,7 @@ setVisible(false);
 
     private void meyr_quantidadeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_meyr_quantidadeKeyReleased
         // TODO add your handling code here:                                
-        MeyrRemedios meyrRemedios = (MeyrRemedios) meyrCboidRemedio.getSelectedItem();
+         MeyrRemedios meyrRemedios = (MeyrRemedios) meyrCboidRemedio.getSelectedItem();
 meyr_precoUnitario.setText(Util.doubleToStr(meyrRemedios.getMeyrPrecoVenda()));
 int quant = Util.strToInt(meyr_quantidade.getText());
 meyrjTxtTtotal.setText(Util.doubleToStr(quant * meyrRemedios.getMeyrPrecoVenda()));
@@ -227,17 +241,15 @@ meyrjTxtTtotal.setText(Util.doubleToStr(quant * meyrRemedios.getMeyrPrecoVenda()
 
     private void meyrCboidRemedioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrCboidRemedioActionPerformed
         // TODO add your handling code here:
-      MeyrRemedios meyrRemedios = (MeyrRemedios) meyrCboidRemedio.getSelectedItem();
-meyr_precoUnitario.setText(Util.doubleToStr(meyrRemedios.getMeyrPrecoVenda()));
+        MeyrRemedios meyrRemedios = (MeyrRemedios) meyrCboidRemedio.getSelectedItem();
+        meyr_precoUnitario.setText(Util.doubleToStr(meyrRemedios.getMeyrPrecoVenda()));
 
-int quant = 0;  
-if (!meyr_quantidade.getText().trim().isEmpty()) {  
-    quant = Util.strToInt(meyr_quantidade.getText());  
+            if (meyr_quantidade.getText().trim().isEmpty()) {
+            meyr_quantidade.setText("1");
 }
-
-meyrjTxtTtotal.setText(
-    Util.doubleToStr(quant * meyrRemedios.getMeyrPrecoVenda())
-);
+            int quant = Util.strToInt(meyr_quantidade.getText());
+            double total = quant * meyrRemedios.getMeyrPrecoVenda();
+            meyrjTxtTtotal.setText(Util.doubleToStr(total));
 
     }//GEN-LAST:event_meyrCboidRemedioActionPerformed
 

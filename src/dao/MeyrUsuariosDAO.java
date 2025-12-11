@@ -69,7 +69,7 @@ public  class MeyrUsuariosDAO extends AbstractDAO {
     public boolean listaDoLogin(String user, String pass) {
         session.beginTransaction();
         Criteria criteria = session.createCriteria(MeyrUsuarios.class);
-        criteria.add(Restrictions.eq("meyrNome", user));
+        criteria.add(Restrictions.eq("meyrApelido", user));
         criteria.add(Restrictions.eq("meyrSenha", pass));
 
         List resultado = criteria.list();

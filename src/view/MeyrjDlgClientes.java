@@ -36,7 +36,8 @@ public class MeyrjDlgClientes extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setTitle("Cadastro de Clientes");
-        setLocationRelativeTo(null);
+         setLocationRelativeTo(null);
+        
         Util.habilitar(false, 
         meyrjTxtCodigo,
         meyrjTxtNome,
@@ -62,6 +63,8 @@ public class MeyrjDlgClientes extends javax.swing.JDialog {
             mascaraDataNasc = new MaskFormatter("##/##/####");
             meyrjFmtCpf.setFormatterFactory(new DefaultFormatterFactory(mascaraCpf));
             meyrjFmtDataNascimento.setFormatterFactory(new DefaultFormatterFactory(mascaraDataNasc));
+            MaskFormatter mascaraDataCadastro = new MaskFormatter("##/##/####");
+            meyrFmtDataCadastro.setFormatterFactory(new DefaultFormatterFactory(mascaraDataCadastro));
         } catch (ParseException ex) {
             Logger.getLogger(MeyrjDlgClientes.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -114,7 +117,8 @@ public void beanView(MeyrClientes meyrClientes) {
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
             String dataNasc = formato.format(meyrClientes.getMeyrDataNascimento());
             meyrjFmtDataNascimento.setText(dataNasc);
-            meyrFmtDataCadastro.setText(dataNasc);
+            String dataCadastro = formato.format(meyrClientes.getMeyrDataCadastro());
+            meyrFmtDataCadastro.setText(dataCadastro);
     meyrjTxtEndereco.setText(meyrClientes.getMeyrEndereco());
     meyrjTxtBairro.setText(meyrClientes.getMeyrBairro());
     meyrjTxtCidade.setText(meyrClientes.getMeyrCidade());
@@ -289,6 +293,12 @@ public void beanView(MeyrClientes meyrClientes) {
         meyrjFmtRg.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 meyrjFmtRgActionPerformed(evt);
+            }
+        });
+
+        meyrjFmtDataNascimento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                meyrjFmtDataNascimentoActionPerformed(evt);
             }
         });
 
@@ -565,8 +575,40 @@ public void beanView(MeyrClientes meyrClientes) {
         } else {
             meyrClientesDAO.update(viewBean());
         }
-Util.habilitar(false, meyrjTxtCodigo, meyrjTxtNome, meyrjFmtCpf, meyrjFmtDataNascimento, meyrjChbAtivo, meyrjButtonConfirmar, meyrjButtonCancelar);  
-Util.habilitar(true, meyrjButtonAlterar, meyrjButtonExcluir, meyrjButtonPesquisar, meyrjButtonIncluir);
+        Util.habilitar(false,meyrjTxtCodigo,
+        meyrjTxtNome,
+        meyrjFmtCpf,
+        meyrjFmtRg,
+        meyrjFmtDataNascimento,
+        meyrjTxtEndereco,
+        meyrjTxtBairro,
+        meyrjTxtCidade,
+        meyrjFmtCep,
+        meyrjCboUf,
+        meyrjFmtTelefone,
+        meyrjFmtCelular,
+        meyrjTxtEmail,
+        meyrFmtDataCadastro,
+        meyrjChbAtivo, meyrjButtonConfirmar, meyrjButtonCancelar);  
+        
+        Util.limpar(meyrjTxtCodigo,
+        meyrjTxtNome,
+        meyrjFmtCpf,
+        meyrjFmtRg,
+        meyrjFmtDataNascimento,
+        meyrjTxtEndereco,
+        meyrjTxtBairro,
+        meyrjTxtCidade,
+        meyrjFmtCep,
+        meyrjCboUf,
+        meyrjFmtTelefone,
+        meyrjFmtCelular,
+        meyrjTxtEmail,
+        meyrFmtDataCadastro,
+        meyrjChbAtivo);
+        
+        
+        Util.habilitar(true, meyrjButtonAlterar, meyrjButtonExcluir, meyrjButtonPesquisar, meyrjButtonIncluir);
 
     }//GEN-LAST:event_meyrjButtonConfirmarActionPerformed
 
@@ -581,6 +623,10 @@ Util.habilitar(true, meyrjButtonAlterar, meyrjButtonExcluir, meyrjButtonPesquisa
     private void meyrjFmtRgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjFmtRgActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_meyrjFmtRgActionPerformed
+
+    private void meyrjFmtDataNascimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjFmtDataNascimentoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_meyrjFmtDataNascimentoActionPerformed
     public static void main(String args[]) {
              java.awt.EventQueue.invokeLater(() -> {
                  MeyrjDlgClientes dialog = new MeyrjDlgClientes(new javax.swing.JFrame(), true);

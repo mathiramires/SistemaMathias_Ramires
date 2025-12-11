@@ -455,6 +455,9 @@
       </Events>
     </Component>
     <Component class="javax.swing.JFormattedTextField" name="meyrjFmtDataNascimento">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="meyrjFmtDataNascimentoActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JFormattedTextField" name="meyrjFmtCep">
     </Component>

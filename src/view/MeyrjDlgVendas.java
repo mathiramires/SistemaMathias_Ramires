@@ -21,9 +21,10 @@ import tools.Util;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JTable;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
-import view.MeyrVendasRememedios;
+
 
 /**
  *
@@ -31,30 +32,30 @@ import view.MeyrVendasRememedios;
  */
 public class MeyrjDlgVendas extends javax.swing.JDialog {
     
-    MeyrControllerVendasRemedios meyrControllerVendasRemedios;
+    MeyrControllerVendasRemedios  meyrControllerVendasRemedios;
 
     /**
      * Creates new form JDlgPedidos
      */
     private boolean incluir;
     boolean pesquisando = false;
-    private MaskFormatter mascaraDataNasc;
+    private MaskFormatter mascaraDataCadastro;
     public MeyrjDlgVendas(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         setTitle("Vendas");
         setLocationRelativeTo(null);
         
-        Util.habilitar(false, meyrjTxtIdVenda, meyrjTxtDataVenda, meyrCboIdCliente, meyrCboIdVendedor, meyrjTxtTotalVenda,
+        Util.habilitar(false, meyrjTxtIdVenda, meyrFmtDataVenda, meyrCboIdCliente, meyrCboIdVendedor, meyrjTxtTotalVenda,
                 jBtnConfirmar, jBtnCancelar, jBtnIncluirProd, jBtnAlterarProd, jBtnExcluirProd);
         Util.habilitar(true, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
         
         try {
-            mascaraDataNasc = new MaskFormatter("##/##/####");
-            meyrjTxtDataVenda.setFormatterFactory(new DefaultFormatterFactory(mascaraDataNasc));
-        } catch (ParseException ex) {
+             mascaraDataCadastro = new MaskFormatter("##/##/####");
+             meyrFmtDataVenda.setFormatterFactory(new DefaultFormatterFactory(mascaraDataCadastro));
+            } catch (ParseException ex) {
             Logger.getLogger(MeyrjDlgClientes.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            }
         
 
            MeyrClientesDAO clientesDAO = new MeyrClientesDAO();
@@ -71,47 +72,54 @@ public class MeyrjDlgVendas extends javax.swing.JDialog {
             
             meyrControllerVendasRemedios = new MeyrControllerVendasRemedios();
             meyrControllerVendasRemedios.setList(new ArrayList());
-            jTable2.setModel(meyrControllerVendasRemedios);
+            jTable1.setModel(meyrControllerVendasRemedios);
     }
 
     public MeyrVendas viewBean() {
     MeyrVendas meyrVendas = new MeyrVendas();
-    
     String idText = meyrjTxtIdVenda.getText();
     if (idText != null && !idText.isEmpty()) {
         meyrVendas.setMeyrIdVenda(Util.strToInt(idText));
     } else {
         meyrVendas.setMeyrIdVenda(0);
     }
-
     meyrVendas.setMeyrClientes((MeyrClientes) meyrCboIdCliente.getSelectedItem());
     meyrVendas.setMeyrVendedor((MeyrVendedor) meyrCboIdVendedor.getSelectedItem());
     meyrVendas.setMeyrTotalVenda(Util.strToDuble(meyrjTxtTotalVenda.getText()));
-
+    meyrVendas.setMeyrDataVenda(Util.strToDate(meyrFmtDataVenda.getText()));
     return meyrVendas;
 }
 
-    public void beanView(MeyrVendas meyrVendas) {
+    /**
+     *
+     * @return
+     */
+     public void beanView(MeyrVendas meyrVendas) {
         meyrjTxtIdVenda.setText(Util.intToStr(meyrVendas.getMeyrIdVenda()));
-        meyrjTxtDataVenda.setText(Util.dateToStr(meyrVendas.getMeyrDataVenda()));
-        meyrjTxtTotalVenda.setText(Util.doubleToStr(meyrVendas.getMeyrTotalVenda()));
         meyrCboIdCliente.setSelectedItem(meyrVendas.getMeyrClientes());
         meyrCboIdVendedor.setSelectedItem(meyrVendas.getMeyrVendedor());
-        
+        meyrFmtDataVenda.setText(Util.dateToStr(meyrVendas.getMeyrDataVenda()));
+        meyrFmtDataVenda.setText(Util.dateToStr(meyrVendas.getMeyrDataVenda()));
         MeyrVendasRemediosDAO meyrVendasRemediosDAO = new MeyrVendasRemediosDAO();
         List lista = (List) meyrVendasRemediosDAO.listProutos(meyrVendas);
         meyrControllerVendasRemedios.setList(lista);
     }
-    
-    
-    public void somarTotais() {
+     public JTable getjTable1() {
+        return jTable1;
+    }
+      public void somarTotais() {
         double total = 0;
-        for (int i = 0; i < jTable2.getRowCount(); i++) {
-            Double valor = (Double) jTable2.getValueAt(i, 4);
+            for (int i = 0; i < jTable1.getRowCount(); i++) {
+            Object valorObj = jTable1.getValueAt(i, 4);
+
+        if (valorObj != null) {
+            double valor = Double.parseDouble(valorObj.toString().replace(",", "."));
             total += valor;
         }
-        meyrjTxtTotalVenda.setText(String.valueOf(total));
     }
+
+    meyrjTxtTotalVenda.setText(String.valueOf(total));
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -126,7 +134,7 @@ public class MeyrjDlgVendas extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         meyrjTxtIdVenda = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        meyrjTxtDataVenda = new javax.swing.JFormattedTextField();
+        meyrFmtDataVenda = new javax.swing.JFormattedTextField();
         jLabel3 = new javax.swing.JLabel();
         meyrCboIdCliente = new javax.swing.JComboBox<MeyrClientes>();
         meyrCboIdVendedor = new javax.swing.JComboBox<MeyrVendedor>();
@@ -134,7 +142,7 @@ public class MeyrjDlgVendas extends javax.swing.JDialog {
         jLabel5 = new javax.swing.JLabel();
         meyrjTxtTotalVenda = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        jTable1 = new javax.swing.JTable();
         jBtnIncluir = new javax.swing.JButton();
         jBtnAlterar = new javax.swing.JButton();
         jBtnExcluir = new javax.swing.JButton();
@@ -152,11 +160,17 @@ public class MeyrjDlgVendas extends javax.swing.JDialog {
 
         jLabel1.setText("Codigo");
 
+        meyrjTxtIdVenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                meyrjTxtIdVendaActionPerformed(evt);
+            }
+        });
+
         jLabel2.setText("Data");
 
-        meyrjTxtDataVenda.addActionListener(new java.awt.event.ActionListener() {
+        meyrFmtDataVenda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                meyrjTxtDataVendaActionPerformed(evt);
+                meyrFmtDataVendaActionPerformed(evt);
             }
         });
 
@@ -172,7 +186,7 @@ public class MeyrjDlgVendas extends javax.swing.JDialog {
             }
         });
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -183,7 +197,7 @@ public class MeyrjDlgVendas extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(jTable1);
 
         jBtnIncluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/incluir.png"))); // NOI18N
         jBtnIncluir.setText("Incluir");
@@ -281,7 +295,7 @@ public class MeyrjDlgVendas extends javax.swing.JDialog {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jLabel2)
-                                        .addComponent(meyrjTxtDataVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(meyrFmtDataVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jLabel3)
@@ -309,7 +323,7 @@ public class MeyrjDlgVendas extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(19, 19, 19)
                         .addComponent(meyrjLbllUltimaModificacao)))
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -326,7 +340,7 @@ public class MeyrjDlgVendas extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(meyrjTxtIdVenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(meyrjTxtDataVenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(meyrFmtDataVenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(meyrCboIdVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(meyrjTxtTotalVenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -350,7 +364,7 @@ public class MeyrjDlgVendas extends javax.swing.JDialog {
                     .addComponent(jBtnConfirmar)
                     .addComponent(jBtnCancelar)
                     .addComponent(jBtnPesquisar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
                 .addComponent(meyrjLbllUltimaModificacao)
                 .addGap(46, 46, 46))
         );
@@ -360,24 +374,23 @@ public class MeyrjDlgVendas extends javax.swing.JDialog {
 
     private void jBtnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIncluirActionPerformed
         // TODO add your handling code here:
-         Util.habilitar(true, meyrjTxtIdVenda, meyrjTxtDataVenda, meyrCboIdCliente, meyrCboIdVendedor, meyrjTxtTotalVenda,
-            jBtnConfirmar, jBtnCancelar, jBtnIncluirProd,jBtnAlterarProd, jBtnExcluirProd);
+        Util.habilitar(true,jBtnIncluirProd,jBtnAlterarProd,jBtnExcluirProd,meyrjTxtIdVenda, meyrFmtDataVenda, meyrCboIdCliente, meyrCboIdVendedor, meyrjTxtTotalVenda, jBtnConfirmar, jBtnCancelar, jTable1);
+
         Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
-        Util.limpar(meyrjTxtIdVenda, meyrjTxtDataVenda, meyrCboIdCliente, meyrCboIdVendedor, meyrjTxtTotalVenda);
-        meyrControllerVendasRemedios.setList(new ArrayList());
+
+        Util.limpar(meyrjTxtIdVenda, meyrFmtDataVenda, meyrCboIdCliente, meyrCboIdVendedor, meyrjTxtTotalVenda);
+        meyrjTxtIdVenda.grabFocus();
         incluir = true;
     }//GEN-LAST:event_jBtnIncluirActionPerformed
 
     private void jBtnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterarActionPerformed
         // TODO add your handling code here:
-        Util.habilitar(true, meyrjTxtIdVenda, meyrjTxtDataVenda, meyrCboIdCliente, meyrCboIdVendedor, meyrjTxtTotalVenda, jBtnConfirmar, jBtnCancelar);
+        Util.habilitar(true, meyrFmtDataVenda, meyrCboIdCliente, meyrCboIdVendedor, meyrjTxtTotalVenda, jBtnConfirmar, jBtnCancelar, jBtnAlterarProd,jBtnIncluirProd,jBtnExcluirProd);
         Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
-       meyrjTxtIdVenda.grabFocus();
-       incluir = false;
-       
-       
-       
-       
+        meyrjTxtIdVenda.grabFocus();
+
+        incluir = false;
+      
        LocalDateTime agora = LocalDateTime.now();
             DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
             meyrjLbllUltimaModificacao.setText("Última modificação: " + agora.format(formato));
@@ -390,38 +403,52 @@ public class MeyrjDlgVendas extends javax.swing.JDialog {
               MeyrVendasRemediosDAO meyrVendasRemediosDAO = new MeyrVendasRemediosDAO();
             
                
-              for (int ind = 0; ind < jTable2.getRowCount(); ind++) {
+              for (int ind = 0; ind < jTable1.getRowCount(); ind++) {
                   MeyrVendasRemedios meyrVendasRemedios = meyrControllerVendasRemedios.getBean(ind);
                 meyrVendasRemediosDAO.delete(meyrVendasRemedios);
             }
                meyrVendasDAO.delete(viewBean()); 
         }
-        Util.limpar(meyrjTxtIdVenda, meyrjTxtDataVenda, meyrCboIdCliente, meyrCboIdVendedor, meyrjTxtTotalVenda, jBtnConfirmar, jBtnCancelar);
+        Util.limpar(meyrjTxtIdVenda, meyrFmtDataVenda, meyrCboIdCliente, meyrCboIdVendedor, meyrjTxtTotalVenda, jBtnConfirmar, jBtnCancelar);
         meyrControllerVendasRemedios.setList(new ArrayList());
     }//GEN-LAST:event_jBtnExcluirActionPerformed
 
     private void jBtnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConfirmarActionPerformed
         // TODO add your handling code here:
-       LocalDateTime agora = LocalDateTime.now();
-            DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-            meyrjLbllUltimaModificacao.setText("Última modificação: " + agora.format(formato));
-        
-        
-        MeyrVendasDAO meyrVendasDAO = new MeyrVendasDAO();
+      // Atualiza a data da última modificação
+    LocalDateTime agora = LocalDateTime.now();
+    DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+    meyrjLbllUltimaModificacao.setText("Última modificação: " + agora.format(formato));
+
+    MeyrVendasDAO meyrVendasDAO = new MeyrVendasDAO();
+        MeyrVendasRemediosDAO meyrVendasRemediosDAO = new MeyrVendasRemediosDAO();
+        MeyrVendas meyrVendas = viewBean();
         if (incluir == true) {
-            meyrVendasDAO.insert(viewBean());
-       } else {
-            meyrVendasDAO.update(viewBean());
+            meyrVendasDAO.insert(meyrVendas);
+            for (int ind = 0; ind < jTable1.getRowCount(); ind++) {
+                MeyrVendasRemedios meyrVendasRemedios = meyrControllerVendasRemedios.getBean(ind);
+                meyrVendasRemedios.setMeyrVendas(meyrVendas);
+                meyrVendasRemediosDAO.insert(meyrVendasRemedios);
+            }
+        } else {
+            meyrVendasDAO.update(meyrVendas);
+            
+
         }
-        Util.habilitar(false, meyrjTxtIdVenda,meyrjTxtDataVenda, meyrCboIdCliente, meyrCboIdVendedor, meyrjTxtTotalVenda, jBtnConfirmar, jBtnCancelar);
+
+        Util.habilitar(false,meyrjTxtIdVenda, meyrFmtDataVenda, meyrCboIdCliente, meyrCboIdVendedor, meyrjTxtTotalVenda,
+                jBtnConfirmar, jBtnCancelar);
         Util.habilitar(true, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
+        Util.limpar(meyrjTxtIdVenda, meyrFmtDataVenda, meyrCboIdCliente, meyrCboIdVendedor, meyrjTxtTotalVenda);
+        meyrControllerVendasRemedios.setList(new ArrayList());
+
     }//GEN-LAST:event_jBtnConfirmarActionPerformed
 
     private void jBtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCancelarActionPerformed
         // TODO add your handling code here:
-        Util.habilitar(false,meyrCboIdCliente, meyrjTxtDataVenda, meyrCboIdCliente, meyrCboIdVendedor, meyrjTxtTotalVenda);
+        Util.habilitar(false,meyrCboIdCliente, meyrFmtDataVenda, meyrCboIdCliente, meyrCboIdVendedor, meyrjTxtTotalVenda);
         Util.habilitar(true, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
-        
+        Util.limpar(meyrCboIdCliente, meyrFmtDataVenda, meyrCboIdCliente, meyrCboIdVendedor, meyrjTxtTotalVenda);
         
         LocalDateTime agora = LocalDateTime.now();
             DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
@@ -440,9 +467,9 @@ public class MeyrjDlgVendas extends javax.swing.JDialog {
             meyrjLbllUltimaModificacao.setText("Última modificação: " + agora.format(formato));
     }//GEN-LAST:event_jBtnPesquisarActionPerformed
 
-    private void meyrjTxtDataVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjTxtDataVendaActionPerformed
+    private void meyrFmtDataVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrFmtDataVendaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_meyrjTxtDataVendaActionPerformed
+    }//GEN-LAST:event_meyrFmtDataVendaActionPerformed
 
     private void meyrjTxtTotalVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjTxtTotalVendaActionPerformed
         // TODO add your handling code here:
@@ -450,32 +477,33 @@ public class MeyrjDlgVendas extends javax.swing.JDialog {
 
     private void jBtnIncluirProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIncluirProdActionPerformed
         // TODO add your handling code here:
-        MeyrVendasRememedios jDlgVendasProdutos = new MeyrVendasRememedios(null, true);
-        jDlgVendasProdutos.setTelaAnterior(this);
-        jDlgVendasProdutos.setVisible(true);
+        MeyrVendasRememedios  meyrVendasRememedios = new MeyrVendasRememedios(null, true);
+        meyrVendasRememedios.setTelaAnterior(this);
+        meyrVendasRememedios.setVisible(true);
         somarTotais();
 
     }//GEN-LAST:event_jBtnIncluirProdActionPerformed
 
     private void jBtnAlterarProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterarProdActionPerformed
         // TODO add your handling code here:
-         MeyrVendasRememedios jDlgVendasProdutos = new MeyrVendasRememedios(null, true);
-        jDlgVendasProdutos.setVisible(true);
+            MeyrVendasRememedios meyrVendasRememedios = new MeyrVendasRememedios(null, true);
+            meyrVendasRememedios.setTelaAnterior(this);
+            meyrVendasRememedios.setVisible(true);
+
     }//GEN-LAST:event_jBtnAlterarProdActionPerformed
 
     private void jBtnExcluirProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirProdActionPerformed
         // TODO add your handling code here:
-
-        int rowIndex = jTable2.getSelectedRow();
-        if (rowIndex == -1) {
-            Util.mensagem("Selecione uma linha primeiro");
-            return;
-        }
-        if (Util.perguntar("Deseja Excluir?") == true) {
-            meyrControllerVendasRemedios.removeBean(rowIndex);
+         if (Util.perguntar("Deseja Excluir?") == true) {
+            int rowindex = jTable1.getSelectedRow();
+            meyrControllerVendasRemedios.removeBean(rowindex);
             somarTotais();
         }
     }//GEN-LAST:event_jBtnExcluirProdActionPerformed
+
+    private void meyrjTxtIdVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjTxtIdVendaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_meyrjTxtIdVendaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -536,12 +564,12 @@ public class MeyrjDlgVendas extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable2;
+    private javax.swing.JTable jTable1;
     private javax.swing.JComboBox<MeyrClientes> meyrCboIdCliente;
     private javax.swing.JComboBox<MeyrVendedor> meyrCboIdVendedor;
+    private javax.swing.JFormattedTextField meyrFmtDataVenda;
     private javax.swing.JLabel meyrjLbllUltimaModificacao;
     private javax.swing.JLabel meyrjLbllUltimaModificacao2;
-    private javax.swing.JFormattedTextField meyrjTxtDataVenda;
     private javax.swing.JTextField meyrjTxtIdVenda;
     private javax.swing.JTextField meyrjTxtTotalVenda;
     // End of variables declaration//GEN-END:variables

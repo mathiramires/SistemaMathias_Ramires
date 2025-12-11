@@ -71,4 +71,8 @@ public class Util {
         if (data == null) return "";
         return new SimpleDateFormat("dd/MM/yyyy").format(data);
     }
+
+    public static double strToDouble(String text) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

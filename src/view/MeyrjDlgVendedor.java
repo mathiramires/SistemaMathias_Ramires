@@ -1,6 +1,7 @@
 package view;
 
 import bean.MeyrVendedor;
+import dao.MeyrUsuariosDAO;
 import dao.MeyrVendedorDAO;
 import java.text.ParseException;
 import java.time.LocalDateTime;
@@ -42,10 +43,9 @@ public class MeyrjDlgVendedor extends javax.swing.JDialog {
     }
     public MeyrVendedor viewBean() {
     MeyrVendedor meyrVendedor = new MeyrVendedor();
-    String codigoStr = meyrjTxtCodigo.getText();
-    int codigo = codigoStr.isEmpty() ? 0 : Util.strToInt(codigoStr);
+    
+    int codigo = Util.strToInt(meyrjTxtCodigo.getText());
     meyrVendedor.setMeyrIdVendedor(codigo);
-
     meyrVendedor.setMeyrNome(meyrjTxtNomeVendedor.getText());
     meyrVendedor.setMeyrCpf(meyrjFmtCpf.getText());
     meyrVendedor.setMeyrTelefone(meyrjFmtTelefone.getText());
@@ -60,17 +60,22 @@ public class MeyrjDlgVendedor extends javax.swing.JDialog {
 
     return meyrVendedor;
 }
-public void beanView(MeyrVendedor meyrVendedor) {
+    public void beanView(MeyrVendedor meyrVendedor) {
+    meyrjTxtCodigo.setText(Util.intToStr(meyrVendedor.getMeyrIdVendedor()));
     meyrjTxtNomeVendedor.setText(meyrVendedor.getMeyrNome());
     meyrjFmtCpf.setText(meyrVendedor.getMeyrCpf());
     meyrjFmtTelefone.setText(meyrVendedor.getMeyrTelefone());
-    meyrjTxtEmail.setText(meyrVendedor.getMeyrEmail());
     meyrjFmtDataAdmissao.setText(Util.dateToStr(meyrVendedor.getMeyrDataAdmissao()));
-    if (meyrjChbAtivo.isSelected() == true) {
-                meyrVendedor.setMeyrAtivo("S");
-            } else {
-                meyrVendedor.setMeyrAtivo("N");
-            }
+    meyrjTxtEmail.setText(meyrVendedor.getMeyrEmail());
+    meyrjChbAtivo.setText(meyrVendedor.getMeyrAtivo());
+
+    if (meyrVendedor.getMeyrAtivo().equals("S") == true) {
+        meyrjChbAtivo.setSelected(true);
+    } else {
+        meyrjChbAtivo.setSelected(false);
+    }
+
+
 }
 
     @SuppressWarnings("unchecked")
@@ -226,7 +231,7 @@ public void beanView(MeyrVendedor meyrVendedor) {
                                         .addGap(18, 18, 18)
                                         .addComponent(meyrjChbAtivo))
                                     .addComponent(meyrjblDateAdmissao))))
-                        .addContainerGap(159, Short.MAX_VALUE))))
+                        .addContainerGap(249, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(meyrjLblCadastroVendedor)
@@ -294,7 +299,7 @@ public void beanView(MeyrVendedor meyrVendedor) {
         // TODO add your handling code here:
     Util.habilitar(true, meyrjTxtCodigo, meyrjTxtNomeVendedor, meyrjFmtCpf, meyrjFmtTelefone, meyrjTxtEmail, meyrjFmtDataAdmissao, meyrjChbAtivo, meyrjButtonConfirmar, meyrjButtonCancelar);
     Util.habilitar(false, meyrjButtonAlterar, meyrjButtonExcluir, meyrjButtonPesquisar, meyrjButtonIncluir);
-    Util.limpar(meyrjTxtCodigo, meyrjTxtNomeVendedor, meyrjTxtEmail);
+    Util.limpar(meyrjTxtCodigo, meyrjTxtNomeVendedor, meyrjFmtCpf, meyrjFmtTelefone, meyrjTxtEmail, meyrjFmtDataAdmissao, meyrjChbAtivo);
     incluir = true;
     
     
@@ -305,22 +310,29 @@ public void beanView(MeyrVendedor meyrVendedor) {
 
     private void meyrjButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjButtonAlterarActionPerformed
      // TODO add your handling code here:
-    Util.habilitar(true, meyrjTxtNomeVendedor, meyrjFmtCpf, meyrjFmtTelefone, meyrjTxtEmail, meyrjFmtDataAdmissao, meyrjChbAtivo, meyrjButtonConfirmar, meyrjButtonCancelar);
-    Util.habilitar(false, meyrjButtonAlterar, meyrjButtonExcluir, meyrjButtonPesquisar, meyrjButtonIncluir);
-    Util.limpar( meyrjTxtNomeVendedor, meyrjTxtEmail);
+   Util.habilitar(true,
+            meyrjTxtCodigo, meyrjTxtNomeVendedor, meyrjFmtCpf,
+            meyrjFmtTelefone, meyrjTxtEmail, meyrjFmtDataAdmissao,
+            meyrjChbAtivo, meyrjButtonConfirmar, meyrjButtonCancelar);
+
+    Util.habilitar(false,
+            meyrjButtonAlterar, meyrjButtonExcluir,
+            meyrjButtonPesquisar, meyrjButtonIncluir,
+            meyrjTxtCodigo);
+
+    meyrjTxtNomeVendedor.grabFocus();
     incluir = false;
-    
-     LocalDateTime agora = LocalDateTime.now();
-            DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-            meyrjLbllUltimaModificacao.setText("Última modificação: " + agora.format(formato));
+
+    LocalDateTime agora = LocalDateTime.now();
+    DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+    meyrjLbllUltimaModificacao.setText("Última modificação: " + agora.format(formato));
     }//GEN-LAST:event_meyrjButtonAlterarActionPerformed
 
     private void meyrjButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjButtonExcluirActionPerformed
          LocalDateTime agora = LocalDateTime.now();
             DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
             meyrjLbllUltimaModificacao.setText("Última modificação: " + agora.format(formato));
-        
-        
+
         if  (Util.perguntar("Deseja Excluir?") == true) {
                 MeyrVendedorDAO meyrVendedorDAO= new MeyrVendedorDAO();
                 meyrVendedorDAO.delete(viewBean());
@@ -343,17 +355,18 @@ public void beanView(MeyrVendedor meyrVendedor) {
             DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
             meyrjLbllUltimaModificacao.setText("Última modificação: " + agora.format(formato));
         
-        
-        
+       
         MeyrVendedorDAO meyrVendedorDAO = new MeyrVendedorDAO() {};
        if (incluir == true) {
             meyrVendedorDAO.insert(viewBean());
         } else {
             meyrVendedorDAO.update(viewBean());
         }
+       
+       
     Util.habilitar(false, meyrjTxtCodigo, meyrjTxtNomeVendedor, meyrjFmtCpf, meyrjFmtTelefone, meyrjTxtEmail, meyrjFmtDataAdmissao, meyrjChbAtivo, meyrjButtonConfirmar, meyrjButtonCancelar);
     Util.habilitar(true, meyrjButtonAlterar, meyrjButtonExcluir, meyrjButtonPesquisar, meyrjButtonIncluir);
-
+      Util.limpar(meyrjTxtCodigo, meyrjTxtNomeVendedor, meyrjFmtCpf, meyrjFmtTelefone, meyrjTxtEmail, meyrjFmtDataAdmissao, meyrjChbAtivo);
     }//GEN-LAST:event_meyrjButtonConfirmarActionPerformed
 
     private void meyrjTxtCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjTxtCodigoActionPerformed

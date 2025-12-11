@@ -32,6 +32,8 @@ public class MeyrjDlgRemedios extends javax.swing.JDialog {
         initComponents();
         setTitle("Cadastro de Remedios");
         setLocationRelativeTo(null);
+        
+       
         Util.habilitar(false, 
             meyrjTxtCodigo,
             meyrjTxtNome,
@@ -408,6 +410,7 @@ public void beanView(MeyrRemedios meyrRemedios) {
 
         Util.habilitar(true, meyrjTxtNome, meyrjTxtLaboratorio, meyrjTxtDosagem, meyrjTxtPrecoVenda, meyrjTxtPrecoCusto, meyrjFmtValidade, meyrjChbControlado, meyrjButtonConfirmar, meyrjButtonCancelar);  
         Util.habilitar(false, meyrjButtonAlterar, meyrjButtonExcluir, meyrjButtonPesquisar, meyrjButtonIncluir);
+         
         incluir = false;
     }//GEN-LAST:event_meyrjButtonAlterarActionPerformed
 
@@ -443,7 +446,7 @@ public void beanView(MeyrRemedios meyrRemedios) {
         } 
         Util.habilitar(false, meyrjTxtCodigo, meyrjTxtNome, meyrjTxtLaboratorio, meyrjTxtDosagem, meyrjTxtPrecoVenda, meyrjTxtPrecoCusto, meyrjFmtValidade, meyrjChbControlado, meyrjButtonConfirmar, meyrjButtonCancelar);  
         Util.habilitar(true, meyrjButtonAlterar, meyrjButtonExcluir, meyrjButtonPesquisar, meyrjButtonIncluir);
-
+        Util.limpar( meyrjTxtCodigo, meyrjTxtNome, meyrjTxtLaboratorio, meyrjTxtDosagem, meyrjTxtPrecoVenda, meyrjTxtPrecoCusto, meyrjFmtValidade, meyrjChbControlado);
     }//GEN-LAST:event_meyrjButtonConfirmarActionPerformed
 
     private void meyrjButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meyrjButtonCancelarActionPerformed
