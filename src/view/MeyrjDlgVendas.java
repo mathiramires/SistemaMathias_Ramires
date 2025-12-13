@@ -107,19 +107,20 @@ public class MeyrjDlgVendas extends javax.swing.JDialog {
      public JTable getjTable1() {
         return jTable1;
     }
-      public void somarTotais() {
+     public void somarTotais() {
         double total = 0;
-            for (int i = 0; i < jTable1.getRowCount(); i++) {
-            Object valorObj = jTable1.getValueAt(i, 4);
-
-        if (valorObj != null) {
-            double valor = Double.parseDouble(valorObj.toString().replace(",", "."));
-            total += valor;
+        for (int i = 0; i < jTable1.getRowCount(); i++) {
+            Object valorObj = jTable1.getModel().getValueAt(i, 3);
+            if (valorObj != null) {
+                try {
+                    double valor = Double.parseDouble(valorObj.toString().replace(",", "."));
+                    total += valor;
+                } catch (Exception e) {
+                }
+            }
         }
+        meyrjTxtTotalVenda.setText(String.valueOf(total));
     }
-
-    meyrjTxtTotalVenda.setText(String.valueOf(total));
-}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -414,34 +415,40 @@ public class MeyrjDlgVendas extends javax.swing.JDialog {
     }//GEN-LAST:event_jBtnExcluirActionPerformed
 
     private void jBtnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConfirmarActionPerformed
-        // TODO add your handling code here:
-      // Atualiza a data da última modificação
-    LocalDateTime agora = LocalDateTime.now();
-    DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-    meyrjLbllUltimaModificacao.setText("Última modificação: " + agora.format(formato));
+         // TODO add your handling code here:
+        LocalDateTime agora = LocalDateTime.now();
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        meyrjLbllUltimaModificacao.setText("Última modificação: " + agora.format(formato));
 
-    MeyrVendasDAO meyrVendasDAO = new MeyrVendasDAO();
+        MeyrVendasDAO meyrVendasDAO = new MeyrVendasDAO();
         MeyrVendasRemediosDAO meyrVendasRemediosDAO = new MeyrVendasRemediosDAO();
         MeyrVendas meyrVendas = viewBean();
+
         if (incluir == true) {
+
             meyrVendasDAO.insert(meyrVendas);
+
             for (int ind = 0; ind < jTable1.getRowCount(); ind++) {
                 MeyrVendasRemedios meyrVendasRemedios = meyrControllerVendasRemedios.getBean(ind);
                 meyrVendasRemedios.setMeyrVendas(meyrVendas);
                 meyrVendasRemediosDAO.insert(meyrVendasRemedios);
             }
+
         } else {
+
             meyrVendasDAO.update(meyrVendas);
-            
-
+            meyrVendasRemediosDAO.deleteByVenda(meyrVendas);
+            for (int ind = 0; ind < jTable1.getRowCount(); ind++) {
+                MeyrVendasRemedios meyrVendasRemedios = meyrControllerVendasRemedios.getBean(ind);
+                meyrVendasRemedios.setMeyrVendas(meyrVendas);
+                meyrVendasRemediosDAO.insert(meyrVendasRemedios);
+            }
         }
-
-        Util.habilitar(false,meyrjTxtIdVenda, meyrFmtDataVenda, meyrCboIdCliente, meyrCboIdVendedor, meyrjTxtTotalVenda,
+        Util.habilitar(false, meyrjTxtIdVenda, meyrFmtDataVenda, meyrCboIdCliente, meyrCboIdVendedor, meyrjTxtTotalVenda,
                 jBtnConfirmar, jBtnCancelar);
         Util.habilitar(true, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
         Util.limpar(meyrjTxtIdVenda, meyrFmtDataVenda, meyrCboIdCliente, meyrCboIdVendedor, meyrjTxtTotalVenda);
         meyrControllerVendasRemedios.setList(new ArrayList());
-
     }//GEN-LAST:event_jBtnConfirmarActionPerformed
 
     private void jBtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCancelarActionPerformed
@@ -479,6 +486,7 @@ public class MeyrjDlgVendas extends javax.swing.JDialog {
         // TODO add your handling code here:
         MeyrVendasRememedios  meyrVendasRememedios = new MeyrVendasRememedios(null, true);
         meyrVendasRememedios.setTelaAnterior(this);
+        meyrVendasRememedios.setIncluir(true);
         meyrVendasRememedios.setVisible(true);
         somarTotais();
 
@@ -494,10 +502,14 @@ public class MeyrjDlgVendas extends javax.swing.JDialog {
 
     private void jBtnExcluirProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirProdActionPerformed
         // TODO add your handling code here:
-         if (Util.perguntar("Deseja Excluir?") == true) {
-            int rowindex = jTable1.getSelectedRow();
-            meyrControllerVendasRemedios.removeBean(rowindex);
-            somarTotais();
+        if (jTable1.getSelectedRow() != -1) { // Verifica se há uma linha selecionada
+            if (Util.perguntar("Deseja Excluir?")) {
+                int rowindex = jTable1.getSelectedRow();
+                meyrControllerVendasRemedios.removeBean(rowindex);
+                somarTotais();
+            }
+        } else {
+            Util.mensagem("Selecione uma linha para excluir!");
         }
     }//GEN-LAST:event_jBtnExcluirProdActionPerformed
 

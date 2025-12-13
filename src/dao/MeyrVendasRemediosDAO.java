@@ -63,6 +63,14 @@ public class MeyrVendasRemediosDAO extends AbstractDAO {
 
     session.getTransaction().commit();
     }
+    public void deleteByVenda(MeyrVendas venda) {
+        String hql = "delete from MeyrVendasRemedios where meyrVendas = :venda";
+        session.beginTransaction();
+        session.createQuery(hql)
+                .setParameter("venda", venda)
+                .executeUpdate();
+        session.getTransaction().commit();
+    }
 
     @Override
     public Object list(int codigo) {

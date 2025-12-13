@@ -80,16 +80,15 @@ public class Util {
     }
     }
 
-   public static double strToDouble(String valor) {
-    if (valor == null || valor.trim().isEmpty()) {
-        return 0.0;
+    public static double strToDouble(String valor) {
+        if (valor == null || valor.trim().isEmpty()) {
+            return 0.0;
+        }
+        try {
+            valor = valor.replace(",", ".").trim();
+            return Double.parseDouble(valor);
+        } catch (NumberFormatException e) {
+            return 0.0;
+        }
     }
-    try {
-        valor = valor.replace(",", ".").trim();
-        return Double.parseDouble(valor);
-    } catch (NumberFormatException e) {
-        return 0.0;
-    }
-}
-
 }

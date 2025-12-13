@@ -23,7 +23,10 @@ public class MeyrVendasRememedios extends javax.swing.JDialog {
     private MeyrjDlgVendas meyrjDlgVendas;
     
     
-    boolean incluir;
+    private boolean incluir;
+    public void setIncluir(boolean incluir) {
+        this.incluir = incluir;
+    }
     MeyrjDlgVendas meyrjDlgVendas1;
 
    
@@ -190,27 +193,31 @@ public class MeyrVendasRememedios extends javax.swing.JDialog {
 
     private void jBtnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnOkActionPerformed
             // TODO add your handling code hRememedios = new MeyrVendasRememedios();
-            MeyrVendasRemedios meyrVendasRemedios = new MeyrVendasRemedios();
-meyrVendasRemedios.setMeyrRemedios((MeyrRemedios) meyrCboidRemedio.getSelectedItem());
-meyrVendasRemedios.setMeyrQuantidade(Util.strToInt(meyr_quantidade.getText()));
-meyrVendasRemedios.setMeyrPrecoUnitario(Util.strToDuble(meyr_precoUnitario.getText()));
+           MeyrVendasRemedios meyrVendasRemedios;
 
-if (incluir == true) {   
-    meyrjDlgVendas.meyrControllerVendasRemedios.addBean(meyrVendasRemedios);
+        if (incluir) {
+            meyrVendasRemedios = new MeyrVendasRemedios();
+            meyrVendasRemedios.setMeyrRemedios((MeyrRemedios) meyrCboidRemedio.getSelectedItem());
+            meyrVendasRemedios.setMeyrQuantidade(Util.strToInt(meyr_quantidade.getText()));
+            meyrVendasRemedios.setMeyrPrecoUnitario(Util.strToDuble(meyr_precoUnitario.getText()));
+            meyrjDlgVendas.meyrControllerVendasRemedios.addBean(meyrVendasRemedios);
 
-} else {                  
-    int index = meyrjDlgVendas.getjTable1().getSelectedRow();
+        } else {
+            int index = meyrjDlgVendas.getjTable1().getSelectedRow();
+            if (index < 0) {
+                Util.mensagem("Selecione uma linha para alterar!");
+                return;
+            }
+            meyrVendasRemedios = meyrjDlgVendas.meyrControllerVendasRemedios.getBean(index);
+            meyrVendasRemedios.setMeyrRemedios((MeyrRemedios) meyrCboidRemedio.getSelectedItem());
+            meyrVendasRemedios.setMeyrQuantidade(Util.strToInt(meyr_quantidade.getText()));
+            meyrVendasRemedios.setMeyrPrecoUnitario(Util.strToDuble(meyr_precoUnitario.getText()));
 
-    if (index >= 0) {    
-        meyrjDlgVendas.meyrControllerVendasRemedios.removeBean(index);
-    }
+            meyrjDlgVendas.meyrControllerVendasRemedios.fireTableRowsUpdated(index, index);
+        }
 
-    meyrjDlgVendas.meyrControllerVendasRemedios.addBean(meyrVendasRemedios);
-}
-
-setVisible(false);
-
-
+        meyrjDlgVendas.somarTotais();
+        setVisible(false);
     }//GEN-LAST:event_jBtnOkActionPerformed
 
     private void jBtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCancelarActionPerformed
@@ -314,4 +321,5 @@ meyrjTxtTtotal.setText(Util.doubleToStr(quant * meyrRemedios.getMeyrPrecoVenda()
     private javax.swing.JTextField meyr_quantidade;
     private javax.swing.JTextField meyrjTxtTtotal;
     // End of variables declaration//GEN-END:variables
+
 }

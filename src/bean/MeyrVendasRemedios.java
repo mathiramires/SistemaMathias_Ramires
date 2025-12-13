@@ -84,6 +84,7 @@ public class MeyrVendasRemedios  implements java.io.Serializable {
 
     
     @Column(name="meyr_precoUnitario", precision=10)
+    
     public double getMeyrPrecoUnitario() {
         return this.meyrPrecoUnitario;
     }

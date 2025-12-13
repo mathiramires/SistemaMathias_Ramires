@@ -1,93 +1,80 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
 
-import bean.MeyrRemedios;
-import bean.MeyrVendas;
 import bean.MeyrVendasRemedios;
-import dao.MeyrVendasRemediosDAO;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
-/**
- *
- * @author u1845853
- */
 public class MeyrControllerVendasRemedios extends AbstractTableModel {
 
-    private List lstMeyrVendasRemedios;
+    private List<MeyrVendasRemedios> lista = new ArrayList<>();
 
-    public void setList(List lstMeyrVendasRemedios) {
-        this.lstMeyrVendasRemedios = lstMeyrVendasRemedios;
-        this.fireTableDataChanged();
-    }
-    public List getLista() {
-    return lstMeyrVendasRemedios;
+    public void setList(List<MeyrVendasRemedios> lista) {
+        this.lista = lista;
+        fireTableDataChanged();
     }
 
-    public MeyrVendasRemedios getBean(int rowIndex) {
-        return (MeyrVendasRemedios) lstMeyrVendasRemedios.get(rowIndex);
+    public MeyrVendasRemedios getBean(int row) {
+        return lista.get(row);
     }
 
-    public void addBean(MeyrVendasRemedios meyrVendasRemedios) {
-        this.lstMeyrVendasRemedios.add(meyrVendasRemedios);
-        this.fireTableDataChanged();
+    public void addBean(MeyrVendasRemedios bean) {
+        lista.add(bean);
+        fireTableDataChanged();
     }
 
-    public void removeBean(int rowIndex) {
-        if (rowIndex >= 0 && rowIndex < lstMeyrVendasRemedios.size()) {
-            lstMeyrVendasRemedios.remove(rowIndex);
-            this.fireTableDataChanged();
-        }
+    public void updateBean(int row, MeyrVendasRemedios bean) {
+        lista.set(row, bean);
+        fireTableRowsUpdated(row, row);
     }
 
-    
+    public void removeBean(int row) {
+        lista.remove(row);
+        fireTableDataChanged();
+    }
+
+    public List<MeyrVendasRemedios> getList() {
+        return lista;
+    }
+
     @Override
     public int getRowCount() {
-        return lstMeyrVendasRemedios.size();
+        return lista.size();
     }
 
     @Override
     public int getColumnCount() {
-        return 5;
+        return 4;
     }
 
     @Override
-    public Object getValueAt(int rowIndex, int columnIndex) {
-        MeyrVendasRemedios meyrVendasRemedios
-                = (MeyrVendasRemedios) lstMeyrVendasRemedios.get(rowIndex);
+    public Object getValueAt(int row, int col) {
+        MeyrVendasRemedios m = lista.get(row);
 
-        if (columnIndex == 0) {
-            return meyrVendasRemedios.getMeyrRemedios().getMeyrIdRemedio();
-        } else if (columnIndex == 1) {
-            return meyrVendasRemedios.getMeyrRemedios().getMeyrNome();
-        } else if (columnIndex == 2) {
-            return meyrVendasRemedios.getMeyrQuantidade();
-        } else if (columnIndex == 3) {
-            return meyrVendasRemedios.getMeyrPrecoUnitario();
-        } else if (columnIndex == 4) {
-            return meyrVendasRemedios.getMeyrQuantidade()
-                    * meyrVendasRemedios.getMeyrPrecoUnitario();
+        switch (col) {
+            case 0:
+                return m.getMeyrRemedios().getMeyrNome();
+            case 1:
+                return m.getMeyrQuantidade();
+            case 2:
+                return m.getMeyrPrecoUnitario();
+            case 3:
+                return m.getMeyrQuantidade() * m.getMeyrPrecoUnitario();
         }
-        return "";
+        return null;
     }
 
     @Override
-    public String getColumnName(int columnIndex) {
-        if (columnIndex == 0) {
-            return "Código";
-        } else if (columnIndex == 1) {
-            return "Nome";
-        } else if (columnIndex == 2) {
-            return "Quantidade";
-        } else if (columnIndex == 3) {
-            return "Valor Unitário";
-        } else if (columnIndex == 4) {
-            return "Total";
+    public String getColumnName(int col) {
+        switch (col) {
+            case 0:
+                return "Remédio";
+            case 1:
+                return "Qtd";
+            case 2:
+                return "Valor Unit.";
+            case 3:
+                return "Total";
         }
         return "";
     }
